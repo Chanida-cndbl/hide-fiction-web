@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คลังนิยาย HideFiction - รวมนิยายแปลคุณภาพ</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+	
+
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f4f6f9;
+        }
+
+        /* Hero Section (ส่วนหัวเว็บ) */
+        .hero-section {
+            background: linear-gradient(135deg, #53565a 0%, #8c8f93 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hero-title {
+            font-weight: 800;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+		
+        /* Filter Buttons (ปุ่มตัวกรอง) */
+        .filter-btn {
+            border-radius: 50px;
+            padding: 8px 20px;
+            margin: 0 5px 10px;
+            border: 2px solid #ddd;
+            background: white;
+            color: #555;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #2c3e50; /* สีเมื่อกดเลือก */
+            color: white;
+            border-color: #2c3e50;
+        }
+
+        /* Novel Card (การ์ดนิยาย) */
+		/* ส่วนของการ์ด */
+		.novel-card {
+			border: none;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+			transition: transform 0.3s;
+			background: white;
+			height: 100%;            /* บังคับการ์ดให้สูงเต็มช่อง Grid (เท่ากับเพื่อนข้างๆ) */
+			display: flex;           /* เปลี่ยนโหมดเป็น Flexbox */
+			flex-direction: column;  /* จัดเรียงเนื้อหาแนวตั้ง (รูป > เนื้อหา > ปุ่ม) */
+		}
+		
+		.text-clamp {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;    /* โชว์แค่ 3 บรรทัด (เปลี่ยนเลขได้) */
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;  /* ใส่ ... ต่อท้าย */
+			height: 4.5em;            /* ความสูงคงที่ (ประมาณ 3 บรรทัด x 1.5) */
+		}
+
+/* --- จุดที่ปรับแก้หลัก --- */
+
+/* 1. เพิ่มพื้นที่ขอบในการ์ด ให้หายใจสะดวก */
+.card-body {
+    padding: 24px; /* เดิมอาจจะน้อยไป เพิ่มเป็น 24px จะดูโปร่งขึ้นมาก */
+    display: flex;
+    flex-direction: column;
+	flex-grow: 1;
+}
+
+/* 2. จัดระยะห่างชื่อเรื่อง */
+.card-title {
+    font-weight: 800;
+    font-size: 1.15rem;      /* เพิ่มขนาดนิดหน่อยให้เด่น */
+    margin-bottom: 8px;      /* เว้นช่องไฟข้างล่างชื่อเรื่อง */
+    line-height: 1.4;        /* ให้บรรทัดไม่ชิดกันเกินไปถ้าชื่อยาว 2 บรรทัด */
+    color: #333;
+}
+
+/* 3. ปรับตรง "แนวเรื่อง" ให้ดูเบาลงและห่างออกมา */
+.card-text.text-muted {
+    font-size: 0.9rem;
+    margin-bottom: 16px;     /* ดันคำโปรยให้ห่างออกไปอีก */
+    color: #777 !important;
+}
+
+/* 4. ปรับคำโปรย (Synopsis) ให้อ่านง่าย */
+.flex-grow-1 {
+    font-size: 0.95rem;
+    line-height: 1.6;        /* สำคัญมาก! ภาษาไทยมีสระบนล่าง ต้องใช้ 1.6 ถึงจะอ่านสบาย */
+    color: #555;
+    margin-bottom: 20px;     /* เว้นระยะห่างจากปุ่มกดด้านล่าง */
+}
+
+/* 5. ปรับปุ่มให้ดูสมส่วน */
+.btn-outline-primary {
+    padding: 8px 20px;       /* เพิ่มความอ้วนให้ปุ่มนิดนึง */
+    border-radius: 50px;     /* ทำปุ่มมนๆ เข้ากับธีม */
+    font-weight: 600;
+}
+        .novel-card:hover {
+            transform: translateY(-5px); /* ลอยขึ้นเมื่อชี้ */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .card-img-top {
+    height: 200px;           /* 1. ล็อคความสูงไว้เลย (จากเดิมที่ใหญ่อาจจะถึง 400px) */
+    width: auto;             /* 2. ให้ความกว้างปรับตามสัดส่วนภาพเดิม (ภาพไม่เบี้ยว) */
+    max-width: 100%;         /* กันภาพล้นถ้าจอเล็กมาก */
+    margin: 20px auto 0;     /* 3. จัดกึ่งกลางซ้ายขวา (auto) + เว้นขอบบน 20px ให้ดูไม่ติดขอบเกินไป */
+    display: block;          /* จำเป็นสำหรับ margin: auto */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* 4. เพิ่มเงาให้ปกดูลอยขึ้นมามีมิติ (สำคัญมากเพราะภาพเล็กลง) */
+    border-radius: 4px;      /* ลบมุมภาพนิดหน่อย */
+    
+    /* เสริม: ถ้าอยากบังคับสัดส่วน 2:3 เป๊ะๆ แม้รูปต้นฉบับจะเพี้ยน ให้เปิดใช้ 2 บรรทัดล่างนี้ */
+    /* aspect-ratio: 2 / 3; */
+    /* object-fit: cover; */
+}
+        .status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;          /* บังคับให้อยู่เหนือรูป */
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* ใส่เงาให้ตัวหนังสืออ่านออกแม้พื้นหลังขาว */
+}
+
+/* สีพื้นหลังแยกตามสถานะ */
+.badge-ongoing { background-color: #fd7e14; } /* สีส้ม */
+.badge-end { background-color: #198754; }     /* สีเขียว */
+.badge-best { background-color: #dc3545; } /* สีแดงสด */
+		
+		
+    </style>
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="hero-header-fantasy text-center">
+		<div class="container">
+       
+        <h1 class="display-4 fw-bold hero-title mb-3">อาณาจักรนิยาย Hide Fiction</h1>
+        
+        <p class="lead mb-4 text-light opacity-75">รวมสุดยอดนิยายแปลจีน แปลไว ภาษาสวย อ่านแล้ววางไม่ลง</p>
+        
+        <a href="https://www.facebook.com/Child.of.Light.TH" class="btn btn-dark btn-lg rounded-pill px-4 shadow-sm">
+            💬 ติดตามข่าวสาร & พูดคุยกับนักแปล
+        </a>
+
+    </div>
+</div>
+    </header>
+
+    <div class="container mb-5">
+        <div class="row g-4"> <div class="col-12 col-md-6 col-lg-3 filter-item novel-item action ongoing">
+                <div class="novel-card position-relative">
+				<div class="position-absolute top-0 end-0 m-2 d-flex gap-1"> <span class="badge rounded-pill bg-danger shadow-sm">Best Seller</span>
+					<span class="badge rounded-pill bg-warning text-dark shadow-sm">กำลังแปล</span>
+						</div>
+                    <img src="images/cover-story-01.jpg" class="card-img-top" alt="ระบบจอมโจรผู้ปล้นชิง">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">ระบบจอมโจรผู้ปล้นชิง</h5>
+                        <p class="card-text text-muted small">แนว: กำลังภายใน / เทพเซียน</p>
+                        <p class="card-text small flex-grow-1">ระบบจอมโจรไม่ให้ของฟรี เราสอนให้คุณแย่งชิง ทุกอย่างเป็นของคุณได้ หากกล้าออกไปแย่งมา!</p>
+                        <a href="novels/story-01.html" class="btn btn-outline-primary w-100 mt-2">📖 ทดลองอ่าน</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 filter-item novel-item action ongoing">
+                <div class="novel-card position-relative">
+				<div class="position-absolute top-0 end-0 m-2 d-flex gap-1"> <span class="badge rounded-pill bg-danger shadow-sm">Best Seller</span>
+					<span class="badge rounded-pill bg-warning text-dark shadow-sm">กำลังแปล</span>
+						</div>
+                    <img src="images/cover-story-02.jpg" class="card-img-top" alt="สุดยอดขยะหมื่นปี">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">สุดยอดขยะหมื่นปี</h5>
+                        <p class="card-text text-muted small">แนว: กำลังภายใน / เทพเซียน</p>
+                        <p class="card-text small flex-grow-1">จากเด็กหนุ่มที่ถูกตราหน้าว่าเป็น "ขยะ" เริ่มต้นฝึกฝนในหอคอยปริศนา มุ่งมั่นฉีกกฎสวรรค์ ฝ่าขีดจำกัด ก้าวสู่ความเป็นยอดยุทธ์ที่ทำให้ทั้งโลกต้องสั่นสะเทือน!</p>
+                        <a href="novels/story-02.html" class="btn btn-outline-primary w-100 mt-2">📖 ทดลองอ่าน</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 filter-item novel-item system ongoing">
+                <div class="novel-card position-relative">
+				<div class="position-absolute top-0 end-0 m-2 d-flex gap-1"> <span class="badge rounded-pill bg-danger shadow-sm">Best Seller</span>
+					<span class="badge rounded-pill bg-warning text-dark shadow-sm">กำลังแปล</span>
+						</div>
+                    <img src="images/cover-story-03.jpg" class="card-img-top" alt="สัตว์เลี้ยงของฉันคือเทพมังกร">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">สัตว์เลี้ยงของฉันคือเทพมังกร</h5>
+                        <p class="card-text text-muted small">แนว: ระบบ</p>
+                        <p class="card-text small flex-grow-1">“ใครหน้าไหนมันบอกว่านักฝึกมังกรเป็นอาชีพขยะวะ!!?”</p>
+                        <a href="novels/story-03.html" class="btn btn-outline-primary w-100 mt-2">📖 ทดลองอ่าน</a>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="col-12 col-md-6 col-lg-3 filter-item system ended">
+                <div class="novel-card position-relative">
+				<div class="position-absolute top-0 end-0 m-2 d-flex gap-1"> <span class="badge rounded-pill bg-danger shadow-sm">Best Seller</span>
+					<span class="badge rounded-pill bg-warning text-dark shadow-sm">กำลังแปล</span>
+						</div>
+                    <img src="images/cover-story-04.jpg" class="card-img-top" alt="ระบบลูกดกไร้พ่าย">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">ระบบลูกดกไร้พ่าย</h5>
+                        <p class="card-text text-muted small">แนว: ระบบ</p>
+                        <p class="card-text small flex-grow-1">อยากไร้เทียมทาน? ไม่ต้องฝึกฝนแทบตาย... แค่มีลูกให้เยอะเข้าไว้!</p>
+                        <a href="novels/story-02.html" class="btn btn-outline-primary w-100 mt-2">📖 ทดลองอ่าน</a>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="col-12 col-md-6 col-lg-3 filter-item system ended">
+                <div class="novel-card position-relative">
+				<span class="status-badge badge-ongoing">กำลังแปล</span>
+                    <img src="images/cover-story-05.jpg" class="card-img-top" alt="ศิษย์ข้าคืนกำไรหมื่นเท่า">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">ศิษย์ข้าคืนกำไรหมื่นเท่า</h5>
+                        <p class="card-text text-muted small">แนว: ระบบ</p>
+                        <p class="card-text small flex-grow-1">ศิษย์เอ๋ย พวกเจ้าจงขยันฝึกฝนเข้าไว้ ยิ่งพวกเจ้าแข็งแกร่ง อาจารย์ก็ยิ่งไร้เทียมทาน!</p>
+                        <a href="novels/story-05.html" class="btn btn-outline-primary w-100 mt-2">📖 ทดลองอ่าน</a>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="col-12 col-md-6 col-lg-3 filter-item system ended">
+                <div class="novel-card position-relative">
+				<span class="status-badge badge-ongoing">กำลังแปล</span>
+                    <img src="images/cover-story-06.jpg" class="card-img-top" alt="จอมเวทต้องสาป">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">จอมเวทต้องสาป</h5>
+                        <p class="card-text text-muted small">แนว: ระบบ</p>
+                        <p class="card-text small flex-grow-1">ตกลงนายมีกี่ชีวิตกันแน่? ถึงได้ใช้มนตร์ต้องห้ามแทนการโจมตีธรรมดาแบบนี้?</p>
+                        <a href="novels/story-06.html" class="btn btn-outline-primary w-100 mt-2">📖 ทดลองอ่าน</a>
+                    </div>
+                </div>
+            </div>
+			
+                </div>
+            </div>
+            
+            </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-0">Copyright © 2024 Hide Fiction. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

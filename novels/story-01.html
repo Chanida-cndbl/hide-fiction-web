@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจอมโจรผู้ปล้นชิง</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif; /* ใช้ฟอนต์สารบัญ อ่านสบายตา */
+            background-color: #f8f9fa; /* พื้นหลังสีเทาอ่อน สบายตา */
+            color: #333;
+        }
+        .novel-cover {
+            width: 100%;
+            max-width: 220px;       /* ⬅️ แก้ตรงนี้: ลดจาก 300px เหลือ 220px */
+            height: auto;           /* ให้ความสูงปรับตามอัตโนมัติ */
+            aspect-ratio: 2 / 3;    /* ⬅️ เพิ่ม: ล็อคสัดส่วนเป็นแนวตั้ง 2:3 เป๊ะๆ */
+            object-fit: cover;      /* ถ้าภาพต้นฉบับสัดส่วนเพี้ยน ให้ตัดขอบออก */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            margin-bottom: 20px;    /* เว้นระยะห่างข้างล่างรูปนิดหน่อย */
+        }
+        .reading-container {
+            background-color: white;
+            padding: 40px;
+            max-width: 800px; /* จำกัดความกว้างเนื้อหา ไม่ให้ยาวจนสายตาล้า */
+            margin: 0 auto; /* จัดกึ่งกลางหน้าจอ */
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+        .chapter-title {
+            color: #d63384; /* สีหัวข้อตอน (ชมพูเข้ม) */
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        .content-text {
+            font-size: 1.1rem; /* ขนาดตัวหนังสือเนื้อเรื่อง */
+            line-height: 1.8; /* ระยะห่างบรรทัด */
+            text-align: justify; /* จัดชิดขอบซ้ายขวา */
+        }
+        .cta-box {
+            background: linear-gradient(45deg, #d63384, #fd7e14); /* สีไล่ระดับ */
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .btn-buy {
+            background-color: white;
+            color: #d63384;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .btn-buy:hover {
+            transform: scale(1.05); /* เด้งขึ้นเล็กน้อยเมื่อเอาเมาส์ชี้ */
+            background-color: #fff0f5;
+            color: #d63384;
+        }
+		
+		/* Hero Section Background */
+        .novel-header-bg {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef); /* ไล่สีพื้นหลังจางๆ */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* รูปปกในหน้า Hero (ให้ใหญ่และมีเงาสวยๆ) */
+        .novel-cover-hero {
+            width: 100%;
+            max-width: 280px; /* ขยายใหญ่ขึ้นนิดนึงจากหน้า Grid */
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25); /* เงาลอยเด่น */
+            transform: rotate(-2deg); /* เอียงนิดๆ ให้ดูเท่ (ถ้าไม่ชอบลบออกได้) */
+            border: 4px solid white;
+            transition: transform 0.3s;
+        }
+        
+        /* ป้ายสถานะบนรูป Hero */
+        .cover-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .status-badge-hero {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
+            border: 2px solid white;
+        }
+
+        /* ปุ่มเด้งดึ๋ง */
+        .btn-hover-scale:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
+        }
+		
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">⬅️ กลับไปหน้ารวมนิยาย</a>
+        </div>
+    </nav>
+
+    <div class="novel-header-bg py-5 mb-5">
+        <div class="container">
+            <div class="row align-items-center"> 
+                
+                <div class="col-md-4 col-lg-3 text-center mb-4 mb-md-0">
+                    <div class="cover-wrapper">
+                        <img src="../images/cover-story-01.jpg" class="novel-cover-hero" alt="ปกนิยาย">
+                        
+                        <span class="status-badge-hero badge-ongoing">กำลังแปล</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-8 col-lg-9">
+                    <div class="novel-info ps-md-4">
+                        
+                        <div class="mb-3">
+                            <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">กำลังภายใน</span>
+                            <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3">ระบบ</span>
+                        </div>
+
+                        <h1 class="display-5 fw-bold mb-4 text-dark">ระบบจอมโจรผู้ปล้นชิง</h1>
+                        
+                        <hr class="w-25 text-secondary mb-4" style="height: 3px; opacity: 0.2;">
+
+                        <div class="synopsis-box mb-5">
+                            <p class="text-secondary fs-5" style="line-height: 1.8;">
+                                ชายหนุ่มหลุดเข้าไปในโลกแห่งเซียนที่เต็มไปด้วยอันตรายและความลี้ลับ หลังจากอดทนผ่านวันคืนอันยากลำบากมานานถึงสามปี เขาก็ปลุกระบบพิเศษที่ซ่อนอยู่ในตัวขึ้นมาได้ แต่ระบบนี้กลับไม่เป็นไปตามที่คาดหวัง…
+                            </p>
+                        </div>
+
+                        <div class="d-flex gap-3 flex-wrap">
+                            
+                            <a href="https://s.hidetr.work/hf02f" target="_blank" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
+                                🔥 อ่านฉบับเต็ม
+                            </a>
+
+                            <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-2">
+                                👍 ติดตามเพจแปล
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5" id="info-area">
+    
+    <div class="bg-white p-4 rounded-3 shadow-sm mb-4 border-start border-5 border-danger">
+        <h4 class="fw-bold mb-3">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
+        <p class="fs-5 text-secondary">
+            "เรื่องนี้ไม่ใช่แนวระบบดาดๆ ทั่วไป แต่พระเอกของเราคือ 'จอมโจร' ที่ปล้นได้ทุกอย่าง! 
+            ความสนุกคือการได้เห็นพระเอกไปปั่นหัวพวกตัวร้าย แย่งวิชา แย่งอาวุธ แม้แต่อายุขัย 
+            ใครชอบแนวพระเอกฉลาด เจ้าเล่ห์ และไม่ยอมคน เรื่องนี้ตอบโจทย์แน่นอน!"
+        </p>
+        <div class="d-flex gap-2 mt-3">
+            <span class="badge bg-secondary">พระเอกฉลาด</span>
+            <span class="badge bg-secondary">เทพทรู</span>
+            <span class="badge bg-secondary">สายฮา</span>
+        </div>
+    </div>
+
+    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
+        <h4 class="fw-bold mb-3 text-center">📜 ข้อมูลระดับพลัง</h4>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th style="width: 15%">ลำดับ</th>
+                        <th style="width: 35%">ชื่อขอบเขต</th>
+                        <th style="width: 50%">รายละเอียด / ระดับย่อย</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">1</td>
+                        <td class="fw-bold text-primary">ขอบเขตหลอมปราณ</td>
+                        <td>แบ่งออกเป็น 9 ขั้น</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">พิเศษ</td>
+                        <td class="fw-bold text-danger">ขอบเขตหลอมปราณขั้นสิบ</td>
+                        <td><span class="badge bg-danger">ตำนาน</span> เหนือขีดจำกัดมนุษย์</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">2</td>
+                        <td class="fw-bold text-primary">ขอบเขตสร้างรากฐาน</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">3</td>
+                        <td class="fw-bold text-primary">ขอบเขตแก่นทองคำ</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">4</td>
+                        <td class="fw-bold text-primary">ขอบเขตปฐมวิญญาณ</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">5</td>
+                        <td class="fw-bold text-primary">ขอบเขตจิตเทพ</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">6</td>
+                        <td class="fw-bold text-primary">ขอบเขตประตูสวรรค์</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">7</td>
+                        <td class="fw-bold text-primary">ขอบเขตภาพสวรรค์</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">8</td>
+                        <td class="fw-bold text-primary">ขอบเขตถ้ำสวรรค์</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">9</td>
+                        <td class="fw-bold text-primary">ขอบเขตนักบุญ</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">10</td>
+                        <td class="fw-bold text-primary">ขอบเขตมหาราชันศักดิ์สิทธิ์</td>
+                        <td>เหนือกว่านักบุญ (ราชันผู้ปกครอง)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center fw-bold text-secondary">11</td>
+                        <td class="fw-bold text-primary">ขอบเขตจักรพรรดิ</td>
+                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
+        <h4 class="fw-bold mb-4 text-center border-bottom pb-2">👤 ตัวละครหลัก</h4>
+        
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center mb-4 mb-md-0">
+                <div class="position-relative d-inline-block">
+                    <img src="../images/char-01.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 320px; height: 320px; object-fit: cover;"" alt="โจวหยวน">
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <h2 class="fw-bold text-dark mb-1">โจวหยวน <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
+                <p class="text-primary fw-bold mb-3">ฉายา: จอมโจรสะท้านฟ้า</p>
+
+                <div class="mb-3">
+                    <span class="badge bg-dark me-1">💀 ลงมืออำมหิต</span>
+                    <span class="badge bg-warning text-dark me-1">💰 งกเงินเป็นที่หนึ่ง</span>
+                    <span class="badge bg-info text-dark me-1">🧠 ฉลาดแกมโกง</span>
+                    <span class="badge bg-success me-1">🎭 การแสดงระดับออสการ์</span>
+                </div>
+
+                <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
+                    <p class="mb-0 fst-italic text-secondary">
+                        "ทำไมต้องฝึกบำเพ็ญเพียรให้เหนื่อยเปล่า? ในเมื่อข้าสามารถ <strong>'ปล้น'</strong> พลังตบะของคนอื่นมาเป็นของตัวเองได้!"
+                    </p>
+                </div>
+
+                <h5 class="fw-bold mt-3">นิสัยส่วนตัว:</h5>
+                <p class="text-secondary" style="line-height: 1.7;">
+                    ชายหนุ่มผู้ทะลุมิติมาพร้อมกับความ <strong>"หน้าหนา"</strong> ไร้เทียมทาน! ภายนอกดูเป็นศิษย์สำนักที่อ่อนแอไร้พิษสง แต่ภายในซ่อนเขี้ยวเล็บของจอมวางแผน
+                    <br><br>
+                    เขาถือคติ <em>"ใครดีมาดีตอบ ใครร้ายมา... ปล้นให้หมดตัวยันกางเกงใน!"</em> ไม่ยึดติดกับคุณธรรมจอมปลอม เน้นผลประโยชน์และความอยู่รอดเป็นหลัก ใครชอบพระเอกสายดาร์กที่ไม่งี่เง่า เรื่องนี้คือคำตอบ!
+                </p>
+            </div>
+        </div>
+
+        <hr class="my-4 text-secondary" style="opacity: 0.1;">
+        
+        <div class="row g-3">
+            <div class="col-12">
+                <div class="p-3 border border-dashed rounded-3 text-center bg-light">
+                    <h5 class="fw-bold text-muted mb-1">นางเอก... คู่หู... ศัตรูคู่อาฆาต... ❓</h5>
+                    <p class="small text-secondary mb-0">
+                        ในยุทธภพนี้ มิตรแท้และศัตรูถาวรแยกแยะยาก... ไปร่วมค้นพบตัวละครอื่นๆ ด้วยตัวคุณเองในเนื้อเรื่อง!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 pt-4 text-center">
+        <h3 class="fw-bold mb-4">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
+        
+        <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 500px;">
+            
+            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+                <div class="text-start">
+                    <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
+                    <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
+                </div>
+                <span class="fs-4">🚀</span>
+            </a>
+
+            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+                <div class="text-start">
+                    <h5 class="fw-bold text-success mb-0">NovelKingdom</h5>
+                    <small class="text-muted">โปรโมชั่นเยอะ • 1 บาท/ตอน</small>
+                </div>
+                <span class="fs-4">👑</span>
+            </a>
+
+            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+                <div class="text-start">
+                    <h5 class="fw-bold text-dark mb-0">ReadRealm</h5>
+                    <small class="text-muted">สายประหยัด • 1 บาท/ตอน</small>
+                </div>
+                <span class="fs-4">📚</span>
+            </a>
+            
+        </div>
+    </div>
+
+</div>
+
+    <footer class="text-center py-4 mt-5 text-muted border-top">
+        <p>© 2024 Hide Fiction. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
