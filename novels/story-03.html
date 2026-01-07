@@ -6,119 +6,135 @@
     <title>สัตว์เลี้ยงของฉันคือเทพมังกร</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
-	
-	<link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
     
     <style>
         body {
-            font-family: 'Sarabun', sans-serif; /* ใช้ฟอนต์สารบัญ อ่านสบายตา */
-            background-color: #f8f9fa; /* พื้นหลังสีเทาอ่อน สบายตา */
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f8f9fa;
             color: #333;
         }
-        .novel-cover {
-            width: 100%;
-            max-width: 220px;       /* ⬅️ แก้ตรงนี้: ลดจาก 300px เหลือ 220px */
-            height: auto;           /* ให้ความสูงปรับตามอัตโนมัติ */
-            aspect-ratio: 2 / 3;    /* ⬅️ เพิ่ม: ล็อคสัดส่วนเป็นแนวตั้ง 2:3 เป๊ะๆ */
-            object-fit: cover;      /* ถ้าภาพต้นฉบับสัดส่วนเพี้ยน ให้ตัดขอบออก */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            margin-bottom: 20px;    /* เว้นระยะห่างข้างล่างรูปนิดหน่อย */
-        }
-        .reading-container {
-            background-color: white;
-            padding: 40px;
-            max-width: 800px; /* จำกัดความกว้างเนื้อหา ไม่ให้ยาวจนสายตาล้า */
-            margin: 0 auto; /* จัดกึ่งกลางหน้าจอ */
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-        .chapter-title {
-            color: #d63384; /* สีหัวข้อตอน (ชมพูเข้ม) */
-            margin-top: 30px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        .content-text {
-            font-size: 1.1rem; /* ขนาดตัวหนังสือเนื้อเรื่อง */
-            line-height: 1.8; /* ระยะห่างบรรทัด */
-            text-align: justify; /* จัดชิดขอบซ้ายขวา */
-        }
-        .cta-box {
-            background: linear-gradient(45deg, #d63384, #fd7e14); /* สีไล่ระดับ */
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        .btn-buy {
-            background-color: white;
-            color: #d63384;
-            font-weight: bold;
-            padding: 10px 30px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-        .btn-buy:hover {
-            transform: scale(1.05); /* เด้งขึ้นเล็กน้อยเมื่อเอาเมาส์ชี้ */
-            background-color: #fff0f5;
-            color: #d63384;
-        }
-		
-		/* Hero Section Background */
-        .novel-header-bg {
-            background: linear-gradient(to right, #f8f9fa, #e9ecef); /* ไล่สีพื้นหลังจางๆ */
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        /* รูปปกในหน้า Hero (ให้ใหญ่และมีเงาสวยๆ) */
+        
+        /* --- Styles เดิม --- */
         .novel-cover-hero {
             width: 100%;
-            max-width: 280px; /* ขยายใหญ่ขึ้นนิดนึงจากหน้า Grid */
+            max-width: 280px;
             aspect-ratio: 2/3;
             object-fit: cover;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25); /* เงาลอยเด่น */
-            transform: rotate(-2deg); /* เอียงนิดๆ ให้ดูเท่ (ถ้าไม่ชอบลบออกได้) */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            transform: rotate(-2deg);
             border: 4px solid white;
             transition: transform 0.3s;
         }
-        
-        /* ป้ายสถานะบนรูป Hero */
-        .cover-wrapper {
-            position: relative;
-            display: inline-block;
-        }
+        .cover-wrapper { position: relative; display: inline-block; }
         .status-badge-hero {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #ff4757;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
+            position: absolute; top: -10px; right: -10px;
+            background: #ff4757; color: white;
+            padding: 5px 15px; border-radius: 50px;
+            font-weight: bold; font-size: 0.9rem;
             box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
             border: 2px solid white;
         }
-
-        /* ปุ่มเด้งดึ๋ง */
         .btn-hover-scale:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
         }
-		
+        .novel-header-bg {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* --- 🐉 Dragon Card Styles (เพิ่มใหม่) --- */
+        .dragon-card {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: 100%;
+            position: relative;
+        }
+        .dragon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        .dragon-img-box {
+            height: 180px; /* ความสูงรูป */
+            overflow: hidden;
+            position: relative;
+        }
+        .dragon-img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .dragon-card:hover .dragon-img { transform: scale(1.1); }
+
+        /* Badge ธาตุ */
+        .element-badge {
+            position: absolute; top: 10px; right: 10px;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 2px solid white; z-index: 2;
+        }
+        /* Tag ชื่อเล่น */
+        .nickname-tag {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white; padding: 5px 15px;
+            font-size: 0.85rem; font-weight: bold;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Stat Bars */
+        .stat-row { display: flex; align-items: center; margin-bottom: 5px; font-size: 0.8rem; color: #666; }
+        .stat-label { width: 50px; font-weight: 600; }
+        .progress { flex-grow: 1; height: 5px; border-radius: 10px; background-color: #e9ecef; }
+
+        /* --- 🎨 Color Themes for Dragons --- */
+        /* 1. Fire (เสี่ยวจิ๋ว) */
+        .theme-fire .element-badge { background: linear-gradient(135deg, #ff9966, #ff5e62); }
+        .theme-fire .progress-bar { background-color: #ff5e62; }
+        .theme-fire h5 { color: #d63031; }
+
+        /* 2. Ice (เสี่ยวหาน) */
+        .theme-ice .element-badge { background: linear-gradient(135deg, #89f7fe, #66a6ff); }
+        .theme-ice .progress-bar { background-color: #0984e3; }
+        .theme-ice h5 { color: #0984e3; }
+
+        /* 3. Poison/Dark (เสี่ยวโยว) */
+        .theme-dark .element-badge { background: linear-gradient(135deg, #434343, #000000); }
+        .theme-dark .progress-bar { background-color: #2d3436; }
+        .theme-dark h5 { color: #2d3436; }
+
+        /* 4. Star (เสี่ยวเย่) */
+        .theme-star .element-badge { background: linear-gradient(135deg, #654ea3, #eaafc8); }
+        .theme-star .progress-bar { background-color: #6c5ce7; }
+        .theme-star h5 { color: #6c5ce7; }
+
+        /* 5. Life/Green (เสี่ยวชิง) */
+        .theme-life .element-badge { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .theme-life .progress-bar { background-color: #00b894; }
+        .theme-life h5 { color: #00b894; }
+
+        /* 6. Corpse/Rotten (เสี่ยวปา) */
+        .theme-rotten .element-badge { background: linear-gradient(135deg, #606c88, #3f4c6b); }
+        .theme-rotten .progress-bar { background-color: #636e72; }
+        .theme-rotten h5 { color: #636e72; }
+
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 sticky-top">
         <div class="container">
             <a class="navbar-brand" href="../index.html">⬅️ กลับไปหน้ารวมนิยาย</a>
         </div>
@@ -131,7 +147,6 @@
                 <div class="col-md-4 col-lg-3 text-center mb-4 mb-md-0">
                     <div class="cover-wrapper">
                         <img src="../images/cover-story-03.jpg" class="novel-cover-hero" alt="ปกนิยาย">
-                        
                         <span class="status-badge-hero badge-ongoing">กำลังแปล</span>
                     </div>
                 </div>
@@ -142,6 +157,7 @@
                         <div class="mb-3">
                             <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">กำลังภายใน</span>
                             <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3">แฟนตาซี</span>
+                            <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger px-3">เลี้ยงมังกร</span>
                         </div>
 
                         <h1 class="display-5 fw-bold mb-4 text-dark">สัตว์เลี้ยงของฉันคือเทพมังกร</h1>
@@ -150,22 +166,18 @@
 
                         <div class="synopsis-box mb-5">
                             <p class="text-secondary fs-5" style="line-height: 1.8;">
-                                เมื่อพรสวรรค์ระดับ SSS ‘การพิทักษ์ของเทพมังกร’ ได้ถูกปลุกขึ้น...
+                                เมื่อพรสวรรค์ระดับ SSS ‘การพิทักษ์ของเทพมังกร’ ได้ถูกปลุกขึ้น... เด็กหนุ่มผู้ถูกตราหน้าว่าเป็นขยะ จึงเริ่มต้นเส้นทางราชันย์พร้อมกับเหล่าลูกสาวมังกรสุดแกร่ง!
                             </p>
                         </div>
 
                         <div class="d-flex gap-3 flex-wrap">
-                            
                             <a href="https://s.hidetr.work/ZTATF" target="_blank" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
                                 🔥 อ่านฉบับเต็ม
                             </a>
-
                             <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-2">
                                 👍 ติดตามเพจแปล
                             </a>
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -174,73 +186,162 @@
 
     <div class="container mb-5" id="info-area">
     
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4 border-start border-5 border-danger">
+    <div class="bg-white p-4 rounded-3 shadow-sm mb-5 border-start border-5 border-danger">
         <h4 class="fw-bold mb-3">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
         <p class="fs-5 text-secondary">
-			พระเอกสาย "พูดน้อย ต่อยหนัก" (แถมรีดไถเก่ง!): ลืมพระเอกโลกสวยไปได้เลยครับ ฉินฝาน คือนิยามของความ "ดุดันไม่เกรงใจใคร" ใครดีมาดีตอบ ใครร้ายมา...ตายสถานเดียว! แก๊งลูกสาว "มังกรน้อย" ที่จะทำให้คุณใจละลาย สเกลพลังที่ "ก้าวกระโดด" แบบสะใจคนชอบความ OP และการตบหน้าพวก "ผู้ดีตีนแดง" ถ้าคุณชอบนิยายแนว พระเอกเทพทรู + เลี้ยงต้อย(มังกร) + ตบเกรียนพวกขี้อวด + ระบบแจกของรัวๆ เรื่องนี้คือคำตอบ อ่านแล้วรับรองว่าวางไม่ลง เพราะอยากรู้ว่าพี่แกจะไปก่อเรื่องวินาศสันตะโรที่ไหนต่อ!
-		</p>
-        <div class="d-flex gap-2 mt-3">
-            <span class="badge bg-secondary">พระเอกฉลาด</span>
-            <span class="badge bg-secondary">มังกรน่ารัก</span>
-            <span class="badge bg-secondary">ต่อสู้สะใจ</span>
-        </div>
+            พระเอกสาย "พูดน้อย ต่อยหนัก" (แถมรีดไถเก่ง!): ลืมพระเอกโลกสวยไปได้เลยครับ ฉินฝาน คือนิยามของความ "ดุดันไม่เกรงใจใคร" ใครดีมาดีตอบ ใครร้ายมา...ตายสถานเดียว! แก๊งลูกสาว "มังกรน้อย" ที่จะทำให้คุณใจละลาย สเกลพลังที่ "ก้าวกระโดด" แบบสะใจคนชอบความ OP และการตบหน้าพวก "ผู้ดีตีนแดง" ถ้าคุณชอบนิยายแนว พระเอกเทพทรู + เลี้ยงต้อย(มังกร) + ตบเกรียนพวกขี้อวด + ระบบแจกของรัวๆ เรื่องนี้คือคำตอบ อ่านแล้วรับรองว่าวางไม่ลง เพราะอยากรู้ว่าพี่แกจะไปก่อเรื่องวินาศสันตะโรที่ไหนต่อ!
+        </p>
     </div>
 
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
-        <h4 class="fw-bold mb-3 text-center">🐉 ทำเนียบมังกรศักดิ์สิทธิ์ของฉินฝาน</h4>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th style="width: 15%">ชื่อ</th>
-                        <th style="width: 35%">สายพันธุ์</th>
-                        <th style="width: 50%">บทบาท / ความพิเศษ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">เสี่ยวจิ๋ว (อิงจิ่ว)</td>
-                        <td class="fw-bold text-primary">มังกรศักดิ์สิทธิ์เพลิงกัลป์ (ผู้ครองเพลิงไร้สิ้นสุด)</td>
-                        <td>พี่ใหญ่ ตัวดาเมจหลัก แปลงร่างมนุษย์ได้แล้ว <br>อาชีพ: นักเวทสงคราม ถือครองอาวุธ: เสาค้ำสวรรค์ศักดิ์สิทธิ์</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">เสี่ยวหาน (ชิงหาน)</td>
-                        <td class="fw-bold text-primary">มังกรศักดิ์สิทธิ์เหมันต์ (ราชินีแห่งฤดูหนาว)</td>
-                        <td>ซัพพอร์ตสายบุก บัฟเพื่อนให้โหดขึ้น 2,000% แช่แข็งศัตรูสมบูรณ์แบบ<br>นิสัย: นิ่งเงียบ เย็นชา (แต่ขี้อ้อนกับพ่อ)</td>
-                    </tr>
-					<tr>
-                        <td class="text-center fw-bold text-secondary">เสี่ยวโยว (ปี้โยว)</td>
-                        <td class="fw-bold text-primary">มังกรศักดิ์สิทธิ์พิษทมิฬ (จ้าวแห่งความตาย)</td>
-                        <td>ฮีลเลอร์ ชุบชีวิตคนตายได้ขอแค่มีของดูต่างหน้า สูบเลือดศัตรูมาเติมให้เพื่อน<br>นิสัย: อ่อนโยน น่ารัก (แต่สกิลโหดสุด)</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">เสี่ยวเย่ (ฮุยเย่)</td>
-                        <td class="fw-bold text-primary">มังกรศักดิ์สิทธิ์ดาราจักร (จ้าวแห่งกาแล็กซี)</td>
-                        <td>ควบคุมฝูงชน เปลี่ยนสิ่งมีชีวิตในรัศมีหมื่นลี้ให้เป็นซอมบี้พิษ<br>นิสัย: ปากแจ๋ว ขี้งอน เกลียดเสี่ยวปา</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">เสี่ยวชิง (ชิงซู)</td>
-                        <td class="fw-bold text-primary">มังกรศักดิ์สิทธิ์แห่งชีวิต (จ้าวแห่งการฟื้นฟู)</td>
-                        <td>นักเวทมิติ ระเบิดวงกว้าง ควบคุมมิติ<br>นิสัย: ไร้เดียงสา อยากรู้อยากเห็น</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">เสี่ยวปา (หวงเฉวียน)</td>
-                        <td class="fw-bold text-primary">มังกรยักษ์ซากศพตกสู่บาป (ปีกแห่งความตาย)</td>
-                        <td>แทงค์ เบ๊ ตัวตบมุก อมตะ<br>นิสัย: เกรียน หน้าด้าน ชอบไถตังค์และปล้นเสื้อผ้า</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="bg-white p-4 p-md-5 rounded-3 shadow-sm mb-5">
+        <div class="text-center mb-5">
+            <h3 class="fw-bold mb-1">🐲 ทำเนียบมังกรศักดิ์สิทธิ์</h3>
+            <p class="text-muted">เหล่า "ลูกสาว" สุดแกร่งของฉินฝาน</p>
+        </div>
+        
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="dragon-card theme-fire">
+                    <div class="dragon-img-box">
+                        <div class="element-badge"><i class="fas fa-fire"></i></div>
+                        <div class="nickname-tag">พี่ใหญ่จอมโหด</div>
+                        <img src="../images/dragon-img-01.jpg" class="dragon-img" alt="เสี่ยวจิ๋ว">
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">เสี่ยวจิ๋ว (อิงจิ่ว)</h5>
+                            <span class="badge bg-danger">DMG</span>
+                        </div>
+                        <p class="small text-secondary mb-3">
+                            <strong>สายพันธุ์:</strong> มังกรเพลิงกัลป์<br>
+                            แปลงร่างมนุษย์ได้คนแรก ถือครอง "เสาค้ำสวรรค์" นิสัยห้าวหาญ ชอบทุบศัตรูให้จมดิน
+                        </p>
+                        <div class="stat-row"><span class="stat-label">พลังโจมตี</span><div class="progress"><div class="progress-bar" style="width: 100%"></div></div></div>
+                        <div class="stat-row"><span class="stat-label">ความเร็ว</span><div class="progress"><div class="progress-bar" style="width: 80%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="dragon-card theme-ice">
+                    <div class="dragon-img-box">
+                        <div class="element-badge"><i class="fas fa-snowflake"></i></div>
+                        <div class="nickname-tag">ราชินีน้ำแข็ง</div>
+                        <img src="../images/dragon-img-02.jpg" class="dragon-img" alt="เสี่ยวหาน">
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">เสี่ยวหาน (ชิงหาน)</h5>
+                            <span class="badge bg-info text-dark">Support</span>
+                        </div>
+                        <p class="small text-secondary mb-3">
+                            <strong>สายพันธุ์:</strong> มังกรเหมันต์<br>
+                            บัฟเพื่อนให้โหดขึ้น 2,000% แช่แข็งศัตรูทั้งแมพ นิสัยเย็นชากับคนอื่นแต่อ้อนพ่อคนเดียว
+                        </p>
+                        <div class="stat-row"><span class="stat-label">บัฟพลัง</span><div class="progress"><div class="progress-bar" style="width: 100%"></div></div></div>
+                        <div class="stat-row"><span class="stat-label">ควบคุม</span><div class="progress"><div class="progress-bar" style="width: 95%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="dragon-card theme-dark">
+                    <div class="dragon-img-box">
+                        <div class="element-badge"><i class="fas fa-skull-crossbones"></i></div>
+                        <div class="nickname-tag">หมอเถื่อน</div>
+                        <img src="../images/dragon-img-03.jpg" class="dragon-img" alt="เสี่ยวโยว">
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">เสี่ยวโยว (ปี้โยว)</h5>
+                            <span class="badge bg-dark">Healer</span>
+                        </div>
+                        <p class="small text-secondary mb-3">
+                            <strong>สายพันธุ์:</strong> มังกรพิษทมิฬ<br>
+                            สกิลชุบชีวิตสุดโกง และดูดเลือดศัตรูมาฮีลเพื่อน นิสัยขี้อายแต่สกิลอำมหิตที่สุดในกลุ่ม
+                        </p>
+                        <div class="stat-row"><span class="stat-label">รักษา</span><div class="progress"><div class="progress-bar" style="width: 100%"></div></div></div>
+                        <div class="stat-row"><span class="stat-label">พิษ</span><div class="progress"><div class="progress-bar" style="width: 90%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="dragon-card theme-star">
+                    <div class="dragon-img-box">
+                        <div class="element-badge"><i class="fas fa-star"></i></div>
+                        <div class="nickname-tag">แม่สาวปากแจ๋ว</div>
+                        <img src="../images/dragon-img-04.jpg" class="dragon-img" alt="เสี่ยวเย่">
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">เสี่ยวเย่ (ฮุยเย่)</h5>
+                            <span class="badge" style="background-color: #6c5ce7; color: white;">Control</span>
+                        </div>
+                        <p class="small text-secondary mb-3">
+                            <strong>สายพันธุ์:</strong> มังกรดาราจักร<br>
+                            จ้าวแห่งกาแล็กซี ควบคุมซอมบี้พิษนับหมื่น นิสัยขี้งอน ปากจัด และเกลียดเสี่ยวปาเข้าไส้
+                        </p>
+                        <div class="stat-row"><span class="stat-label">ควบคุม</span><div class="progress"><div class="progress-bar" style="width: 100%"></div></div></div>
+                        <div class="stat-row"><span class="stat-label">เวทมนตร์</span><div class="progress"><div class="progress-bar" style="width: 85%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="dragon-card theme-life">
+                    <div class="dragon-img-box">
+                        <div class="element-badge"><i class="fas fa-leaf"></i></div>
+                        <div class="nickname-tag">น้องน้อยไร้เดียงสา</div>
+                        <img src="../images/dragon-img-05.jpg" class="dragon-img" alt="เสี่ยวชิง">
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">เสี่ยวชิง (ชิงซู)</h5>
+                            <span class="badge bg-success">Mage</span>
+                        </div>
+                        <p class="small text-secondary mb-3">
+                            <strong>สายพันธุ์:</strong> มังกรแห่งชีวิต/มิติ<br>
+                            นักเวทมิติ ระเบิดวงกว้าง ควบคุมพื้นที่ นิสัยซื่อใสบริสุทธิ์ ขี้สงสัยที่สุดในกลุ่ม
+                        </p>
+                        <div class="stat-row"><span class="stat-label">พลังเวท</span><div class="progress"><div class="progress-bar" style="width: 100%"></div></div></div>
+                        <div class="stat-row"><span class="stat-label">มิติ</span><div class="progress"><div class="progress-bar" style="width: 90%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="dragon-card theme-rotten">
+                    <div class="dragon-img-box">
+                        <div class="element-badge"><i class="fas fa-shield-alt"></i></div>
+                        <div class="nickname-tag">ตัวตบมุก</div>
+                        <img src="../images/dragon-img-06.jpg" class="dragon-img" alt="เสี่ยวปา">
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">เสี่ยวปา (หวงเฉวียน)</h5>
+                            <span class="badge bg-secondary">Tank</span>
+                        </div>
+                        <p class="small text-secondary mb-3">
+                            <strong>สายพันธุ์:</strong> มังกรซากศพตกสู่บาป<br>
+                            อมตะฆ่าไม่ตาย เป็นโล่เนื้อชั้นดี นิสัยเกรียน หน้าด้าน ชอบไถตังค์พ่อและขโมยเสื้อผ้า
+                        </p>
+                        <div class="stat-row"><span class="stat-label">ป้องกัน</span><div class="progress"><div class="progress-bar" style="width: 100%"></div></div></div>
+                        <div class="stat-row"><span class="stat-label">ความหน้าด้าน</span><div class="progress"><div class="progress-bar" style="width: 100%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
+    <div class="bg-white p-4 p-md-5 rounded-3 shadow-sm mb-4">
         <h4 class="fw-bold mb-4 text-center border-bottom pb-2">👤 ตัวละครหลัก</h4>
         
         <div class="row align-items-center">
             <div class="col-md-4 text-center mb-4 mb-md-0">
                 <div class="position-relative d-inline-block">
                     <img src="../images/char-03.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 100%; max-width: 250px; aspect-ratio: 3/4; object-fit: cover;" alt="ฉินฝาน">
-                    
                     
                 </div>
             </div>
@@ -258,14 +359,13 @@
 
                 <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
                     <p class="mb-0 fst-italic text-secondary">
-                        รักและตามใจ "ลูกสาว" (มังกร) สุดหัวใจ
+                        "ใครดีมาดีตอบ ใครร้ายมา...ตายสถานเดียว! แต่ถ้าเป็นเรื่องของลูกสาว ข้ายอมถล่มโลกทั้งใบ!"
                     </p>
                 </div>
 
                 <h5 class="fw-bold mt-3">นิสัยส่วนตัว:</h5>
                 <p class="text-secondary" style="line-height: 1.7;">
-                    มีความสุดโต่งและชัดเจนมาก เขาไม่ใช่พระเอกสายประนีประนอม หากใครเป็นศัตรู เขาพร้อมจะฆ่าล้างบางทันทีโดยไม่ลังเล<br><br>
-					เขาเป็นคนมองการณ์ไกลเรื่องผลประโยชน์มาก เปลี่ยนวิกฤตเป็น "ธุรกิจ" ได้เสมอ<br>"ร้ายมาร้ายกลับ (แบบคูณสิบ)" มองศัตรูเป็นผักปลาและแหล่งเงินทุน แต่จะเปลี่ยนโหมดเป็นคุณพ่อที่อ่อนโยนทันทีเมื่ออยู่กับแก๊งมังกรน้อย
+                    มีความสุดโต่งและชัดเจนมาก เขาไม่ใช่พระเอกสายประนีประนอม หากใครเป็นศัตรู เขาพร้อมจะฆ่าล้างบางทันทีโดยไม่ลังเล เขาเป็นคนมองการณ์ไกลเรื่องผลประโยชน์มาก เปลี่ยนวิกฤตเป็น "ธุรกิจ" ได้เสมอ "ร้ายมาร้ายกลับ (แบบคูณสิบ)" มองศัตรูเป็นผักปลาและแหล่งเงินทุน แต่จะเปลี่ยนโหมดเป็นคุณพ่อที่อ่อนโยนทันทีเมื่ออยู่กับแก๊งมังกรน้อย
                 </p>
             </div>
         </div>
@@ -289,28 +389,28 @@
         
         <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 500px;">
             
-            <a href="https://s.hidetr.work/ZTATF" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+            <a href="https://s.hidetr.work/ZTATF" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale text-decoration-none">
                 <div class="text-start">
                     <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
                     <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
                 </div>
-                <span class="fs-4">🚀</span>
+                <span class="fs-3">🚀</span>
             </a>
 
-            <a href="https://novelkingdom.co/novel/377DAE29-3D19-44CC-9202-F48D8D111F65?fbclid=IwY2xjawPJ_LJleHRuA2FlbQIxMABicmlkETFCWkEzMFQxeWZIbmprZmxRc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHiE_4tNZMUxaTWrAW-A3ecRkBiV7DvD5XIDGrLOQTMNdILnP4vlDlQk6Mc5g_aem_jLbJxjQU4R-bn_Y6cqmfOA" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+            <a href="https://novelkingdom.co/novel/377DAE29-3D19-44CC-9202-F48D8D111F65?fbclid=IwY2xjawPJ_LJleHRuA2FlbQIxMABicmlkETFCWkEzMFQxeWZIbmprZmxRc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHiE_4tNZMUxaTWrAW-A3ecRkBiV7DvD5XIDGrLOQTMNdILnP4vlDlQk6Mc5g_aem_jLbJxjQU4R-bn_Y6cqmfOA" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale text-decoration-none">
                 <div class="text-start">
                     <h5 class="fw-bold text-success mb-0">NovelKingdom</h5>
                     <small class="text-muted">โปรโมชั่นเยอะ • 1 บาท/ตอน</small>
                 </div>
-                <span class="fs-4">👑</span>
+                <span class="fs-3">👑</span>
             </a>
 
-            <a href="https://readrealm.co/novel/xvWGwy1nBaaXO4MQkLo6" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+            <a href="https://readrealm.co/novel/xvWGwy1nBaaXO4MQkLo6" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale text-decoration-none">
                 <div class="text-start">
                     <h5 class="fw-bold text-dark mb-0">ReadRealm</h5>
                     <small class="text-muted">สายประหยัด • 1 บาท/ตอน</small>
                 </div>
-                <span class="fs-4">📚</span>
+                <span class="fs-3">📚</span>
             </a>
             
         </div>
@@ -318,13 +418,13 @@
 
 </div>
 
-    <footer class="text-center py-4 mt-5 text-muted border-top">
-        <p>© 2024 Hide Fiction. All rights reserved.</p>
+    <footer class="text-center py-4 mt-5 text-muted border-top bg-light">
+        <p class="mb-0">© 2024 Hide Fiction. All rights reserved.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
+    
+    <button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
     <script src="../main.js"></script>
 </body>
 </html>
