@@ -7,6 +7,8 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="../style.css">
     
     <style>
         body {
@@ -297,6 +299,49 @@
     color: #333;
     margin-top: 20px;
 }
+
+#btn-back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none; /* สำคัญ: บรรทัดนี้ต้องมี */
+    /* ...โค้ดสีและขนาดอื่นๆ... */
+}
+
+/* ปุ่มกลับขึ้นบน (Back to Top) */
+#btn-back-to-top {
+    /* ตำแหน่งและการแสดงผล */
+    position: fixed;
+    bottom: 30px;           /* ห่างจากด้านล่าง */
+    right: 30px;            /* ห่างจากด้านขวา */
+    display: none;          /* ซ่อนไว้ก่อน (JavaScript จะมาเปิดให้ทีหลัง) */
+    z-index: 9999;          /* อยู่บนสุดเสมอ */
+    
+    /* ขนาดและรูปร่าง */
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;     /* ทำเป็นวงกลม */
+    border: 2px solid #fff; /* ขอบสีขาวให้ดูมีมิติ */
+    
+    /* สีและพื้นหลัง (Gradient เทาอมทอง หรูหรา) */
+    background: linear-gradient(135deg, #756a62 0%, #b8aca3 100%);
+    color: white;           /* สีลูกศร */
+    font-size: 24px;        /* ขนาดลูกศร */
+    line-height: 50px;      /* จัดลูกศรให้อยู่ตรงกลางแนวตั้ง */
+    text-align: center;     /* จัดลูกศรให้อยู่ตรงกลางแนวนอน */
+    
+    /* เอฟเฟกต์ */
+    cursor: pointer;        /* เมาส์ชี้แล้วเป็นรูปมือ */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* เงาให้ดูลอยๆ */
+    transition: all 0.3s ease; /* การเคลื่อนไหวที่นุ่มนวล */
+}
+
+/* ตอนเอาเมาส์ไปชี้ (Hover) */
+#btn-back-to-top:hover {
+    transform: translateY(-5px); /* ลอยขึ้นนิดนึง */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* เงาเข้มขึ้น */
+    background: linear-gradient(135deg, #8a7d75 0%, #c9bdb4 100%); /* สีสว่างขึ้นนิดหน่อย */
+}
 		
     </style>
 </head>
@@ -584,5 +629,9 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	<button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
+		<script src="../main.js"></script>
+
 </body>
 </html>
