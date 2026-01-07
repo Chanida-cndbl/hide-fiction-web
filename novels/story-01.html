@@ -112,6 +112,192 @@
             box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
         }
 		
+.chat-header {
+    text-align: center;      /* จัดกึ่งกลาง */
+    margin-bottom: 20px;     /* เว้นระยะห่างจากกล่องแชท */
+    margin-top: 10px;
+    color: #444;             /* สีตัวอักษรเข้มๆ ให้อ่านง่าย */
+}
+
+.chat-header h3 {
+    display: inline-block;
+    font-size: 1.5em;        /* ขนาดตัวอักษร */
+    font-weight: bold;
+    margin: 0;
+}
+
+.header-icon {
+    font-size: 1.5em;        /* ขนาดไอคอนเท่าตัวหนังสือ */
+    margin-right: 8px;       /* ระยะห่างระหว่างไอคอนกับตัวหนังสือ */
+    vertical-align: middle;  /* จัดให้ไอคอนตรงกับบรรทัด */
+}
+		
+		/* กรอบรวมของส่วนแชท */
+.chat-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* ระยะห่างระหว่างข้อความ */
+    padding: 20px;
+    background-color: #f9f9f9; /* สีพื้นหลังให้อ่อนๆ แยกออกจากสีขาวหลักนิดหน่อย */
+    border-radius: 12px;
+}
+
+/* กล่องข้อความแต่ละอัน */
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 100%;
+}
+
+/* สร้างวงกลมสำหรับวาง Emoji */
+.avatar-emoji {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* ทำเป็นวงกลม */
+    display: flex;
+    align-items: center;     /* จัดกึ่งกลางแนวตั้ง */
+    justify-content: center; /* จัดกึ่งกลางแนวนอน */
+    font-size: 28px;         /* ขนาดของ Emoji */
+    flex-shrink: 0;          /* ห้ามไม่ให้วงกลมหดเวลาจอเล็ก */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* เงาบางๆ ให้ดูลอยออกมา */
+    cursor: default;
+}
+
+/* ชื่อคนส่งข้อความ */
+.sender-name {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 4px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+/* ตัวกล่องข้อความ (Bubble) */
+.bubble {
+    background-color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 15px;
+    border-top-left-radius: 2px; /* ทำให้มุมซ้ายบนแหลมเหมือนหางบอลลูน */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-size: 0.95em;
+    color: #333;
+    line-height: 1.5;
+    position: relative;
+}
+
+/* ตกแต่งเพิ่มสำหรับข้อความฝั่งขวา (เช่น ระบบ หรือ พระเอก) */
+.chat-message.right {
+    flex-direction: row-reverse; /* สลับรูปไปอยู่ขวา */
+    align-self: flex-end; /* ชิดขวา */
+}
+
+.chat-message.right .sender-name {
+    text-align: right;
+    margin-right: 5px;
+}
+
+.chat-message.right .bubble {
+    background-color: #d1e7dd; /* สีเขียวอ่อนๆ ให้ต่างจากคนอื่น */
+    border-radius: 15px;
+    border-top-right-radius: 2px; /* สลับมุมแหลมมาขวา */
+    border-top-left-radius: 15px;
+}
+
+.system-msg {
+    font-family: 'Courier New', Courier, monospace; /* ฟอนต์แบบเครื่องพิมพ์ดีด/คอมพิวเตอร์ */
+    letter-spacing: -0.5px;
+}
+
+/* (Option) ถ้าเป็นข้อความจากระบบ อยากให้ดูเด่น */
+.bubble.system-alert {
+    color: #0f5132;
+    font-family: monospace; /* ให้ดูเหมือน Code คอมพิวเตอร์ */
+    border: 1px dashed #badbcc;
+}
+
+/* กรอบหลักของบทนำ */
+.intro-section {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 30px; /* เว้นห่างจากแชท */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid #6f42c1; /* เส้นสีม่วงด้านซ้ายให้ดูขลัง */
+}
+
+.intro-header h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.4em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.intro-content p {
+    line-height: 1.7; /* ระยะห่างบรรทัดทำให้อ่านสบายตา */
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+/* เน้นชื่อพระเอก */
+.highlight-name {
+    color: #6f42c1;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* กล่องเน้นความขี้งกของระบบ */
+.alert-box {
+    background-color: #fff3cd;
+    border: 1px solid #ffecb5;
+    color: #856404;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.highlight-red {
+    color: #dc3545;
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* กล่องบทพูด */
+.dialogue-box {
+    background-color: #f8f9fa;
+    border-left: 3px solid #ccc;
+    padding: 10px 15px;
+    margin: 15px 0;
+    font-style: italic;
+    color: #444;
+}
+
+.dialogue-box p {
+    margin-bottom: 5px; /* ลดช่องว่างระหว่างประโยคพูด */
+}
+
+/* คำคมเด็ด (ฆ่าแล้วเผา) */
+.quote-impact {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #d63384; /* สีชมพูเข้ม/แดงเลือดหมู */
+    margin: 25px 0;
+    font-family: 'Sarabun', sans-serif; /* หรือฟอนต์หัวข้อสวยๆ */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ย่อหน้าปิดท้าย */
+.closing-text {
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}
+		
     </style>
 </head>
 <body>
@@ -185,83 +371,127 @@
             <span class="badge bg-secondary">สายฮา</span>
         </div>
     </div>
+	
+	<div class="chat-header">
+		<h3>💬 เบื้องหลังความเทพ (ที่ระบบไม่เคยแจกฟรี)</h3>
+	</div>
 
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
-        <h4 class="fw-bold mb-3 text-center">📜 ข้อมูลระดับพลัง</h4>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th style="width: 15%">ลำดับ</th>
-                        <th style="width: 35%">ชื่อขอบเขต</th>
-                        <th style="width: 50%">รายละเอียด / ระดับย่อย</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">1</td>
-                        <td class="fw-bold text-primary">ขอบเขตหลอมปราณ</td>
-                        <td>แบ่งออกเป็น 9 ขั้น</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">พิเศษ</td>
-                        <td class="fw-bold text-danger">ขอบเขตหลอมปราณขั้นสิบ</td>
-                        <td><span class="badge bg-danger">ตำนาน</span> เหนือขีดจำกัดมนุษย์</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">2</td>
-                        <td class="fw-bold text-primary">ขอบเขตสร้างรากฐาน</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">3</td>
-                        <td class="fw-bold text-primary">ขอบเขตแก่นทองคำ</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">4</td>
-                        <td class="fw-bold text-primary">ขอบเขตปฐมวิญญาณ</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">5</td>
-                        <td class="fw-bold text-primary">ขอบเขตจิตเทพ</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">6</td>
-                        <td class="fw-bold text-primary">ขอบเขตประตูสวรรค์</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">7</td>
-                        <td class="fw-bold text-primary">ขอบเขตภาพสวรรค์</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">8</td>
-                        <td class="fw-bold text-primary">ขอบเขตถ้ำสวรรค์</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">9</td>
-                        <td class="fw-bold text-primary">ขอบเขตนักบุญ</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">10</td>
-                        <td class="fw-bold text-primary">ขอบเขตมหาราชันศักดิ์สิทธิ์</td>
-                        <td>เหนือกว่านักบุญ (ราชันผู้ปกครอง)</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">11</td>
-                        <td class="fw-bold text-primary">ขอบเขตจักรพรรดิ</td>
-                        <td>ช่วงต้น · กลาง · ปลาย · สูงสุด</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="chat-section">
+    
+    <div class="chat-message right">
+        <div class="avatar-emoji" style="background-color: #6f42c1; color: white;">
+            😈
+        </div>
+        <div class="bubble-container">
+            <div class="sender-name">โจวหยวน</div>
+            <div class="bubble">
+                "ระบบ! ขอพลังเซียนหมื่นปี!"
+            </div>
         </div>
     </div>
+
+    <div class="chat-message left">
+        <div class="avatar-emoji" style="background-color: #e9ecef;">
+            🤖
+        </div>
+        <div class="bubble-container">
+            <div class="sender-name">ระบบจอมโจร</div>
+            <div class="bubble system-msg">
+                [ขออภัย ระบบนี้ไม่มี]
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-message right">
+        <div class="avatar-emoji" style="background-color: #6f42c1; color: white;">
+            😈
+        </div>
+        <div class="bubble-container">
+            <div class="sender-name">โจวหยวน</div>
+            <div class="bubble">
+                "งั้นขออาวุธระดับจักรพรรดิ!"
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-message left">
+        <div class="avatar-emoji" style="background-color: #e9ecef;">
+            🤖
+        </div>
+        <div class="bubble-container">
+            <div class="sender-name">ระบบจอมโจร</div>
+            <div class="bubble system-msg">
+                [ขออภัย ระบบนี้ไม่มี]
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-message right">
+        <div class="avatar-emoji" style="background-color: #dc3545; color: white;">
+            🤬
+        </div>
+        <div class="bubble-container">
+            <div class="sender-name">โจวหยวน</div>
+            <div class="bubble">
+                "ไอ้ระบบเฮงซวย! แกมีอะไรดีบ้างวะเนี่ย!?"
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-message left">
+        <div class="avatar-emoji" style="background-color: #e9ecef;">
+            🤖
+        </div>
+        <div class="bubble-container">
+            <div class="sender-name">ระบบจอมโจร</div>
+            <div class="bubble system-msg">
+                [นายท่าน ระบบนี้คือ 'จอมโจรสะท้านฟ้า'... อยากได้อะไร ก็ไปแย่งเอาสิ!]
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="intro-section">
+    <div class="intro-header">
+        <h3>📜 ปฐมบท: เส้นทางสู่ราชันย์แห่งการปล้น</h3>
+    </div>
+    
+    <div class="intro-content">
+        <p>
+            นี่คือชะตากรรมของ <span class="highlight-name">โจวหยวน</span> ชายหนุ่มผู้ทะลุมิติมาพร้อมความฝันอันยิ่งใหญ่ 
+            แต่กลับเริ่มต้นด้วยการถูกหลอกไปเป็นศิษย์สำนักร้างบนยอดเขา สามปีที่ต้องทนทุกข์ แลกมาด้วยการปลุกระบบที่ชื่อฟังดูเท่ว่า 
+            <strong>"จอมโจรสะท้านฟ้า"</strong>
+        </p>
+
+        <div class="alert-box">
+            <span class="icon">⚠️</span>
+            <strong>แต่ระบบนี้มันขี้งก!</strong> ไม่แจกอะไรสักอย่าง นอกจากความสามารถเดียวคือ... 
+            <span class="highlight-red">"การช่วงชิง"</span>
+        </div>
+
+        <p>
+            โชคลาภ วาสนา รากวิญญาณ หรือแม้กระทั่ง <strong>"อายุขัย"</strong> ของผู้อื่น ทั้งหมดล้วนกลายเป็นของเขาได้ เพียงแค่ลงมือ!
+        </p>
+
+        <div class="dialogue-box">
+            <p><em>"ท่านเป็นอัจฉริยะร้อยปีจะมีสักคนงั้นรึ? ดีเลย ข้าขอยืมพรสวรรค์หน่อย!"</em></p>
+            <p><em>"ท่านเป็นยอดฝีมืออายุขัยใกล้หมด? ไม่ต้องห่วง เดี๋ยวข้าส่งท่านไปสบาย แล้วขอรับอายุขัยที่เหลือมาเอง!"</em></p>
+        </div>
+
+        <p>
+            ด้วยทักษะ <strong>"เคล็ดพันหน้า"</strong> ที่เปลี่ยนโฉมได้ดั่งใจ และนิสัยที่ระมัดระวังตัวถึงขีดสุด...
+        </p>
+
+        <div class="quote-impact">
+            "ฆ่าแล้วต้องเผา เผาแล้วต้องโปรยเถ้า!"
+        </div>
+
+        <p class="closing-text">
+            โจวหยวนจะพลิกผันจากศิษย์สำนักร้าง สู่จอมโจรผู้เป็นฝันร้ายของเหล่าเซียนทั่วหล้า!
+        </p>
+    </div>
+</div>
 
     <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
         <h4 class="fw-bold mb-4 text-center border-bottom pb-2">👤 ตัวละครหลัก</h4>

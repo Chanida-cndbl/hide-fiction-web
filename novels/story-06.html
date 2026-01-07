@@ -112,6 +112,19 @@
             box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
         }
 		
+		/* Animation สำหรับป้าย System Alert */
+        @keyframes blinker {
+            50% { opacity: 0.5; }
+        }
+        .blink-animation {
+            animation: blinker 1.5s linear infinite;
+        }
+        
+        /* ปรับ Progress Bar ให้ดูมีความเคลื่อนไหว */
+        .progress-bar-animated {
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+		
     </style>
 </head>
 <body>
@@ -138,7 +151,7 @@
                     <div class="novel-info ps-md-4">
                         
                         <div class="mb-3">
-                            <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">กำลังภายใน</span>
+                            <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">ระบบ</span>
                             <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3">แฟนตาซี</span>
                         </div>
 
@@ -184,35 +197,98 @@
         </div>
     </div>
 
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
-        <h4 class="fw-bold mb-3 text-center">อธิบายระดับพลัง</h4>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th style="width: 15%">ลำดับ</th>
-                        <th style="width: 35%">ชื่อ</th>
-                        <th style="width: 50%">ขยายความ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">1</td>
-                        <td class="fw-bold text-primary">ขอบเขตดาราพร่างพราย</td>
-                        <td>(เลเวล 91-93)</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center fw-bold text-secondary">2</td>
-                        <td class="fw-bold text-primary">ขอบเขตจันทรากระจ่าง</td>
-                        <td>(เลเวล 94-96)</td>
-                    </tr>
-					<tr>
-                        <td class="text-center fw-bold text-secondary">3</td>
-                        <td class="fw-bold text-primary">ขอบเขตตะวันเจิดจ้า</td>
-                        <td>(เลเวล 97-99)</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="bg-white p-0 rounded-3 shadow-sm mb-4 overflow-hidden border border-2 border-dark">
+        <div class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold font-monospace">⚠️ [SYSTEM ALERT] แจ้งเตือนวิกฤต</h5>
+            <span class="badge bg-danger border border-white blink-animation">CORRUPTED</span>
+        </div>
+
+        <div class="p-4">
+            <div class="row align-items-center mb-4 border-bottom pb-3">
+                <div class="col-8">
+                    <h5 class="fw-bold mb-1">ผู้ใช้งาน: <span class="text-primary">เย่หลิน (อมตะ)</span></h5>
+                    <small class="text-secondary">CLASS: จอมเวทต้องสาป (ภัยพิบัติเดินดิน)</small>
+                </div>
+                <div class="col-4 text-end">
+                    <h5 class="fw-bold text-danger mb-0">สถานะ: 🧩 แตกสลาย</h5>
+                    <small class="text-muted">(Fragmented)</small>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded border h-100">
+                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2">📊 รายงานความสมบูรณ์ร่างกาย</h6>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <small class="fw-bold text-muted">ร่างต้น (Main Body)</small>
+                                <small class="fw-bold text-danger">0%</small>
+                            </div>
+                            <div class="progress" style="height: 20px; background-color: #e9ecef;">
+                                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small class="text-danger d-block mt-1 fst-italic">*สลายร่างสมบูรณ์</small>
+                        </div>
+
+                        <ul class="list-unstyled small mb-0 space-y-2">
+                            <li class="mb-2 d-flex align-items-start">
+                                <span class="me-2">🧩</span>
+                                <span><strong>ชิ้นส่วนที่แยกตัว:</strong> <br><span class="badge bg-secondary">5,214 / 5,214 ชิ้น</span></span>
+                            </li>
+                            <li class="mb-2 d-flex align-items-start">
+                                <span class="me-2">📍</span>
+                                <span><strong>พิกัดปัจจุบัน:</strong> <br>ฝังตัวในกระเพาะของ "อสูรกลืนวิญญาณ" ทั่วดันเจี้ยน</span>
+                            </li>
+                            <li class="d-flex align-items-start text-primary">
+                                <span class="me-2">🎯</span>
+                                <span><strong>ภารกิจ:</strong> รอเวลาถูก "ขับถ่าย" เพื่อประกอบร่างใหม่</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded border h-100">
+                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2">🎒 คลังแสงชีวภาพ (Bio-Arsenal)</h6>
+                        
+                        <div class="list-group list-group-flush bg-transparent">
+                            <div class="list-group-item bg-transparent px-0 pt-0">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <span class="fw-bold">🔥 มนตร์ต้องห้าม</span>
+                                    <span class="badge bg-dark">∞ เชื้อเพลิง: อายุขัย</span>
+                                </div>
+                                <small class="text-muted">ใช้ได้ไม่อั้น เพราะพี่ตายไม่เป็น</small>
+                            </div>
+
+                            <div class="list-group-item bg-transparent px-0">
+                                <div class="d-flex w-100 justify-content-between align-items-center mb-1">
+                                    <span class="fw-bold text-success">☣️ ต้วนหลิง (มนุษย์พิษ)</span>
+                                    <span class="badge bg-success bg-opacity-75">สถานะ: ใช้งานอยู่</span>
+                                </div>
+                                <small class="text-muted d-block" style="line-height: 1.4;">
+                                    <strong>ฟังก์ชัน:</strong> จับคอเสื้อเหวี่ยงเป็นอาวุธ / ใช้ลิ้นเลียไอเทมเพื่อเคลือบพิษกันขโมย
+                                </small>
+                            </div>
+
+                            <div class="list-group-item bg-transparent px-0 pb-0">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <span class="fw-bold">🖐️ เสบียงฉุกเฉิน</span>
+                                </div>
+                                <small class="text-muted">นิ้วมือตัวเอง (ตัดกินแก้หิวได้/งอกใหม่ใน 3 วิ)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning border-warning mt-3 mb-0 d-flex align-items-start shadow-sm" role="alert">
+                <span class="fs-2 me-3">📝</span>
+                <div>
+                    <strong class="text-dark">หมายเหตุจากระบบ:</strong><br>
+                    <span class="text-dark opacity-75">"ผู้ใช้งานโปรดทราบ: การหั่นตัวเองเป็น 5,000 ชิ้นยัดปากมอนสเตอร์ ไม่ใช่การท่องเที่ยวเชิงอนุรักษ์ กรุณารีบประกอบร่างก่อนน้ำย่อยจะทำงาน!"</span>
+                </div>
+            </div>
         </div>
     </div>
 
