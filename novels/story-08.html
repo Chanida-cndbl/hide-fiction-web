@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยินดีต้อนรับสู่เมืองร้างของผม</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="../style.css">
+    
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif; /* ใช้ฟอนต์สารบัญ อ่านสบายตา */
+            background-color: #f8f9fa; /* พื้นหลังสีเทาอ่อน สบายตา */
+            color: #333;
+        }
+        .novel-cover {
+            width: 100%;
+            max-width: 220px;       /* ⬅️ แก้ตรงนี้: ลดจาก 300px เหลือ 220px */
+            height: auto;           /* ให้ความสูงปรับตามอัตโนมัติ */
+            aspect-ratio: 2 / 3;    /* ⬅️ เพิ่ม: ล็อคสัดส่วนเป็นแนวตั้ง 2:3 เป๊ะๆ */
+            object-fit: cover;      /* ถ้าภาพต้นฉบับสัดส่วนเพี้ยน ให้ตัดขอบออก */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            margin-bottom: 20px;    /* เว้นระยะห่างข้างล่างรูปนิดหน่อย */
+        }
+        .reading-container {
+            background-color: white;
+            padding: 40px;
+            max-width: 800px; /* จำกัดความกว้างเนื้อหา ไม่ให้ยาวจนสายตาล้า */
+            margin: 0 auto; /* จัดกึ่งกลางหน้าจอ */
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+        .chapter-title {
+            color: #d63384; /* สีหัวข้อตอน (ชมพูเข้ม) */
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        .content-text {
+            font-size: 1.1rem; /* ขนาดตัวหนังสือเนื้อเรื่อง */
+            line-height: 1.8; /* ระยะห่างบรรทัด */
+            text-align: justify; /* จัดชิดขอบซ้ายขวา */
+        }
+        .cta-box {
+            background: linear-gradient(45deg, #d63384, #fd7e14); /* สีไล่ระดับ */
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .btn-buy {
+            background-color: white;
+            color: #d63384;
+            font-weight: bold;
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .btn-buy:hover {
+            transform: scale(1.05); /* เด้งขึ้นเล็กน้อยเมื่อเอาเมาส์ชี้ */
+            background-color: #fff0f5;
+            color: #d63384;
+        }
+		
+		/* Hero Section Background */
+        .novel-header-bg {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef); /* ไล่สีพื้นหลังจางๆ */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* รูปปกในหน้า Hero (ให้ใหญ่และมีเงาสวยๆ) */
+        .novel-cover-hero {
+            width: 100%;
+            max-width: 280px; /* ขยายใหญ่ขึ้นนิดนึงจากหน้า Grid */
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25); /* เงาลอยเด่น */
+            transform: rotate(-2deg); /* เอียงนิดๆ ให้ดูเท่ (ถ้าไม่ชอบลบออกได้) */
+            border: 4px solid white;
+            transition: transform 0.3s;
+        }
+        
+        /* ป้ายสถานะบนรูป Hero */
+        .cover-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .status-badge-hero {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
+            border: 2px solid white;
+        }
+
+        /* ปุ่มเด้งดึ๋ง */
+        .btn-hover-scale:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
+        }
+		
+.binghu-news-module {
+        font-family: 'Sarabun', sans-serif;
+        max-width: 100%;
+        margin: 20px auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .binghu-header {
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 3px solid #ff4757;
+        padding-bottom: 10px;
+    }
+    .binghu-header h2 {
+        color: #ff4757;
+        font-size: 2rem;
+        margin: 0;
+        text-transform: uppercase;
+    }
+    .binghu-header span {
+        color: #2f3542;
+        font-size: 1rem;
+    }
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .news-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s;
+		height: 100%; 
+		display: flex;
+		flex-direction: column;
+    }
+    .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .news-tag {
+        background-color: #ff4757;
+        color: white;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        display: inline-block;
+        margin: 10px 0 0 10px;
+        border-radius: 4px;
+    }
+    .news-content {
+        padding: 15px;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+    }
+    .news-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #2f3542;
+        margin-bottom: 10px;
+        line-height: 1.4;
+    }
+    .news-desc {
+        font-size: 0.95rem;
+        color: #57606f;
+        line-height: 1.5;
+    }
+    .read-more {
+        display: block;
+        text-align: right;
+        margin-top: 10px;
+        color: #1e90ff;
+        text-decoration: none;
+        font-weight: bold;
+		margin-top: auto;
+    }
+		
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">⬅️ กลับไปหน้ารวมนิยาย</a>
+        </div>
+    </nav>
+
+    <div class="novel-header-bg py-5 mb-5">
+        <div class="container">
+            <div class="row align-items-center"> 
+                
+                <div class="col-md-4 col-lg-3 text-center mb-4 mb-md-0">
+                    <div class="cover-wrapper">
+                        <img src="../images/cover-story-08.jpg" class="novel-cover-hero" alt="ปกนิยาย">
+                        
+                        <span class="status-badge-hero badge-end">จบแล้ว</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-8 col-lg-9">
+                    <div class="novel-info ps-md-4">
+                        
+                        <div class="mb-3">
+                            <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">ระบบ</span>
+                            <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3">สร้างเมือง</span>
+                        </div>
+
+                        <h1 class="display-5 fw-bold mb-4 text-dark">ยินดีต้อนรับสู่เมืองร้างของผม</h1>
+                        
+                        <hr class="w-25 text-secondary mb-4" style="height: 3px; opacity: 0.2;">
+
+                        <div class="synopsis-box mb-5">
+                            <p class="text-secondary fs-5" style="line-height: 1.8;">
+                                ไม่ได้ตั้งใจจะเปิดกิจการใหญ่โต แค่อยากสร้างของไว้ใช้เองหรือให้พนักงานอยู่ แต่คุณภาพมันดันดีเกิ๊นนนนน~
+                            </p>
+                        </div>
+
+                        <div class="d-flex gap-3 flex-wrap">
+                            
+                            <a href="https://s.hidetr.work/hf42" target="_blank" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
+                                🔥 อ่านฉบับเต็ม
+                            </a>
+
+                            <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-2">
+                                👍 ติดตามเพจแปล
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5" id="info-area">
+    
+    <div class="bg-white p-4 rounded-3 shadow-sm mb-4 border-start border-5 border-danger">
+        <h4 class="fw-bold mb-3">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
+        <p class="fs-5 text-secondary">
+			เป็นการผสมผสานระหว่าง ความฟินในการเห็นสิ่งปลูกสร้างใหม่ๆ กับ ความตลกหน้าตาย ที่พระเอกรวยและเก่งขึ้นเรื่อยๆ ในขณะที่คนอื่นยังมองเขาผิดๆ อยู่ เป็นนิยายฟีลกู๊ดที่อ่านแล้วลุ้นว่า "ชิ้นต่อไปจะสร้างอะไร" และ "เมื่อไหร่ความจริงจะเปิดเผยให้พวกตัวประกอบหน้าหงาย"
+		</p>
+        <div class="d-flex gap-2 mt-3">
+            <span class="badge bg-secondary">พระเอกฉลาด</span>
+            <span class="badge bg-secondary">หนักแน่น</span>
+            <span class="badge bg-secondary">ต่อสู้</span>
+        </div>
+    </div>
+
+<div class="binghu-news-module">
+    <div class="binghu-header">
+        <h2>🔥 ปิงหู ก็อซซิป 🔥</h2>
+        <span>ข่าวลือ(กาวๆ) ประจำเมืองปิงหู ที่คุณไม่ควรพลาด!</span>
+    </div>
+
+    <div class="news-grid">
+        <div class="news-card">
+            <span class="news-tag">ดราม่าโซเชียล</span>
+            <div class="news-content">
+                <div class="news-title">ฉุนโดนโก่งราคาอูฐ! หนุ่มปริศนาซื้อที่ดิน 40 ลบ. เปิดฟาร์มแข่งแม่มเลย!</div>
+                <div class="news-desc">พ่อค้ากะฟันกำไร เจอเศรษฐีสู้กลับด้วย "เงินแก้ปัญหา" ชาวเน็ตลั่น "นี่มันการแก้แค้นหรืออวดรวย?"</div>
+                <a href="#" class="read-more">อ่านต่อ >></a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <span class="news-tag">ข่าวบันเทิง</span>
+            <div class="news-content">
+                <div class="news-title">น้ำตาซึม! อดีตซุปตาร์ "เสวี่ยอวิ้น" ตกอับ? นั่งรถเข็นร้องเพลงแลกข้าวกลางทะเลทราย</div>
+                <div class="news-desc">ภาพหลุดว่อนเน็ต! สภาพผอมโซข้างกองไฟ แฟนคลับแห่ส่งกำลังใจ หรือนี่จะเป็นจุดจบของดารา?</div>
+                <a href="#" class="read-more">อ่านต่อ >></a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <span class="news-tag">ข่าวหน้าหนึ่ง</span>
+            <div class="news-content">
+                <div class="news-title">โป๊ะแตก! สาวไฮโซหนีงานแต่งข้ามทวีป ดันจองตั๋วเข้าถ้ำเสือ.. ที่แท้รีสอร์ตว่าที่ผัว!</div>
+                <div class="news-desc">หนีเสือปะจระเข้ของจริง! กะจะหนีคู่หมั้นไปพักใจ แต่หารู้ไม่ว่าเจ้าของรีสอร์ตที่จองไปคือ "คนนั้น" นั่นเอง!</div>
+                <a href="#" class="read-more">อ่านต่อ >></a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <span class="news-tag">ไวรัลวันนี้</span>
+            <div class="news-content">
+                <div class="news-title">เสียหน้าไม่ได้! ลูกค้าเมาอาละวาด ยัดเงิน 1.5 ล้านใส่เจ้าของรีสอร์ต ข้อหา 'คิดถูกเกินไป'!</div>
+                <div class="news-desc">โลกนี้อยู่ยาก! เมื่อเจ้าของรีสอร์ตคิดค่าจัดงาน 5 หมื่น แต่ลูกค้าบอก "ดูถูกกันนี่หว่า" ก่อนโอนเงินล้านฟาดหน้า!</div>
+                <a href="#" class="read-more">อ่านต่อ >></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
+        <h4 class="fw-bold mb-4 text-center border-bottom pb-2">👤 ตัวละครหลัก</h4>
+        
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center mb-4 mb-md-0">
+                <div class="position-relative d-inline-block">
+                    <img src="../images/char-08.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 100%; max-width: 250px; aspect-ratio: 3/4; object-fit: cover;" alt="หลี่เหยียน">
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <h2 class="fw-bold text-dark mb-1">สวีสิง <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
+                <p class="text-primary fw-bold mb-3">ฉายา: พูดน้อย ต่อยหนัก</p>
+
+                <div class="mb-3">
+                    <span class="badge bg-dark me-1">❤️ รักอิสระ</span>
+                    <span class="badge bg-warning text-dark me-1">💡 เด็ดเดี่ยว</span>
+                    <span class="badge bg-info text-dark me-1">🧠 อัจฉริยะ</span>
+                    <span class="badge bg-success me-1">🎭 มีไหวพริบ</span>
+                </div>
+
+                <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
+                    <p class="mb-0 fst-italic text-secondary">
+                        "คนที่พวกเขาสงสาร คือคนที่สบายที่สุดในเมืองนี้"
+                    </p>
+                </div>
+
+                <h5 class="fw-bold mt-3">นิสัยส่วนตัว:</h5>
+                <p class="text-secondary" style="line-height: 1.7;">
+                    "อัจฉริยะผู้รักอิสระที่มาพร้อมสกิลการเอาตัวรอดระดับเทพ" ภายนอกอาจดูเหมือนคุณหนูนักเรียนนอก แต่เนื้อแท้เป็นคนสู้งาน วางแผนเก่ง และพร้อมทำทุกอย่างเพื่อความอยู่รอดและอิสรภาพของตัวเอง
+                </p>
+            </div>
+        </div>
+
+        <hr class="my-4 text-secondary" style="opacity: 0.1;">
+        
+        <div class="row g-3">
+            <div class="col-12">
+                <div class="p-3 border border-dashed rounded-3 text-center bg-light">
+                    <h5 class="fw-bold text-muted mb-1">นางเอก... คู่หู... ศัตรูคู่อาฆาต...❓</h5>
+                    <p class="small text-secondary mb-0">
+                        ในยุทธภพนี้ มิตรแท้และศัตรูถาวรแยกแยะยาก... ไปร่วมค้นพบตัวละครอื่นๆ ด้วยตัวคุณเองในเนื้อเรื่อง!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 pt-4 text-center">
+        <h3 class="fw-bold mb-4">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
+        
+        <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 500px;">
+            
+            <a href="https://s.hidetr.work/hf42" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+                <div class="text-start">
+                    <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
+                    <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
+                </div>
+                <span class="fs-4">🚀</span>
+            </a>           
+        </div>
+    </div>
+
+</div>
+
+<div id="newsModal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.5);">
+  <div class="modal-content" style="background-color:#fefefe; margin:15% auto; padding:20px; border:1px solid #888; width:80%; max-width:500px; border-radius:10px; font-family: 'Sarabun', sans-serif;">
+    <span class="close" style="color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer;">&times;</span>
+    <h2 id="modalTitle" style="color:#ff4757;"></h2>
+    <p id="modalDesc" style="color:#333; line-height:1.6;"></p>
+    <div style="text-align:center; margin-top:20px;">
+        <a href="https://s.hidetr.work/hf42" class="news-tag" style="text-decoration:none; font-size:1rem; cursor:pointer;">เริ่มอ่านตั้งแต่ต้นเพื่อพิสูจน์!</a>
+    </div>
+  </div>
+</div>
+
+<script>
+    // ข้อมูลความจริง (The Truth)
+    const newsData = {
+        0: { title: "ความจริงเรื่องอูฐ 🐫", desc: "สวีสิงไม่ได้โกรธพ่อค้า แต่เขาคำนวณแล้วว่าซื้อที่ดิน 40 กม. มาเลี้ยงเองคุ้มกว่าในระยะยาว (ตรรกะคนรวยที่คุณไม่เข้าใจ!)" },
+        1: { title: "ความจริงเรื่องดารา 🎤", desc: "เสวี่ยอวิ้นแค่มาพักร้อน! ส่วนที่นั่งรถเข็นเพราะขาเจ็บจริง แต่ที่ร้องเพลงเพราะมีความสุข ไม่ได้ตกอับโว้ยยย!" },
+        2: { title: "ความจริงเรื่องคู่หมั้น 💍", desc: "เธอจองตั๋วมาเองจริงๆ! โดยไม่รู้เลยว่าที่นี่คือทรัพย์สินของคู่หมั้นที่เธอหนีมา... พรหมลิขิตหรือเวรกรรมกันแน่?" },
+        3: { title: "ความจริงเรื่องเงิน 1.5 ล้าน 💸", desc: "ลูกค้าเมาจริง! และสวีสิงก็รับเงินไว้จริงๆ เพราะไม่อยากขัดใจคนเมา... สรุป รวยแบบงงๆ" }
+    };
+
+    // ฟังก์ชันเปิด Modal
+    const modal = document.getElementById("newsModal");
+    const span = document.getElementsByClassName("close")[0];
+    const readMoreBtns = document.querySelectorAll('.read-more');
+
+    readMoreBtns.forEach((btn, index) => {
+        btn.onclick = function(e) {
+            e.preventDefault();
+            document.getElementById("modalTitle").innerText = newsData[index].title;
+            document.getElementById("modalDesc").innerText = newsData[index].desc;
+            modal.style.display = "block";
+        }
+    });
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+    <footer class="text-center py-4 mt-5 text-muted border-top">
+        <p>© 2024 Hide Fiction. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
+    <script src="../main.js"></script>
+	
+</body>
+</html>
