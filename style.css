@@ -1,61 +1,270 @@
+/* =========================================
+   1. THEME VARIABLES & DARK MODE
+   ========================================= */
+:root {
+    /* --- โหมดสว่าง (Light Mode) --- */
+    --bg-main: #f4f6f9;           /* พื้นหลังเว็บ */
+    --bg-card: #ffffff;           /* พื้นหลังการ์ด */
+    --text-main: #333333;         /* สีตัวหนังสือหลัก */
+    --text-muted: #6c757d;        /* สีตัวหนังสือรอง */
+    --border-color: #dee2e6;      /* สีเส้นขอบ */
+    --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    
+    /* สีเฉพาะส่วน */
+    --chat-bg: #f9f9f9;
+    --intro-bg: #ffffff;
+    --dialogue-bg: #f8f9fa;
+    --hero-gradient: linear-gradient(135deg, #53565a 0%, #8c8f93 100%);
+    --accent-color: #1877f2;      /* สีเน้น (เช่น สี Facebook หรือลิงก์) */
+
+    /* Navbar Dashboard (Light) */
+    --nav-bg: #ffffff;
+    --nav-border: #e2e8f0;
+    --nav-text: #0f172a;
+    --nav-btn-bg: #f1f5f9;
+    --nav-btn-hover: #e2e8f0;
+    --nav-fb-bg: #1877f2;
+    --nav-fb-text: #ffffff;
+}
+
+/* --- โหมดมืด (Dark Mode) --- */
+body.dark-mode {
+    --bg-main: #121212;           /* ดำเทาเข้ม */
+    --bg-card: #1e1e1e;           /* เทาเข้มขึ้น */
+    --text-main: #e0e0e0;         /* ขาวควันบุหรี่ */
+    --text-muted: #a0a0a0;        /* เทากลาง */
+    --border-color: #444444;
+    --card-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    
+    --chat-bg: #2d2d2d;
+    --intro-bg: #1e1e1e;
+    --dialogue-bg: #2d2d2d;
+    --hero-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    --accent-color: #60a5fa;      /* สีเน้นในโหมดมืด (ฟ้าอ่อน) */
+
+    /* Navbar Dashboard (Dark) */
+    --nav-bg: #0f172a;
+    --nav-border: #1e293b;
+    --nav-text: #f8fafc;
+    --nav-btn-bg: #1e293b;
+    --nav-btn-hover: #334155;
+    --nav-fb-bg: #1e293b;
+    --nav-fb-text: #60a5fa;
+}
+
+/* =========================================
+   2. GLOBAL STYLES
+   ========================================= */
 body {
     font-family: 'Sarabun', sans-serif;
-    background-color: #f4f6f9;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Hero Section (ส่วนหัวเว็บ) */
-.hero-section {
-    background: linear-gradient(135deg, #53565a 0%, #8c8f93 100%);
-    color: white;
-    padding: 80px 0;
-    text-align: center;
-    margin-bottom: 40px;
+/* =========================================
+   3. DASHBOARD NAVBAR (FIXED)
+   ========================================= */
+.dashboard-nav {
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    padding: 10px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
 }
-.hero-title {
+
+.brand-text {
+    font-family: 'Prompt', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--nav-text);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ปุ่ม Facebook */
+.btn-dash-fb {
+    background-color: var(--nav-fb-bg);
+    color: var(--nav-fb-text) !important;
+    border: 1px solid transparent;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn-dash-fb:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+    filter: brightness(1.1);
+}
+
+body.dark-mode .btn-dash-fb {
+    border-color: #334155;
+}
+
+/* ปุ่มสลับโหมด */
+.btn-dash-toggle {
+    background-color: var(--nav-btn-bg);
+    border: 1px solid var(--nav-border);
+    color: var(--nav-text);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: static; 
+    width: auto;
+    height: auto;
+    box-shadow: none;
+}
+
+.btn-dash-toggle:hover {
+    background-color: var(--nav-btn-hover);
+    transform: translateY(-2px);
+}
+
+/* ไอคอนสลับโหมด */
+.icon-moon { display: none; }
+.icon-sun { display: inline-block; }
+
+body.dark-mode .icon-sun { display: none; }
+body.dark-mode .icon-moon { display: inline-block; }
+body.dark-mode .navbar-toggler-icon { filter: invert(1); }
+
+/* =========================================
+   4. HERO SECTION (Gateway Style)
+   ========================================= */
+.hero-section {
+    background: var(--hero-gradient);
+    color: white;
+    padding: 60px 0;
+    margin-top: 75px; /* เว้นที่ให้ Navbar */
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ปรับชื่อเรื่องให้ดูขลัง */
+.hero-novel-title {
     font-weight: 800;
     font-size: 3rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    line-height: 1.6;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: linear-gradient(to right, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* เพิ่มตัวมาตรฐาน */
+    color: white; 
 }
 
-/* Filter Buttons (ปุ่มตัวกรอง) */
+/* คำโปรย */
+.hero-desc {
+    font-size: 1.1rem;
+    max-width: 650px;
+    line-height: 1.7;
+    margin-left: 0;
+    color: rgba(255,255,255,0.9);
+}
+
+/* รูปปกนิยาย (Highlight) */
+.hero-cover-img {
+    width: 220px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+    transition: transform 0.4s ease;
+    position: relative;
+    z-index: 2;
+    border: 3px solid rgba(255,255,255,0.2);
+}
+
+.hero-cover-img:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05);
+    border-color: rgba(255,255,255,0.8);
+}
+
+/* แสงออร่าหลังรูป */
+.hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.4) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(40px);
+    z-index: 1;
+    animation: pulse-glow 3s infinite alternate;
+}
+
+@keyframes pulse-glow {
+    from { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+    to { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@media (max-width: 991px) {
+    .hero-section {
+        text-align: center;
+        padding-top: 40px;
+    }
+    .hero-desc {
+        margin: 0 auto 20px;
+    }
+    .hero-cover-img {
+        width: 160px;
+        transform: rotate(0deg);
+        margin-bottom: 20px;
+    }
+}
+
+/* =========================================
+   5. NOVEL CARDS & COMPONENTS
+   ========================================= */
+
+/* Filter Buttons */
 .filter-btn {
     border-radius: 50px;
     padding: 8px 20px;
     margin: 0 5px 10px;
     border: 2px solid #ddd;
-    background: white;
+    background: var(--bg-card);
     color: #555;
     transition: all 0.3s;
 }
 .filter-btn:hover, .filter-btn.active {
-    background-color: #2c3e50; /* สีเมื่อกดเลือก */
+    background-color: #2c3e50;
     color: white;
     border-color: #2c3e50;
 }
 
-/* Novel Card (การ์ดนิยาย) */
+/* Novel Card */
 .novel-card {
     border: none;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    background: var(--bg-card);
+    box-shadow: var(--card-shadow);
+    color: var(--text-main);
     transition: transform 0.3s;
-    background: white;
-    height: 100%;            /* บังคับการ์ดให้สูงเต็มช่อง Grid */
-    display: flex;           /* เปลี่ยนโหมดเป็น Flexbox */
-    flex-direction: column;  /* จัดเรียงเนื้อหาแนวตั้ง */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.text-clamp {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;    /* โชว์แค่ 3 บรรทัด */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 4.5em;            
+.novel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* 1. เพิ่มพื้นที่ขอบในการ์ด */
 .card-body {
     padding: 24px;
     display: flex;
@@ -63,57 +272,65 @@ body {
     flex-grow: 1;
 }
 
-/* 2. จัดระยะห่างชื่อเรื่อง */
 .card-title {
     font-weight: 800;
     font-size: 1.15rem;
     margin-bottom: 8px;
     line-height: 1.4;
-    color: #333;
+    color: var(--text-main);
 }
 
-/* 3. ปรับตรงแนวเรื่อง */
-.card-text.text-muted {
+.card-text.text-muted, .flex-grow-1 {
     font-size: 0.9rem;
-    margin-bottom: 16px;
-    color: #777 !important;
+    color: var(--text-muted) !important;
 }
 
-/* 4. ปรับคำโปรย (Synopsis) */
 .flex-grow-1 {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
     margin-bottom: 20px;
+    line-height: 1.6;
 }
 
-/* 5. ปรับปุ่มให้ดูสมส่วน */
-.btn-outline-primary {
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-}
-
-.novel-card:hover {
-    transform: translateY(-5px); /* ลอยขึ้นเมื่อชี้ */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+.text-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 4.5em;            
 }
 
 .card-img-top {
-    height: 200px;           /* ล็อคความสูง */
-    width: auto;             /* ความกว้างปรับตามสัดส่วน */
+    height: 200px;
+    width: auto;
     max-width: 100%;
-    margin: 20px auto 0;     /* จัดกึ่งกลาง */
+    margin: 20px auto 0;
     display: block;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     border-radius: 4px;
 }
 
+.btn-outline-primary {
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+body.dark-mode .btn-outline-primary {
+    color: #6ea8fe;
+    border-color: #6ea8fe;
+}
+body.dark-mode .btn-outline-primary:hover {
+    background-color: #6ea8fe;
+    color: #000;
+}
+
+/* =========================================
+   6. BADGES & EXTRAS
+   ========================================= */
+
+/* ป้ายในการ์ด */
 .status-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
+    top: 10px; right: 10px; z-index: 10;
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.75rem;
@@ -122,22 +339,26 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
-/* สีพื้นหลังแยกตามสถานะ */
-.badge-ongoing { background-color: #fd7e14; }
-.badge-end { background-color: #198754; }
-.badge-best { background-color: #dc3545; }
+.badge-ongoing {
+    background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
+    box-shadow: 0 5px 15px rgba(253, 126, 20, 0.4) !important;
+    color: white !important;
+}
 
-/* ปุ่มกลับขึ้นบน (Back to Top) */
+.badge-end {
+    background: linear-gradient(135deg, #20c997, #198754) !important;
+    box-shadow: 0 5px 15px rgba(32, 201, 151, 0.4) !important;
+    color: white !important;
+}
+
+/* ปุ่ม Back to Top */
 #btn-back-to-top {
     position: fixed;
     bottom: 25px;
     right: 25px;
     display: none;
-    
-    /* สีธีมเทาอมทอง */
     background: linear-gradient(135deg, #756a62 0%, #b8aca3 100%);
     border: 2px solid white; 
-    
     color: white;
     width: 50px;
     height: 50px;
@@ -146,21 +367,36 @@ body {
     z-index: 999;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.3s;
-    
-    /* จัดไอคอนตรงกลาง */
     text-align: center;
-    line-height: 46px; /* ปรับให้ตรงกับความสูงปุ่มลบขอบ */
+    line-height: 46px;
     font-size: 24px;
 }
-
 #btn-back-to-top:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-	
-	
-/* --- ส่วนที่เพิ่มมาสำหรับหน้านิยาย (ต่อท้ายไฟล์ style.css) --- */
+}
 
-/* รูปปกในหน้าเนื้อหา */
+/* =========================================
+   7. NOVEL DETAIL PAGE (หน้าเนื้อหานิยาย)
+   ========================================= */
+
+/* Header หน้าเนื้อหา */
+.novel-header-section {
+    background: var(--bg-card);
+    padding-top: 100px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+	margin-bottom: 50px;
+}
+body.dark-mode .novel-header-section {
+    background: linear-gradient(to bottom, var(--bg-main), var(--bg-card));
+}
+
+.novel-main-title {
+    color: var(--text-main);
+    text-shadow: none;
+}
+
 .novel-cover-hero {
     width: 100%;
     max-width: 280px;
@@ -173,13 +409,7 @@ body {
     transition: transform 0.3s;
 }
 
-/* พื้นหลังส่วนหัว */
-.novel-header-bg {
-    background: linear-gradient(to right, #f8f9fa, #e9ecef);
-    border-bottom: 1px solid #dee2e6;
-}
-
-/* ป้ายสถานะบนรูป */
+/* ป้ายสถานะบนรูป Hero */
 .cover-wrapper {
     position: relative;
     display: inline-block;
@@ -188,110 +418,99 @@ body {
     position: absolute;
     top: -10px;
     right: -10px;
-    background: #ff4757;
+    background: transparent; /* ให้คลาสลูกจัดการสี */
     color: white;
     padding: 5px 15px;
     border-radius: 50px;
     font-weight: bold;
     font-size: 0.9rem;
-    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
     border: 2px solid white;
+    z-index: 10;
 }
 
-/* ปุ่มเด้งดึ๋ง */
-.btn-hover-scale:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
-}
-
-/* --- ส่วนของ Chat Interface --- */
-.chat-header {
-    text-align: center;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    color: #444;
-}
-.chat-section {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px;
-    background-color: #f9f9f9;
+/* กล่องเนื้อหาทั่วไป (Content Box) */
+.content-box {
+    background-color: var(--intro-bg);
     border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
 }
+
+.section-title {
+    color: var(--text-main);
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Chat Section */
+.chat-section {
+    background-color: var(--chat-bg);
+    color: var(--text-main);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 15px;
+}
+
 .chat-message {
     display: flex;
     align-items: flex-start;
     gap: 10px;
     max-width: 100%;
 }
+
 .avatar-emoji {
-    width: 50px;
-    height: 50px;
+    width: 50px; height: 50px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 28px;
     flex-shrink: 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.sender-name {
-    font-size: 0.85em;
-    color: #666;
-    margin-bottom: 4px;
-    margin-left: 5px;
-    font-weight: bold;
-}
+
 .bubble {
-    background-color: #ffffff;
+    background-color: var(--intro-bg);
+    color: var(--text-main);
     padding: 12px 16px;
     border-radius: 15px;
     border-top-left-radius: 2px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    font-size: 0.95em;
-    color: #333;
-    line-height: 1.5;
-    position: relative;
-}
-.chat-message.right {
-    flex-direction: row-reverse;
-    align-self: flex-end;
-}
-.chat-message.right .sender-name {
-    text-align: right;
-    margin-right: 5px;
-}
-.chat-message.right .bubble {
-    background-color: #d1e7dd;
-    border-radius: 15px;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 15px;
-}
-.system-msg {
-    font-family: 'Courier New', Courier, monospace;
-    letter-spacing: -0.5px;
 }
 
-/* --- ส่วนของ Intro Section --- */
+.chat-message.right {
+    flex-direction: row-reverse;
+}
+
+.chat-message.right .bubble {
+    background-color: #d1e7dd;
+    color: #333;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 2px;
+}
+body.dark-mode .chat-message.right .bubble {
+    background-color: #198754;
+    color: white;
+}
+
+.system-msg {
+    font-family: 'Courier New', monospace;
+}
+
+/* Intro Section */
 .intro-section {
-    background-color: #fff;
+    background-color: var(--intro-bg);
+    color: var(--text-main);
     border-radius: 12px;
     padding: 25px;
     margin-top: 30px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     border-left: 5px solid #6f42c1;
 }
-.intro-content p {
-    line-height: 1.7;
-    color: #555;
-    margin-bottom: 15px;
-    font-size: 1em;
-}
-.highlight-name {
-    color: #6f42c1;
-    font-weight: bold;
-}
+
 .alert-box {
     background-color: #fff3cd;
     border: 1px solid #ffecb5;
@@ -300,14 +519,21 @@ body {
     border-radius: 8px;
     margin-bottom: 15px;
 }
+body.dark-mode .alert-box {
+    background-color: #332701;
+    color: #ffda6a;
+    border-color: #664d03;
+}
+
 .dialogue-box {
-    background-color: #f8f9fa;
+    background-color: var(--dialogue-bg);
+    color: var(--text-muted);
     border-left: 3px solid #ccc;
     padding: 10px 15px;
     margin: 15px 0;
     font-style: italic;
-    color: #444;
 }
+
 .quote-impact {
     text-align: center;
     font-size: 1.2em;
@@ -315,4 +541,1035 @@ body {
     color: #d63384;
     margin: 25px 0;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Character Section */
+.char-name {
+    color: var(--text-main);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+.char-quote {
+    font-style: italic;
+    color: var(--accent-color); /* ใช้ตัวแปรสีที่มองเห็นชัดทั้ง 2 โหมด */
+    background: rgba(24, 119, 242, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+/* Link Items */
+.read-link-item {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: all 0.2s;
+}
+.read-link-item:hover {
+    transform: translateX(5px);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.platform-name {
+    font-weight: bold;
+    color: var(--text-main);
+}
+.platform-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   8. BOOTSTRAP OVERRIDES (แก้บั๊กตัวหนังสือจม)
+   ========================================= */
+
+/* เมื่ออยู่ใน Dark Mode ให้เปลี่ยนสี Text อัตโนมัติ */
+body.dark-mode .text-dark, 
+body.dark-mode .text-secondary,
+body.dark-mode .text-muted {
+    color: var(--text-main) !important; /* บังคับให้เป็นสีขาวควันบุหรี่ */
+}
+
+/* ถ้าอยากให้ text-muted เป็นสีเทาอ่อนๆ (ไม่ขาวจั๊วะ) */
+body.dark-mode .text-muted,
+body.dark-mode .text-secondary {
+    color: var(--text-muted) !important;
+}
+
+/* แก้สี Badge ที่จมใน Dark Mode */
+body.dark-mode .bg-light {
+    background-color: #2d2d2d !important; /* เปลี่ยนพื้นหลังเทาอ่อน เป็นเทาเข้ม */
+    color: var(--text-main) !important;
+}
+
+body.dark-mode .bg-white {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+}
+
+/* แก้สีกรอบใน Dark Mode */
+body.dark-mode .border {
+    border-color: var(--border-color) !important;
+}
+
+/* =========================================
+   SPECIAL STYLES: STORY 02 (สูตรโกงลู่เหริน)
+   ========================================= */
+
+/* คอนเทนเนอร์หลักของโมดูล */
+.luren-special-feature {
+    background: var(--intro-bg); /* เปลี่ยนตามธีม */
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 25px;
+    margin: 20px 0;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+/* หัวข้อ */
+.luren-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 15px;
+}
+.luren-header h3 {
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.luren-header .subtitle {
+    color: var(--text-muted);
+}
+.luren-header .highlight {
+    color: #d32f2f;
+    font-weight: bold;
+}
+body.dark-mode .luren-header .highlight {
+    color: #ff5252; /* ปรับแดงให้สว่างขึ้นในโหมดมืด */
+}
+
+/* Grid Layout */
+.formula-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+@media (max-width: 600px) {
+    .formula-grid { grid-template-columns: 1fr; }
+}
+
+/* การ์ดแต่ละฝั่ง */
+.formula-card {
+    background: var(--bg-main); /* ใช้สีพื้นหลังเว็บ */
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.2s;
+    border: 1px solid var(--border-color);
+}
+.formula-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* ธีมสีแยกฝั่ง */
+.formula-card.money-theme {
+    border-left: 5px solid #fbc02d;
+}
+.formula-card.time-theme {
+    border-left: 5px solid #1976d2;
+}
+
+/* ปรับสีพื้นหลังการ์ดในโหมดมืดให้อ่านง่าย */
+body.dark-mode .formula-card.money-theme {
+    background: linear-gradient(to right, rgba(251, 192, 45, 0.1), var(--bg-card));
+}
+body.dark-mode .formula-card.time-theme {
+    background: linear-gradient(to right, rgba(25, 118, 210, 0.1), var(--bg-card));
+}
+
+/* หัวข้อในการ์ด */
+.card-title {
+    display: flex; align-items: center;
+    font-size: 1.1rem; font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+.card-icon { font-size: 1.5rem; margin-right: 10px; }
+
+/* รายการ List */
+.luren-list { list-style: none; padding: 0; margin: 0; }
+.luren-list li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: flex; align-items: flex-start;
+}
+.luren-list li span { margin-right: 8px; }
+
+/* ส่วนเปรียบเทียบเวลา (Time Box) */
+.time-comparison {
+    display: flex;
+    align-items: center; justify-content: space-between;
+    background: var(--bg-card);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+}
+.time-box span { display: block; font-size: 0.8rem; color: var(--text-muted); }
+.time-box strong { display: block; font-size: 1.1rem; color: #1976d2; }
+body.dark-mode .time-box strong { color: #64b5f6; }
+
+.vs-badge { font-weight: bold; color: var(--text-muted); font-size: 0.8rem; }
+
+/* Footer สรุป */
+.luren-footer {
+    text-align: center; margin-top: 20px; padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-weight: bold; color: #2e7d32; font-size: 1.05rem;
+}
+body.dark-mode .luren-footer { color: #66bb6a; }
+
+/* =========================================
+   SPECIAL STYLES: STORY 03 (ทำเนียบมังกร)
+   ========================================= */
+
+/* Dragon Card */
+.dragon-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--bg-main); /* ใช้สีพื้นหลังเว็บ */
+    box-shadow: var(--card-shadow);
+    height: 100%;
+    position: relative;
+    border: 1px solid var(--border-color);
+}
+
+.dragon-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    z-index: 10;
+    border-color: var(--accent-color);
+}
+
+.dragon-img-box {
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+}
+
+.dragon-img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.dragon-card:hover .dragon-img { transform: scale(1.1); }
+
+/* Badge ธาตุ */
+.element-badge {
+    position: absolute; top: 10px; right: 10px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border: 2px solid white; z-index: 2;
+}
+
+/* Tag ชื่อเล่น */
+.nickname-tag {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white; padding: 5px 15px;
+    font-size: 0.85rem; font-weight: bold;
+    backdrop-filter: blur(2px);
+}
+
+/* Stat Bars */
+.stat-row { 
+    display: flex; align-items: center; 
+    margin-bottom: 5px; font-size: 0.8rem; 
+    color: var(--text-muted); 
+}
+.stat-label { width: 60px; font-weight: 600; color: var(--text-main); }
+.progress { 
+    flex-grow: 1; height: 6px; 
+    border-radius: 10px; 
+    background-color: var(--border-color); 
+}
+
+/* ชื่อมังกร */
+.dragon-card h5 {
+    color: var(--text-main);
+}
+
+/* --- 🎨 Dragon Themes (ปรับสี Progress bar และ Badge) --- */
+/* Fire */
+.theme-fire .element-badge { background: linear-gradient(135deg, #ff9966, #ff5e62); }
+.theme-fire .progress-bar { background-color: #ff5e62; }
+.theme-fire h5 { color: #ff5e62; }
+
+/* Ice */
+.theme-ice .element-badge { background: linear-gradient(135deg, #89f7fe, #66a6ff); }
+.theme-ice .progress-bar { background-color: #0984e3; }
+.theme-ice h5 { color: #0984e3; }
+
+/* Dark */
+.theme-dark .element-badge { background: linear-gradient(135deg, #434343, #000000); }
+.theme-dark .progress-bar { background-color: #2d3436; }
+.theme-dark h5 { color: #2d3436; }
+body.dark-mode .theme-dark h5 { color: #a4b0be; } /* ปรับสีชื่อมังกรดำในโหมดมืด */
+
+/* Star */
+.theme-star .element-badge { background: linear-gradient(135deg, #654ea3, #eaafc8); }
+.theme-star .progress-bar { background-color: #6c5ce7; }
+.theme-star h5 { color: #6c5ce7; }
+
+/* Life */
+.theme-life .element-badge { background: linear-gradient(135deg, #11998e, #38ef7d); }
+.theme-life .progress-bar { background-color: #00b894; }
+.theme-life h5 { color: #00b894; }
+
+/* Rotten */
+.theme-rotten .element-badge { background: linear-gradient(135deg, #606c88, #3f4c6b); }
+.theme-rotten .progress-bar { background-color: #636e72; }
+.theme-rotten h5 { color: #636e72; }
+body.dark-mode .theme-rotten h5 { color: #b2bec3; }
+
+
+/* =========================================
+   SPECIAL STYLES: STORY 04 (ระบบลูกดก)
+   ========================================= */
+
+/* --- Hook Quote Box (คำคมเปิดเรื่อง) --- */
+.hook-box {
+    background: var(--intro-bg);
+    border-left: 6px solid #d63384;
+    padding: 30px 40px;
+    position: relative;
+    box-shadow: var(--card-shadow);
+    border-radius: 8px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    border: 1px solid var(--border-color);
+}
+.hook-box:hover { transform: scale(1.01); }
+
+/* เครื่องหมายคำพูดพื้นหลัง */
+.hook-box::before {
+    content: '“';
+    position: absolute; top: -40px; left: 10px;
+    font-size: 10rem;
+    color: rgba(214, 51, 132, 0.1); /* ปรับให้เห็นชัดขึ้นนิดนึง */
+    font-family: serif; line-height: 1; pointer-events: none;
+}
+
+.hook-text {
+    font-size: 1.35rem; font-weight: 500;
+    line-height: 1.7; color: var(--text-main);
+    position: relative; z-index: 1; font-style: italic;
+}
+
+/* ไฮไลท์คำใน Quote */
+.hook-highlight-war {
+    color: #dc3545; font-weight: 800;
+    background: rgba(220, 53, 69, 0.1); padding: 0 6px;
+}
+.hook-highlight-heaven {
+    color: #b45309; font-weight: 800;
+    background: rgba(251, 191, 36, 0.2); padding: 0 6px;
+}
+/* ปรับไฮไลท์ใน Dark Mode */
+body.dark-mode .hook-highlight-war { color: #ff6b6b; background: rgba(255, 107, 107, 0.15); }
+body.dark-mode .hook-highlight-heaven { color: #ffd54f; background: rgba(255, 213, 79, 0.15); }
+
+/* --- Twins Showcase (ทำเนียบทายาท) --- */
+.twins-showcase {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 25px; padding: 30px 20px;
+    background-color: var(--dialogue-bg); /* เปลี่ยนตามธีม */
+    border-radius: 15px; margin-bottom: 40px;
+    border: 1px solid var(--border-color);
+}
+
+/* การ์ดทายาท (Char Card) */
+.char-card-twin { /* เปลี่ยนชื่อ Class กันซ้ำกับหน้าอื่น */
+    width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    display: flex; flex-direction: column;
+}
+.char-card-twin:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Theme Colors */
+.theme-yin { border-top: 6px solid #7e22ce; }
+.theme-yang { border-top: 6px solid #d97706; }
+.theme-combo { 
+    width: 625px; 
+    border: 2px solid var(--text-main); /* ขอบเปลี่ยนสีตามธีม */
+}
+
+/* Rank Badge */
+.rank-badge {
+    position: absolute; top: 10px; left: 10px;
+    padding: 4px 10px; border-radius: 4px;
+    font-size: 0.75rem; font-weight: bold; text-transform: uppercase;
+}
+.theme-yin .rank-badge { background: #7e22ce; color: white; }
+.theme-yang .rank-badge { background: #d97706; color: white; }
+.theme-combo .rank-badge { background: var(--text-main); color: var(--bg-main); letter-spacing: 2px; }
+
+/* หัวข้อในการ์ด */
+.card-header-twin {
+    padding: 15px; text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+.card-header-twin h2 { margin: 5px 0 0; font-size: 1.5rem; color: var(--text-main); }
+.card-header-twin div { color: var(--text-muted); font-size: 0.9rem; }
+
+.theme-yin h2 { color: #7e22ce; }
+.theme-yang h2 { color: #d97706; }
+.theme-combo h2 { 
+    background: linear-gradient(90deg, #7e22ce, #d97706);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+body.dark-mode .theme-yin h2 { color: #a855f7; }
+body.dark-mode .theme-yang h2 { color: #fbbf24; }
+
+/* รูปภาพ (Placeholder) */
+.char-image-placeholder {
+    width: 100%; height: 350px;
+    background-size: cover; background-position: center;
+    border-bottom: 1px solid var(--border-color);
+}
+.img-yin { background-image: url('images/yunxi.jpg'); }
+.img-yang { background-image: url('images/qingchen.jpg'); }
+.img-combo { background-image: url('images/twins_combo.jpg'); height: 400px; }
+
+/* เนื้อหาการ์ด */
+.card-body-twin {
+    padding: 20px; flex-grow: 1;
+    display: flex; flex-direction: column; gap: 15px;
+}
+
+/* Stat Tags */
+.stat-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.tag {
+    font-size: 0.85rem; padding: 5px 12px; border-radius: 20px;
+    background: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+}
+
+/* Loot Section (ของขวัญ) */
+.loot-section {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px; padding: 15px; margin-top: auto;
+}
+.loot-title {
+    font-size: 0.8rem; color: var(--text-muted);
+    margin-bottom: 10px; text-transform: uppercase; font-weight: 800;
+    border-bottom: 1px solid var(--border-color); padding-bottom: 5px;
+}
+.loot-item {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text-main); font-size: 0.95rem; margin-bottom: 8px; font-weight: 500;
+}
+.highlight-purple { color: #9333ea; font-weight: 800; }
+.highlight-gold { color: #d97706; font-weight: 800; }
+body.dark-mode .highlight-purple { color: #c084fc; }
+body.dark-mode .highlight-gold { color: #fcd34d; }
+
+/* Combo Theme Override */
+.theme-combo .loot-section {
+    background: linear-gradient(135deg, rgba(126, 34, 206, 0.1), rgba(217, 119, 6, 0.1));
+}
+
+@media (max-width: 700px) {
+    .theme-combo { width: 100%; }
+    .img-combo { height: 250px; }
+}
+
+/* =========================================
+   SPECIAL STYLES: STORY 05 (แฟ้มลับเผ่ามาร)
+   ========================================= */
+
+/* Threat Card (การ์ดภัยคุกคาม) */
+.threat-card {
+    border: none;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: var(--card-shadow);
+    background-color: var(--intro-bg); /* พื้นหลังเปลี่ยนตามธีม */
+    border: 1px solid var(--border-color);
+}
+.threat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.threat-level-icon {
+    font-size: 2.5rem; margin-bottom: 15px; display: block;
+}
+
+/* ตราประทับ Danger */
+.top-secret-stamp {
+    position: absolute; top: 15px; right: -30px;
+    background-color: #dc3545; color: white;
+    font-weight: 800; padding: 5px 40px;
+    transform: rotate(45deg); font-size: 0.75rem; letter-spacing: 1px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2); z-index: 10;
+}
+
+/* ธีมสีการ์ดแต่ละระดับ */
+/* 1. มดปลวก (Normal) */
+.threat-normal {
+    background-color: var(--dialogue-bg); /* สีเทาอ่อนๆ ในธีม */
+}
+
+/* 2. ตัวปัญหา (Warning) */
+.threat-warning {
+    background-color: #fff9e6; 
+    border: 1px solid #ffeeba;
+}
+/* Dark Mode: Warning */
+body.dark-mode .threat-warning {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), var(--bg-card));
+    border-color: #ffecb5;
+}
+
+/* 3. หายนะเดินดิน (Danger Zone) */
+.danger-zone {
+    background-color: #fff5f5;
+    background-image: repeating-linear-gradient(
+        45deg, #fff5f5, #fff5f5 10px, #ffebeb 10px, #ffebeb 20px
+    );
+    border: 2px solid #ffc9c9;
+}
+/* Dark Mode: Danger Zone */
+body.dark-mode .danger-zone {
+    background-color: rgba(220, 53, 69, 0.05);
+    background-image: repeating-linear-gradient(
+        45deg, rgba(220, 53, 69, 0.05), rgba(220, 53, 69, 0.05) 10px, 
+        rgba(220, 53, 69, 0.1) 10px, rgba(220, 53, 69, 0.1) 20px
+    );
+    border-color: #ef5350;
+}
+
+/* ข้อความในการ์ด */
+.threat-card h5 { color: var(--text-main); }
+.threat-card p { color: var(--text-muted); }
+.threat-card hr { border-color: var(--border-color); opacity: 0.5; }
+
+/* เฉพาะ Danger Zone ข้อความต้องเด่น */
+.danger-zone h5 { color: #dc3545 !important; }
+.danger-zone .card-text { color: var(--text-main); }
+body.dark-mode .danger-zone h5 { color: #ff6b6b !important; }
+
+/* =========================================
+   SPECIAL STYLES: STORY 06 (จอมเวทต้องสาป)
+   ========================================= */
+
+/* System Alert Box (กล่องแจ้งเตือนวิกฤต) */
+.system-alert-box {
+    background-color: var(--bg-card); /* เปลี่ยนตามธีม */
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.system-alert-header {
+    background-color: #212529; /* สีดำเสมอ (เหมือน Command Prompt) */
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.system-alert-body {
+    padding: 20px;
+    color: var(--text-main);
+}
+
+/* Animation สำหรับป้าย Corrupted */
+@keyframes blinker {
+    50% { opacity: 0.5; }
+}
+.blink-animation {
+    animation: blinker 1.5s linear infinite;
+}
+
+/* Progress Bar Animated */
+@keyframes progress-bar-stripes {
+    from { background-position: 1rem 0; }
+    to { background-position: 0 0; }
+}
+.progress-bar-animated {
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+/* List Group (รายการใน Alert) */
+.list-group-item-transparent {
+    background-color: transparent;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.list-group-item-transparent:last-child {
+    border-bottom: none;
+}
+
+/* ปรับสีข้อความใน Alert */
+.system-alert-body h5 { color: var(--text-main); }
+.system-alert-body .text-secondary { color: var(--text-muted) !important; }
+.system-alert-body .text-dark { color: var(--text-main) !important; }
+
+/* กล่องย่อยใน Alert (Report Box) */
+.report-box {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    height: 100%;
+}
+.report-box h6 {
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* Note Alert Warning */
+.alert-warning-custom {
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+    color: #856404;
+}
+body.dark-mode .alert-warning-custom {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.2);
+    color: #ffda6a;
+}
+body.dark-mode .alert-warning-custom strong,
+body.dark-mode .alert-warning-custom span {
+    color: #ffda6a !important; /* บังคับเปลี่ยนสีข้อความในกล่องเหลือง */
+}
+
+/* =========================================
+   SPECIAL STYLES: STORY 07 (เซียนห้าสำนัก)
+   ========================================= */
+
+/* Feature Box: หลี่เหยียน */
+.leyian-special-feature {
+    width: 100%; max-width: 100%;
+    margin: 30px auto;
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    background: var(--bg-card); /* เปลี่ยนตามธีม */
+    box-sizing: border-box;
+    display: flex; flex-direction: column;
+}
+
+/* Header */
+.leyian-header {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    color: white;
+    padding: 20px; text-align: center;
+}
+.leyian-header h3 { margin: 0; font-size: 1.5rem; color: white; }
+.subtitle { margin: 5px 0 0; opacity: 0.9; font-size: 0.95rem; color: rgba(255,255,255,0.8); }
+
+/* Grid 2 ฝั่ง */
+.formula-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+@media (max-width: 768px) {
+    .formula-grid { grid-template-columns: 1fr; }
+}
+
+/* Theme ฝั่งซ้าย: ภาพลวงตา */
+.illusion-theme {
+    background-color: var(--intro-bg);
+    border-right: 1px dashed var(--border-color);
+    padding: 20px;
+}
+.illusion-theme .card-title { color: #0277bd; }
+body.dark-mode .illusion-theme { background-color: #1e252b; } /* สีมืดอมฟ้า */
+body.dark-mode .illusion-theme .card-title { color: #4fc3f7; }
+
+/* Theme ฝั่งขวา: ความจริง */
+.reality-theme {
+    background-color: #f3e5f5;
+    padding: 20px;
+}
+.reality-theme .card-title { color: #7b1fa2; }
+body.dark-mode .reality-theme { background-color: #2a1b2e; } /* สีมืดอมม่วง */
+body.dark-mode .reality-theme .card-title { color: #ce93d8; }
+
+@media (max-width: 768px) {
+    .illusion-theme { border-right: none; border-bottom: 1px dashed var(--border-color); }
+}
+
+/* รายการ List */
+.leyian-list { list-style: none; padding: 0; margin: 0; }
+.leyian-list li {
+    margin-bottom: 18px;
+    display: flex; align-items: flex-start; gap: 10px;
+    line-height: 1.4; font-size: 1.05rem;
+    color: var(--text-main);
+}
+.leyian-list span { font-size: 1.2rem; min-width: 25px; }
+
+/* Highlight Box (กล่องไฮไลท์ข้อความ) */
+.highlight-box {
+    background: rgba(255,255,255,0.8);
+    padding: 8px; border-radius: 8px;
+    border-left: 3px solid;
+    font-size: 0.9rem;
+    color: #333; /* บังคับสีเข้มในกล่อง */
+}
+body.dark-mode .highlight-box {
+    background: rgba(0,0,0,0.3);
+    color: #e0e0e0;
+}
+
+/* Footer สรุป */
+.leyian-footer {
+    background: var(--dialogue-bg);
+    padding: 15px; text-align: center;
+    border-top: 1px solid var(--border-color);
+    font-weight: bold; color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   SPECIAL STYLES: STORY 08 (เมืองร้าง)
+   ========================================= */
+
+/* Binghu News Module */
+.binghu-news-module {
+    max-width: 100%;
+    margin: 20px auto;
+    background-color: var(--dialogue-bg); /* เปลี่ยนตามธีม */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+}
+
+.binghu-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #ff4757;
+    padding-bottom: 10px;
+}
+.binghu-header h2 {
+    color: #ff4757;
+    font-size: 2rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+.binghu-header span {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* News Grid */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* News Card */
+.news-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+}
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* Tag */
+.news-tag {
+    background-color: #ff4757;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+    margin: 10px 0 0 10px;
+    border-radius: 4px;
+}
+
+/* Content */
+.news-content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.news-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+.news-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+.read-more {
+    display: block;
+    text-align: right;
+    margin-top: auto;
+    color: #1e90ff;
+    text-decoration: none;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+/* --- Modal Styles (หน้าต่างเด้ง) --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; /* ให้สูงกว่า Navbar */
+    left: 0; top: 0; 
+    width: 100%; height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px); /* เบลอหลังให้ดูแพง */
+}
+
+.modal-content {
+    background-color: var(--bg-card); /* เปลี่ยนสีตามธีม */
+    margin: 15% auto; 
+    padding: 30px; 
+    border: 1px solid var(--border-color);
+    width: 90%; 
+    max-width: 500px; 
+    border-radius: 15px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+    animation: modal-pop 0.3s ease-out;
+}
+
+@keyframes modal-pop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close {
+    color: var(--text-muted);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 0.8;
+}
+.close:hover { color: #ff4757; }
+
+/* Modal Text */
+#modalTitle { color: #ff4757; margin-bottom: 15px; }
+#modalDesc { color: var(--text-main); line-height: 1.7; font-size: 1.1rem; }
+
+
+/* =========================================
+   SPECIAL STYLES: STORY 09 (ระบบกฎหมาย)
+   ========================================= */
+
+/* System Wrapper */
+.system-wrapper {
+    /* ตัวแปรสีเฉพาะส่วนนี้ */
+    --sys-bg: #111111;            /* ดำสนิท */
+    --sys-card-bg: #1f1f1f;       /* เทาเข้ม */
+    --sys-card-selected: #2a0a0a; /* แดงเลือดหมูจางๆ */
+    --sys-highlight: #ff3b3b;     /* แดงนีออน */
+    --sys-gold: #ffd700;
+    --sys-text: #ffffff;
+    --sys-muted: #888888;
+    
+    background-color: var(--sys-bg);
+    color: var(--sys-text);
+    font-family: 'Prompt', sans-serif;
+    border-radius: 20px;
+    padding: 50px 20px;
+    margin: 40px 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+/* เส้นนีออนด้านบน */
+.system-wrapper::before {
+    content: "";
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: linear-gradient(90deg, transparent, var(--sys-highlight), transparent);
+    opacity: 0.7;
+}
+
+/* System Header */
+.system-header h2 {
+    color: var(--sys-highlight);
+    font-size: 1.2rem;
+    text-transform: uppercase; letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 59, 59, 0.6);
+}
+.system-header h1 {
+    color: var(--sys-text);
+    font-size: 2rem; margin-bottom: 40px;
+    line-height: 1.4;
+}
+
+/* Choice Cards Container */
+.choices-wrapper {
+    display: flex; gap: 25px;
+    justify-content: center; align-items: stretch;
+    flex-wrap: wrap;
+}
+
+/* Choice Card */
+.choice-card {
+    background: var(--sys-card-bg);
+    border-radius: 16px;
+    padding: 30px 20px;
+    flex: 1; min-width: 260px;
+    position: relative;
+    border: 1px solid #333;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+/* Card: Rejected */
+.choice-card.rejected {
+    opacity: 0.5; transform: scale(0.98);
+    background-color: #1a1a1a;
+}
+.choice-card.rejected:hover {
+    opacity: 0.8; border-color: #555;
+    transform: scale(1);
+}
+
+/* Card: Selected (พระเอก) */
+.choice-card.selected {
+    background: linear-gradient(180deg, var(--sys-card-bg) 0%, var(--sys-card-selected) 100%);
+    border: 2px solid var(--sys-highlight);
+    box-shadow: 0 0 25px rgba(255, 59, 59, 0.3);
+    transform: scale(1.05); z-index: 10;
+}
+
+/* เนื้อหาในการ์ด */
+.card-icon { font-size: 3.5rem; margin-bottom: 10px; display: block; }
+.choice-card h3 {
+    font-size: 1.3rem; margin: 0; color: var(--sys-text);
+}
+.choice-card.selected h3 {
+    color: var(--sys-highlight);
+    text-shadow: 0 0 10px rgba(255, 59, 59, 0.4);
+}
+.choice-card p {
+    color: var(--sys-muted); font-size: 0.95rem; margin: 20px 0;
+    position: relative; z-index: 2;
+}
+
+/* Cross Mark (ตราปั๊ม) */
+.cross-mark {
+    position: absolute; top: 55%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    font-size: 3.5rem; font-weight: 900;
+    text-transform: uppercase; color: #666;
+    opacity: 0.2; border: 5px solid #666;
+    padding: 5px 20px; border-radius: 12px;
+    pointer-events: none; white-space: nowrap; z-index: 0;
+}
+.choice-card.rejected:hover .cross-mark {
+    color: var(--sys-highlight);
+    border-color: var(--sys-highlight);
+    opacity: 1;
+}
+
+/* Rewards Box */
+.rewards {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px; border-radius: 10px;
+    margin-bottom: 20px; text-align: left;
+    border: 1px solid #333;
+}
+.rewards strong {
+    display: block; color: var(--sys-gold);
+    margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase;
+}
+.rewards ul { list-style: none; padding: 0; margin: 0; }
+.rewards li {
+    color: #eee; font-size: 0.9rem; margin-bottom: 5px;
+}
+.rewards li::before { content: "✦"; color: var(--sys-gold); margin-right: 8px; }
+
+/* Action Button */
+.action-btn {
+    background: linear-gradient(45deg, #ff3b3b, #ff0000);
+    color: white; border: none; padding: 15px 30px;
+    font-size: 1.2rem; font-weight: 800; border-radius: 50px;
+    text-decoration: none; display: block; width: 100%;
+    text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+    transition: transform 0.3s;
+}
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.6);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .choice-card.selected { transform: scale(1); order: -1; margin-bottom: 20px; }
+    .system-header h1 { font-size: 1.5rem; }
 }
