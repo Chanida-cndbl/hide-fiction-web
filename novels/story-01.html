@@ -3,635 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบจอมโจรผู้ปล้นชิง</title>
+    <title>ระบบจอมโจรผู้ปล้นชิง - Hide Fiction</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
-	
-	<link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;800&family=Prompt:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <style>
-        body {
-            font-family: 'Sarabun', sans-serif; /* ใช้ฟอนต์สารบัญ อ่านสบายตา */
-            background-color: #f8f9fa; /* พื้นหลังสีเทาอ่อน สบายตา */
-            color: #333;
-        }
-        .novel-cover {
-            width: 100%;
-            max-width: 220px;       /* ⬅️ แก้ตรงนี้: ลดจาก 300px เหลือ 220px */
-            height: auto;           /* ให้ความสูงปรับตามอัตโนมัติ */
-            aspect-ratio: 2 / 3;    /* ⬅️ เพิ่ม: ล็อคสัดส่วนเป็นแนวตั้ง 2:3 เป๊ะๆ */
-            object-fit: cover;      /* ถ้าภาพต้นฉบับสัดส่วนเพี้ยน ให้ตัดขอบออก */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            margin-bottom: 20px;    /* เว้นระยะห่างข้างล่างรูปนิดหน่อย */
-        }
-        .reading-container {
-            background-color: white;
-            padding: 40px;
-            max-width: 800px; /* จำกัดความกว้างเนื้อหา ไม่ให้ยาวจนสายตาล้า */
-            margin: 0 auto; /* จัดกึ่งกลางหน้าจอ */
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-        .chapter-title {
-            color: #d63384; /* สีหัวข้อตอน (ชมพูเข้ม) */
-            margin-top: 30px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        .content-text {
-            font-size: 1.1rem; /* ขนาดตัวหนังสือเนื้อเรื่อง */
-            line-height: 1.8; /* ระยะห่างบรรทัด */
-            text-align: justify; /* จัดชิดขอบซ้ายขวา */
-        }
-        .cta-box {
-            background: linear-gradient(45deg, #d63384, #fd7e14); /* สีไล่ระดับ */
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        .btn-buy {
-            background-color: white;
-            color: #d63384;
-            font-weight: bold;
-            padding: 10px 30px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-        .btn-buy:hover {
-            transform: scale(1.05); /* เด้งขึ้นเล็กน้อยเมื่อเอาเมาส์ชี้ */
-            background-color: #fff0f5;
-            color: #d63384;
-        }
-		
-		/* Hero Section Background */
-        .novel-header-bg {
-            background: linear-gradient(to right, #f8f9fa, #e9ecef); /* ไล่สีพื้นหลังจางๆ */
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        /* รูปปกในหน้า Hero (ให้ใหญ่และมีเงาสวยๆ) */
-        .novel-cover-hero {
-            width: 100%;
-            max-width: 280px; /* ขยายใหญ่ขึ้นนิดนึงจากหน้า Grid */
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25); /* เงาลอยเด่น */
-            transform: rotate(-2deg); /* เอียงนิดๆ ให้ดูเท่ (ถ้าไม่ชอบลบออกได้) */
-            border: 4px solid white;
-            transition: transform 0.3s;
-        }
-        
-        /* ป้ายสถานะบนรูป Hero */
-        .cover-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        .status-badge-hero {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #ff4757;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
-            border: 2px solid white;
-        }
-
-        /* ปุ่มเด้งดึ๋ง */
-        .btn-hover-scale:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
-        }
-		
-.chat-header {
-    text-align: center;      /* จัดกึ่งกลาง */
-    margin-bottom: 20px;     /* เว้นระยะห่างจากกล่องแชท */
-    margin-top: 10px;
-    color: #444;             /* สีตัวอักษรเข้มๆ ให้อ่านง่าย */
-}
-
-.chat-header h3 {
-    display: inline-block;
-    font-size: 1.5em;        /* ขนาดตัวอักษร */
-    font-weight: bold;
-    margin: 0;
-}
-
-.header-icon {
-    font-size: 1.5em;        /* ขนาดไอคอนเท่าตัวหนังสือ */
-    margin-right: 8px;       /* ระยะห่างระหว่างไอคอนกับตัวหนังสือ */
-    vertical-align: middle;  /* จัดให้ไอคอนตรงกับบรรทัด */
-}
-		
-		/* กรอบรวมของส่วนแชท */
-.chat-section {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* ระยะห่างระหว่างข้อความ */
-    padding: 20px;
-    background-color: #f9f9f9; /* สีพื้นหลังให้อ่อนๆ แยกออกจากสีขาวหลักนิดหน่อย */
-    border-radius: 12px;
-}
-
-/* กล่องข้อความแต่ละอัน */
-.chat-message {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    max-width: 100%;
-}
-
-/* สร้างวงกลมสำหรับวาง Emoji */
-.avatar-emoji {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%; /* ทำเป็นวงกลม */
-    display: flex;
-    align-items: center;     /* จัดกึ่งกลางแนวตั้ง */
-    justify-content: center; /* จัดกึ่งกลางแนวนอน */
-    font-size: 28px;         /* ขนาดของ Emoji */
-    flex-shrink: 0;          /* ห้ามไม่ให้วงกลมหดเวลาจอเล็ก */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* เงาบางๆ ให้ดูลอยออกมา */
-    cursor: default;
-}
-
-/* ชื่อคนส่งข้อความ */
-.sender-name {
-    font-size: 0.85em;
-    color: #666;
-    margin-bottom: 4px;
-    margin-left: 5px;
-    font-weight: bold;
-}
-
-/* ตัวกล่องข้อความ (Bubble) */
-.bubble {
-    background-color: #ffffff;
-    padding: 12px 16px;
-    border-radius: 15px;
-    border-top-left-radius: 2px; /* ทำให้มุมซ้ายบนแหลมเหมือนหางบอลลูน */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    font-size: 0.95em;
-    color: #333;
-    line-height: 1.5;
-    position: relative;
-}
-
-/* ตกแต่งเพิ่มสำหรับข้อความฝั่งขวา (เช่น ระบบ หรือ พระเอก) */
-.chat-message.right {
-    flex-direction: row-reverse; /* สลับรูปไปอยู่ขวา */
-    align-self: flex-end; /* ชิดขวา */
-}
-
-.chat-message.right .sender-name {
-    text-align: right;
-    margin-right: 5px;
-}
-
-.chat-message.right .bubble {
-    background-color: #d1e7dd; /* สีเขียวอ่อนๆ ให้ต่างจากคนอื่น */
-    border-radius: 15px;
-    border-top-right-radius: 2px; /* สลับมุมแหลมมาขวา */
-    border-top-left-radius: 15px;
-}
-
-.system-msg {
-    font-family: 'Courier New', Courier, monospace; /* ฟอนต์แบบเครื่องพิมพ์ดีด/คอมพิวเตอร์ */
-    letter-spacing: -0.5px;
-}
-
-/* (Option) ถ้าเป็นข้อความจากระบบ อยากให้ดูเด่น */
-.bubble.system-alert {
-    color: #0f5132;
-    font-family: monospace; /* ให้ดูเหมือน Code คอมพิวเตอร์ */
-    border: 1px dashed #badbcc;
-}
-
-/* กรอบหลักของบทนำ */
-.intro-section {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 25px;
-    margin-top: 30px; /* เว้นห่างจากแชท */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border-left: 5px solid #6f42c1; /* เส้นสีม่วงด้านซ้ายให้ดูขลัง */
-}
-
-.intro-header h3 {
-    margin-top: 0;
-    color: #333;
-    font-size: 1.4em;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
-.intro-content p {
-    line-height: 1.7; /* ระยะห่างบรรทัดทำให้อ่านสบายตา */
-    color: #555;
-    margin-bottom: 15px;
-    font-size: 1em;
-}
-
-/* เน้นชื่อพระเอก */
-.highlight-name {
-    color: #6f42c1;
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-/* กล่องเน้นความขี้งกของระบบ */
-.alert-box {
-    background-color: #fff3cd;
-    border: 1px solid #ffecb5;
-    color: #856404;
-    padding: 10px 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.highlight-red {
-    color: #dc3545;
-    font-weight: bold;
-    font-style: italic;
-}
-
-/* กล่องบทพูด */
-.dialogue-box {
-    background-color: #f8f9fa;
-    border-left: 3px solid #ccc;
-    padding: 10px 15px;
-    margin: 15px 0;
-    font-style: italic;
-    color: #444;
-}
-
-.dialogue-box p {
-    margin-bottom: 5px; /* ลดช่องว่างระหว่างประโยคพูด */
-}
-
-/* คำคมเด็ด (ฆ่าแล้วเผา) */
-.quote-impact {
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #d63384; /* สีชมพูเข้ม/แดงเลือดหมู */
-    margin: 25px 0;
-    font-family: 'Sarabun', sans-serif; /* หรือฟอนต์หัวข้อสวยๆ */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-/* ย่อหน้าปิดท้าย */
-.closing-text {
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-    margin-top: 20px;
-}
-
-#btn-back-to-top {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: none; /* สำคัญ: บรรทัดนี้ต้องมี */
-    /* ...โค้ดสีและขนาดอื่นๆ... */
-}
-
-/* ปุ่มกลับขึ้นบน (Back to Top) */
-#btn-back-to-top {
-    /* ตำแหน่งและการแสดงผล */
-    position: fixed;
-    bottom: 30px;           /* ห่างจากด้านล่าง */
-    right: 30px;            /* ห่างจากด้านขวา */
-    display: none;          /* ซ่อนไว้ก่อน (JavaScript จะมาเปิดให้ทีหลัง) */
-    z-index: 9999;          /* อยู่บนสุดเสมอ */
-    
-    /* ขนาดและรูปร่าง */
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;     /* ทำเป็นวงกลม */
-    border: 2px solid #fff; /* ขอบสีขาวให้ดูมีมิติ */
-    
-    /* สีและพื้นหลัง (Gradient เทาอมทอง หรูหรา) */
-    background: linear-gradient(135deg, #756a62 0%, #b8aca3 100%);
-    color: white;           /* สีลูกศร */
-    font-size: 24px;        /* ขนาดลูกศร */
-    line-height: 50px;      /* จัดลูกศรให้อยู่ตรงกลางแนวตั้ง */
-    text-align: center;     /* จัดลูกศรให้อยู่ตรงกลางแนวนอน */
-    
-    /* เอฟเฟกต์ */
-    cursor: pointer;        /* เมาส์ชี้แล้วเป็นรูปมือ */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* เงาให้ดูลอยๆ */
-    transition: all 0.3s ease; /* การเคลื่อนไหวที่นุ่มนวล */
-}
-
-/* ตอนเอาเมาส์ไปชี้ (Hover) */
-#btn-back-to-top:hover {
-    transform: translateY(-5px); /* ลอยขึ้นนิดนึง */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* เงาเข้มขึ้น */
-    background: linear-gradient(135deg, #8a7d75 0%, #c9bdb4 100%); /* สีสว่างขึ้นนิดหน่อย */
-}
-		
-    </style>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html">⬅️ กลับไปหน้ารวมนิยาย</a>
+    <nav class="navbar navbar-expand-lg fixed-top dashboard-nav">
+        <div class="container-fluid px-lg-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
+                <span class="brand-logo">📚</span>
+                <span class="brand-text">HIDE FICTION</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="d-flex align-items-center gap-3 right-actions ms-auto">
+                    <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-dash-fb">
+                        <span class="me-2">💬</span> ติดตามผู้แปล
+                    </a>
+                    <button id="btn-toggle-theme" class="btn-dash-toggle" title="สลับโหมดมืด/สว่าง">
+                        <span class="icon-sun">☀️</span>
+                        <span class="icon-moon">🌙</span>
+                        <span class="status-text ms-2">เปลี่ยนโหมด</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="novel-header-bg py-5 mb-5">
+    <header class="novel-header-section">
         <div class="container">
             <div class="row align-items-center"> 
                 
                 <div class="col-md-4 col-lg-3 text-center mb-4 mb-md-0">
                     <div class="cover-wrapper">
-                        <img src="../images/cover-story-01.jpg" class="novel-cover-hero" alt="ปกนิยาย">
-                        
                         <span class="status-badge-hero badge-ongoing">กำลังแปล</span>
+                        <img src="../images/cover-story-01.jpg" class="novel-cover-hero" alt="ปกนิยาย">
                     </div>
                 </div>
                 
                 <div class="col-md-8 col-lg-9">
-                    <div class="novel-info ps-md-4">
+                    <div class="novel-info ps-md-4 text-center text-md-start">
                         
                         <div class="mb-3">
                             <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">กำลังภายใน</span>
                             <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3">ระบบ</span>
                         </div>
 
-                        <h1 class="display-5 fw-bold mb-4 text-dark">ระบบจอมโจรผู้ปล้นชิง</h1>
+                        <h1 class="display-5 fw-bold mb-4 novel-main-title">ระบบจอมโจรผู้ปล้นชิง</h1>
                         
-                        <hr class="w-25 text-secondary mb-4" style="height: 3px; opacity: 0.2;">
-
-                        <div class="synopsis-box mb-5">
-                            <p class="text-secondary fs-5" style="line-height: 1.8;">
-                                ชายหนุ่มหลุดเข้าไปในโลกแห่งเซียนที่เต็มไปด้วยอันตรายและความลี้ลับ หลังจากอดทนผ่านวันคืนอันยากลำบากมานานถึงสามปี เขาก็ปลุกระบบพิเศษที่ซ่อนอยู่ในตัวขึ้นมาได้ แต่ระบบนี้กลับไม่เป็นไปตามที่คาดหวัง…
+                        <div class="synopsis-box mb-4">
+                            <p class="text-muted fs-5" style="line-height: 1.8;">
+                                ชายหนุ่มหลุดเข้าไปในโลกแห่งเซียนที่เต็มไปด้วยอันตราย หลังจากอดทนผ่านวันคืนอันยากลำบากมานานถึงสามปี เขาก็ปลุกระบบพิเศษที่ซ่อนอยู่ในตัวขึ้นมาได้ แต่ระบบนี้กลับไม่เป็นไปตามที่คาดหวัง…
                             </p>
                         </div>
 
-                        <div class="d-flex gap-3 flex-wrap">
-                            
-                            <a href="https://s.hidetr.work/hf02f" target="_blank" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
+                        <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-md-start">
+                            <a href="#read-area" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
                                 🔥 อ่านฉบับเต็ม
                             </a>
-
                             <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-2">
                                 👍 ติดตามเพจแปล
                             </a>
-
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
     <div class="container mb-5" id="info-area">
     
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4 border-start border-5 border-danger">
-        <h4 class="fw-bold mb-3">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
-        <p class="fs-5 text-secondary">
-            "เรื่องนี้ไม่ใช่แนวระบบดาดๆ ทั่วไป แต่พระเอกของเราคือ 'จอมโจร' ที่ปล้นได้ทุกอย่าง! 
-            ความสนุกคือการได้เห็นพระเอกไปปั่นหัวพวกตัวร้าย แย่งวิชา แย่งอาวุธ แม้แต่อายุขัย 
-            ใครชอบแนวพระเอกฉลาด เจ้าเล่ห์ และไม่ยอมคน เรื่องนี้ตอบโจทย์แน่นอน!"
-        </p>
-        <div class="d-flex gap-2 mt-3">
-            <span class="badge bg-secondary">พระเอกฉลาด</span>
-            <span class="badge bg-secondary">เทพทรู</span>
-            <span class="badge bg-secondary">สายฮา</span>
+        <div class="content-box border-start border-5 border-danger">
+            <h4 class="fw-bold mb-3 section-title">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
+            <p class="fs-5 text-muted">
+                "เรื่องนี้ไม่ใช่แนวระบบดาดๆ ทั่วไป แต่พระเอกของเราคือ 'จอมโจร' ที่ปล้นได้ทุกอย่าง! 
+                ความสนุกคือการได้เห็นพระเอกไปปั่นหัวพวกตัวร้าย แย่งวิชา แย่งอาวุธ แม้แต่อายุขัย 
+                ใครชอบแนวพระเอกฉลาด เจ้าเล่ห์ และไม่ยอมคน เรื่องนี้ตอบโจทย์แน่นอน!"
+            </p>
+            <div class="d-flex gap-2 mt-3">
+                <span class="badge bg-secondary">พระเอกฉลาด</span>
+                <span class="badge bg-secondary">เทพทรู</span>
+                <span class="badge bg-secondary">สายฮา</span>
+            </div>
         </div>
-    </div>
-	
-	<div class="chat-header">
-		<h3>💬 เบื้องหลังความเทพ (ที่ระบบไม่เคยแจกฟรี)</h3>
-	</div>
-
-    <div class="chat-section">
     
-    <div class="chat-message right">
-        <div class="avatar-emoji" style="background-color: #6f42c1; color: white;">
-            😈
-        </div>
-        <div class="bubble-container">
-            <div class="sender-name">โจวหยวน</div>
-            <div class="bubble">
-                "ระบบ! ขอพลังเซียนหมื่นปี!"
+        <div class="content-box">
+            <div class="chat-header">
+                <h3 class="section-title justify-content-center">💬 เบื้องหลังความเทพ</h3>
             </div>
-        </div>
-    </div>
 
-    <div class="chat-message left">
-        <div class="avatar-emoji" style="background-color: #e9ecef;">
-            🤖
-        </div>
-        <div class="bubble-container">
-            <div class="sender-name">ระบบจอมโจร</div>
-            <div class="bubble system-msg">
-                [ขออภัย ระบบนี้ไม่มี]
-            </div>
-        </div>
-    </div>
-
-    <div class="chat-message right">
-        <div class="avatar-emoji" style="background-color: #6f42c1; color: white;">
-            😈
-        </div>
-        <div class="bubble-container">
-            <div class="sender-name">โจวหยวน</div>
-            <div class="bubble">
-                "งั้นขออาวุธระดับจักรพรรดิ!"
-            </div>
-        </div>
-    </div>
-
-    <div class="chat-message left">
-        <div class="avatar-emoji" style="background-color: #e9ecef;">
-            🤖
-        </div>
-        <div class="bubble-container">
-            <div class="sender-name">ระบบจอมโจร</div>
-            <div class="bubble system-msg">
-                [ขออภัย ระบบนี้ไม่มี]
-            </div>
-        </div>
-    </div>
-
-    <div class="chat-message right">
-        <div class="avatar-emoji" style="background-color: #dc3545; color: white;">
-            🤬
-        </div>
-        <div class="bubble-container">
-            <div class="sender-name">โจวหยวน</div>
-            <div class="bubble">
-                "ไอ้ระบบเฮงซวย! แกมีอะไรดีบ้างวะเนี่ย!?"
-            </div>
-        </div>
-    </div>
-
-    <div class="chat-message left">
-        <div class="avatar-emoji" style="background-color: #e9ecef;">
-            🤖
-        </div>
-        <div class="bubble-container">
-            <div class="sender-name">ระบบจอมโจร</div>
-            <div class="bubble system-msg">
-                [นายท่าน ระบบนี้คือ 'จอมโจรสะท้านฟ้า'... อยากได้อะไร ก็ไปแย่งเอาสิ!]
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="intro-section">
-    <div class="intro-header">
-        <h3>📜 ปฐมบท: เส้นทางสู่ราชันย์แห่งการปล้น</h3>
-    </div>
-    
-    <div class="intro-content">
-        <p>
-            นี่คือชะตากรรมของ <span class="highlight-name">โจวหยวน</span> ชายหนุ่มผู้ทะลุมิติมาพร้อมความฝันอันยิ่งใหญ่ 
-            แต่กลับเริ่มต้นด้วยการถูกหลอกไปเป็นศิษย์สำนักร้างบนยอดเขา สามปีที่ต้องทนทุกข์ แลกมาด้วยการปลุกระบบที่ชื่อฟังดูเท่ว่า 
-            <strong>"จอมโจรสะท้านฟ้า"</strong>
-        </p>
-
-        <div class="alert-box">
-            <span class="icon">⚠️</span>
-            <strong>แต่ระบบนี้มันขี้งก!</strong> ไม่แจกอะไรสักอย่าง นอกจากความสามารถเดียวคือ... 
-            <span class="highlight-red">"การช่วงชิง"</span>
-        </div>
-
-        <p>
-            โชคลาภ วาสนา รากวิญญาณ หรือแม้กระทั่ง <strong>"อายุขัย"</strong> ของผู้อื่น ทั้งหมดล้วนกลายเป็นของเขาได้ เพียงแค่ลงมือ!
-        </p>
-
-        <div class="dialogue-box">
-            <p><em>"ท่านเป็นอัจฉริยะร้อยปีจะมีสักคนงั้นรึ? ดีเลย ข้าขอยืมพรสวรรค์หน่อย!"</em></p>
-            <p><em>"ท่านเป็นยอดฝีมืออายุขัยใกล้หมด? ไม่ต้องห่วง เดี๋ยวข้าส่งท่านไปสบาย แล้วขอรับอายุขัยที่เหลือมาเอง!"</em></p>
-        </div>
-
-        <p>
-            ด้วยทักษะ <strong>"เคล็ดพันหน้า"</strong> ที่เปลี่ยนโฉมได้ดั่งใจ และนิสัยที่ระมัดระวังตัวถึงขีดสุด...
-        </p>
-
-        <div class="quote-impact">
-            "ฆ่าแล้วต้องเผา เผาแล้วต้องโปรยเถ้า!"
-        </div>
-
-        <p class="closing-text">
-            โจวหยวนจะพลิกผันจากศิษย์สำนักร้าง สู่จอมโจรผู้เป็นฝันร้ายของเหล่าเซียนทั่วหล้า!
-        </p>
-    </div>
-</div>
-
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
-        <h4 class="fw-bold mb-4 text-center border-bottom pb-2">👤 ตัวละครหลัก</h4>
-        
-        <div class="row align-items-center">
-            <div class="col-md-4 text-center mb-4 mb-md-0">
-                <div class="position-relative d-inline-block">
-                    <img src="../images/char-01.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 320px; height: 320px; object-fit: cover;"" alt="โจวหยวน">
-                    
-                    
+            <div class="chat-section">
+                <div class="chat-message right">
+                    <div class="avatar-emoji" style="background-color: #6f42c1; color: white;">😈</div>
+                    <div class="bubble-container">
+                        <div class="sender-name">โจวหยวน</div>
+                        <div class="bubble">"ระบบ! ขอพลังเซียนหมื่นปี!"</div>
+                    </div>
                 </div>
+                <div class="chat-message left">
+                    <div class="avatar-emoji" style="background-color: #e9ecef;">🤖</div>
+                    <div class="bubble-container">
+                        <div class="sender-name">ระบบจอมโจร</div>
+                        <div class="bubble system-msg">[ขออภัย ระบบนี้ไม่มี]</div>
+                    </div>
+                </div>
+                <div class="chat-message right">
+                    <div class="avatar-emoji" style="background-color: #dc3545; color: white;">🤬</div>
+                    <div class="bubble-container">
+                        <div class="sender-name">โจวหยวน</div>
+                        <div class="bubble">"ไอ้ระบบเฮงซวย! แกมีอะไรดีบ้างวะเนี่ย!?"</div>
+                    </div>
+                </div>
+                <div class="chat-message left">
+                    <div class="avatar-emoji" style="background-color: #e9ecef;">🤖</div>
+                    <div class="bubble-container">
+                        <div class="sender-name">ระบบจอมโจร</div>
+                        <div class="bubble system-msg">[นายท่าน ระบบนี้คือ 'จอมโจรสะท้านฟ้า'... อยากได้อะไร ก็ไปแย่งเอาสิ!]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <div class="intro-header">
+                <h3>📜 ปฐมบท: เส้นทางสู่ราชันย์แห่งการปล้น</h3>
             </div>
             
-            <div class="col-md-8">
-                <h2 class="fw-bold text-dark mb-1">โจวหยวน <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
-                <p class="text-primary fw-bold mb-3">ฉายา: จอมโจรสะท้านฟ้า</p>
-
-                <div class="mb-3">
-                    <span class="badge bg-dark me-1">💀 ลงมืออำมหิต</span>
-                    <span class="badge bg-warning text-dark me-1">💰 งกเงินเป็นที่หนึ่ง</span>
-                    <span class="badge bg-info text-dark me-1">🧠 ฉลาดแกมโกง</span>
-                    <span class="badge bg-success me-1">🎭 การแสดงระดับออสการ์</span>
-                </div>
-
-                <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
-                    <p class="mb-0 fst-italic text-secondary">
-                        "ทำไมต้องฝึกบำเพ็ญเพียรให้เหนื่อยเปล่า? ในเมื่อข้าสามารถ <strong>'ปล้น'</strong> พลังตบะของคนอื่นมาเป็นของตัวเองได้!"
-                    </p>
-                </div>
-
-                <h5 class="fw-bold mt-3">นิสัยส่วนตัว:</h5>
-                <p class="text-secondary" style="line-height: 1.7;">
-                    ชายหนุ่มผู้ทะลุมิติมาพร้อมกับความ <strong>"หน้าหนา"</strong> ไร้เทียมทาน! ภายนอกดูเป็นศิษย์สำนักที่อ่อนแอไร้พิษสง แต่ภายในซ่อนเขี้ยวเล็บของจอมวางแผน
-                    <br><br>
-                    เขาถือคติ <em>"ใครดีมาดีตอบ ใครร้ายมา... ปล้นให้หมดตัวยันกางเกงใน!"</em> ไม่ยึดติดกับคุณธรรมจอมปลอม เน้นผลประโยชน์และความอยู่รอดเป็นหลัก ใครชอบพระเอกสายดาร์กที่ไม่งี่เง่า เรื่องนี้คือคำตอบ!
+            <div class="intro-content">
+                <p>
+                    นี่คือชะตากรรมของ <span class="highlight-name">โจวหยวน</span> ชายหนุ่มผู้ทะลุมิติมาพร้อมความฝันอันยิ่งใหญ่ 
+                    แต่กลับเริ่มต้นด้วยการถูกหลอกไปเป็นศิษย์สำนักร้างบนยอดเขา
                 </p>
+
+                <div class="alert-box">
+                    <span class="icon">⚠️</span>
+                    <strong>แต่ระบบนี้มันขี้งก!</strong> ไม่แจกอะไรสักอย่าง นอกจากความสามารถเดียวคือ... 
+                    <span class="highlight-red">"การช่วงชิง"</span>
+                </div>
+
+                <div class="dialogue-box">
+					<p><em>"ท่านเป็นอัจฉริยะร้อยปีจะมีสักคนงั้นรึ? ดีเลย ข้าขอยืมพรสวรรค์หน่อย!"</em></p>
+					<p><em>"ท่านเป็นยอดฝีมืออายุขัยใกล้หมด? ไม่ต้องห่วง เดี๋ยวข้าส่งท่านไปสบาย แล้วขอรับอายุขัยที่เหลือมาเอง!"</em></p>
+				</div>
+
+                <div class="quote-impact">
+                    "ฆ่าแล้วต้องเผา เผาแล้วต้องโปรยเถ้า!"
+                </div>
             </div>
         </div>
 
-        <hr class="my-4 text-secondary" style="opacity: 0.1;">
-        
-        <div class="row g-3">
-            <div class="col-12">
-                <div class="p-3 border border-dashed rounded-3 text-center bg-light">
-                    <h5 class="fw-bold text-muted mb-1">นางเอก... คู่หู... ศัตรูคู่อาฆาต... ❓</h5>
-                    <p class="small text-secondary mb-0">
-                        ในยุทธภพนี้ มิตรแท้และศัตรูถาวรแยกแยะยาก... ไปร่วมค้นพบตัวละครอื่นๆ ด้วยตัวคุณเองในเนื้อเรื่อง!
+        <div class="content-box mt-4">
+            <h4 class="fw-bold mb-4 text-center border-bottom pb-2 section-title justify-content-center">👤 ตัวละครหลัก</h4>
+            
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+                    <img src="../images/char-01.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 250px; height: 250px; object-fit: cover;" alt="โจวหยวน">
+                </div>
+                
+                <div class="col-md-8">
+                    <h2 class="fw-bold novel-main-title mb-1">โจวหยวน <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
+                    <p class="text-primary fw-bold mb-3">ฉายา: จอมโจรสะท้านฟ้า</p>
+
+                    <div class="mb-3">
+                        <span class="badge bg-dark me-1">💀 ลงมืออำมหิต</span>
+                        <span class="badge bg-warning text-dark me-1">💰 งกเงินเป็นที่หนึ่ง</span>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
+                        <p class="mb-0 fst-italic text-secondary">
+                            "ทำไมต้องฝึกบำเพ็ญเพียรให้เหนื่อยเปล่า? ในเมื่อข้าสามารถ <strong>'ปล้น'</strong> พลังตบะของคนอื่นมาเป็นของตัวเองได้!"
+                        </p>
+                    </div>
+
+                    <h5 class="fw-bold mt-3 section-title">นิสัยส่วนตัว:</h5>
+                    <p class="text-muted" style="line-height: 1.7;">
+                        ชายหนุ่มผู้ทะลุมิติมาพร้อมกับความ <strong>"หน้าหนา"</strong> ไร้เทียมทาน! เขาถือคติ <em>"ใครดีมาดีตอบ ใครร้ายมา... ปล้นให้หมดตัวยันกางเกงใน!"</em>
                     </p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="mt-5 pt-4 text-center">
-        <h3 class="fw-bold mb-4">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
-        
-        <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 500px;">
+        <div class="mt-5 pt-4 text-center" id="read-area">
+            <h3 class="fw-bold mb-4 section-title justify-content-center">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
             
-            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
-                <div class="text-start">
-                    <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
-                    <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
-                </div>
-                <span class="fs-4">🚀</span>
-            </a>
+            <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 600px;">
+                
+                <a href="#" target="_blank" class="read-link-item">
+                    <div class="text-start">
+                        <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
+                        <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
+                    </div>
+                    <span class="fs-4">🚀</span>
+                </a>
 
-            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
-                <div class="text-start">
-                    <h5 class="fw-bold text-success mb-0">NovelKingdom</h5>
-                    <small class="text-muted">โปรโมชั่นเยอะ • 1 บาท/ตอน</small>
-                </div>
-                <span class="fs-4">👑</span>
-            </a>
+                <a href="#" target="_blank" class="read-link-item">
+                    <div class="text-start">
+                        <h5 class="fw-bold text-success mb-0">NovelKingdom</h5>
+                        <small class="text-muted">โปรโมชั่นเยอะ • 1 บาท/ตอน</small>
+                    </div>
+                    <span class="fs-4">👑</span>
+                </a>
 
-            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
-                <div class="text-start">
-                    <h5 class="fw-bold text-dark mb-0">ReadRealm</h5>
-                    <small class="text-muted">สายประหยัด • 1 บาท/ตอน</small>
-                </div>
-                <span class="fs-4">📚</span>
-            </a>
-            
+                <a href="#" target="_blank" class="read-link-item">
+                    <div class="text-start">
+                        <h5 class="fw-bold text-dark mb-0">ReadRealm</h5>
+                        <small class="text-muted">สายประหยัด • 1 บาท/ตอน</small>
+                    </div>
+                    <span class="fs-4">📚</span>
+                </a>
+                
+            </div>
         </div>
+
     </div>
 
-</div>
-
-    <footer class="text-center py-4 mt-5 text-muted border-top">
-        <p>© 2024 Hide Fiction. All rights reserved.</p>
+    <footer class="text-center py-4 mt-5 text-muted border-top bg-dark text-white">
+        <p class="mb-0">© 2024 Hide Fiction. All rights reserved.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-	<button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
-		<script src="../main.js"></script>
+    <button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
+    
+    <script src="../main.js"></script>
 
 </body>
 </html>

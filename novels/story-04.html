@@ -3,341 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบลูกดกไร้พ่าย</title>
+    <title>ระบบลูกดกไร้พ่าย - Hide Fiction</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-	<link rel="stylesheet" href="../style.css">
-	
-    <style>
-        /* --- Global Styles --- */
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
-        /* --- Hero Section & Cover --- */
-        .novel-header-bg {
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .novel-cover-hero {
-            width: 100%;
-            max-width: 280px;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            transform: rotate(-2deg);
-            border: 4px solid white;
-            transition: transform 0.3s;
-        }
-
-        .cover-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .status-badge-hero {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #ff4757;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
-            border: 2px solid white;
-        }
-
-        /* ปุ่มเด้ง */
-        .btn-hover-scale:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
-        }
-
-        /* --- Hook Quote Box (ส่วนใหม่ที่เพิ่มเข้ามา) --- */
-        .hook-box {
-            background: #ffffff;
-            border-left: 6px solid #d63384; /* สีธีมแดงชมพู */
-            padding: 30px 40px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border-radius: 8px;
-            margin-bottom: 40px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-        
-        .hook-box:hover {
-            transform: scale(1.01);
-        }
-
-        /* เครื่องหมายคำพูดใหญ่เป็นพื้นหลัง */
-        .hook-box::before {
-            content: '“';
-            position: absolute;
-            top: -40px;
-            left: 10px;
-            font-size: 10rem;
-            color: rgba(214, 51, 132, 0.05); /* สีจางๆ */
-            font-family: serif;
-            line-height: 1;
-            pointer-events: none;
-        }
-
-        .hook-text {
-            font-size: 1.35rem;
-            font-weight: 500;
-            line-height: 1.7;
-            color: #444;
-            position: relative;
-            z-index: 1;
-            font-style: italic;
-        }
-
-        /* ไฮไลท์คำสำคัญ */
-        .hook-highlight-war {
-            color: #dc3545;
-            font-weight: 800;
-            background: rgba(220, 53, 69, 0.1);
-            padding: 0 6px;
-        }
-        .hook-highlight-heaven {
-            color: #b45309; /* สีทองเข้ม */
-            font-weight: 800;
-            background: rgba(251, 191, 36, 0.2);
-            padding: 0 6px;
-        }
-
-        .hook-cta {
-            font-weight: 700;
-            color: #d63384;
-            margin-top: 20px;
-            display: block;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- Twins Module CSS --- */
-        .twins-showcase {
-            font-family: 'Sarabun', sans-serif;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            padding: 30px 20px;
-            background-color: #f0f2f5; 
-            border-radius: 15px;
-            margin-bottom: 40px; 
-        }
-
-        .char-card {
-            width: 300px;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            border: 1px solid #dcdcdc;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            color: #000000;
-        }
-
-        .char-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-            border-color: #000;
-        }
-
-        /* Theme Yin */
-        .theme-yin { border-top: 6px solid #7e22ce; }
-        .theme-yin .rank-badge { background: #7e22ce; color: white; }
-        .theme-yin h2 { color: #581c87; }
-
-        /* Theme Yang */
-        .theme-yang { border-top: 6px solid #d97706; }
-        .theme-yang .rank-badge { background: #d97706; color: white; }
-        .theme-yang h2 { color: #78350f; }
-
-        /* Theme Combo */
-        .theme-combo {
-            width: 625px;
-            background: #ffffff;
-            border: 2px solid #333;
-            position: relative;
-        }
-        .theme-combo .rank-badge { 
-            background: #000000; 
-            letter-spacing: 2px;
-            padding: 5px 15px;
-            color: white;
-        }
-        .theme-combo h2 { 
-            background: linear-gradient(90deg, #4c1d95, #b45309);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            font-size: 1.8rem;
-        }
-
-        .card-header {
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            border-bottom: 1px solid #eee;
-        }
-
-        .card-header div {
-            color: #444444 !important; 
-            font-weight: 500;
-            font-size: 0.95rem;
-            margin-top: 5px;
-        }
-
-        .rank-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .char-image-placeholder {
-            width: 100%;
-            height: 350px;
-            background-color: #eee;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            border-bottom: 1px solid #eee;
-        }
-        
-        /* URL รูปภาพ */
-        .img-yin { background-image: url('../images/yunxi.jpg'); } 
-        .img-yang { background-image: url('../images/qingchen.jpg'); }
-        .img-combo { background-image: url('../images/twins_combo.jpg'); height: 400px; }
-
-        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; gap: 15px; }
-
-        .stat-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-        .tag {
-            font-size: 0.85rem; padding: 5px 12px; border-radius: 20px;
-            background: #e5e7eb; 
-            color: #000000;
-            border: 1px solid #9ca3af;
-            font-weight: 600;
-        }
-
-        .loot-section {
-            background: #f3f4f6; 
-            border: 1px solid #d1d5db;
-            border-radius: 8px; padding: 15px;
-            margin-top: auto;
-        }
-        .loot-title {
-            font-size: 0.8rem; 
-            color: #000000;
-            margin-bottom: 10px;
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            font-weight: 800;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
-        .loot-item {
-            display: flex; align-items: center; gap: 10px; 
-            color: #000000;
-            font-size: 0.95rem; margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .loot-icon { font-size: 1.2rem; }
-        
-        .highlight-purple { color: #6b21a8; font-weight: 800; }
-        .highlight-gold { color: #b45309; font-weight: 800; }
-
-        .theme-combo .loot-section div,
-        .theme-combo .loot-section span {
-            color: #000000 !important;
-        }
-
-        @media (max-width: 700px) {
-            .theme-combo { width: 300px; }
-            .img-combo { height: 250px; }
-        }
-    </style>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html">⬅️ กลับไปหน้ารวมนิยาย</a>
+    <nav class="navbar navbar-expand-lg fixed-top dashboard-nav">
+        <div class="container-fluid px-lg-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
+                <span class="brand-logo">📚</span>
+                <span class="brand-text">HIDE FICTION</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="d-flex align-items-center gap-3 right-actions ms-auto">
+                    <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-dash-fb">
+                        <span class="me-2">💬</span> ติดตามผู้แปล
+                    </a>
+                    <button id="btn-toggle-theme" class="btn-dash-toggle" title="สลับโหมด">
+                        <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="novel-header-bg py-5 mb-5">
+    <header class="novel-header-section">
         <div class="container">
             <div class="row align-items-center"> 
-                
                 <div class="col-md-4 col-lg-3 text-center mb-4 mb-md-0">
                     <div class="cover-wrapper">
-                        <img src="../images/cover-story-04.jpg" class="novel-cover-hero" alt="ปกนิยาย">
                         <span class="status-badge-hero badge-ongoing">กำลังแปล</span>
+                        <img src="../images/cover-story-04.jpg" class="novel-cover-hero" alt="ปกนิยาย">
                     </div>
                 </div>
-                
                 <div class="col-md-8 col-lg-9">
-                    <div class="novel-info ps-md-4">
-                        
+                    <div class="novel-info ps-md-4 text-center text-md-start">
                         <div class="mb-3">
                             <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">กำลังภายใน</span>
                             <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3">แฟนตาซี</span>
                         </div>
-
-                        <h1 class="display-5 fw-bold mb-4 text-dark">ระบบลูกดกไร้พ่าย</h1>
-                        
-                        <hr class="w-25 text-secondary mb-4" style="height: 3px; opacity: 0.2;">
-
-                        <div class="synopsis-box mb-5">
-                            <p class="text-secondary fs-5" style="line-height: 1.8;">
+                        <h1 class="display-5 fw-bold mb-4 novel-main-title">ระบบลูกดกไร้พ่าย</h1>
+                        <div class="synopsis-box mb-4">
+                            <p class="text-muted fs-5" style="line-height: 1.8;">
                                 จากเด็กหนุ่มผู้ไร้พลังสู่บิดาของเหล่าอัจฉริยะ... กู้ฉางชิงพร้อมสร้างครอบครัวที่โลกต้องจารึก!
                             </p>
                         </div>
-
-                        <div class="d-flex gap-3 flex-wrap">
-                            <a href="https://s.hidetr.work/hf02e" target="_blank" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
+                        <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-md-start">
+                            <a href="#read-area" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
                                 🔥 อ่านฉบับเต็ม
                             </a>
                             <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-2">
                                 👍 ติดตามเพจแปล
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="container mb-5" id="info-area">
+    <div class="container my-5" id="info-area">
 
-        <div class="bg-white p-4 rounded-3 shadow-sm mb-5 border-start border-5 border-danger">
-            <h4 class="fw-bold mb-3">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
-            <p class="fs-5 text-secondary">
+        <div class="content-box border-start border-5 border-danger">
+            <h4 class="fw-bold mb-3 section-title">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
+            <p class="fs-5 text-muted">
                 แนวคิดแปลกใหม่ ที่การมีทายาทส่งผลโดยตรงต่อการเพิ่มพลังและการพัฒนาตัวละคร เรื่องราวที่เต็มไปด้วยสายสัมพันธ์ของครอบครัวและการรวมพลังของลูกหลาน ตัวเอกเก่งรอบด้าน ชาญฉลาดในการวางแผนและสร้างเครือข่ายอำนาจ ลูกหลานที่เกิดจากเขามีทั้งพรสวรรค์ที่ยากจะหาใครเปรียบ และมักกลายเป็นกุญแจสำคัญในภารกิจต่าง ๆ
             </p>
             <div class="d-flex gap-2 mt-3">
@@ -348,20 +84,20 @@
         </div>
 
         <div class="text-center mb-4">
-            <h3 class="fw-bold text-dark" style="letter-spacing: 1px;">👶 ทำเนียบทายาทอัจฉริยะ</h3>
+            <h3 class="fw-bold novel-main-title" style="letter-spacing: 1px;">👶 ทำเนียบทายาทอัจฉริยะ</h3>
             <p class="text-muted">เมื่อระบบมอบ "ของขวัญโกงระดับเทพ" ให้ลูกหลาน... ความมันส์จึงบังเกิด!</p>
         </div>
 
         <div class="twins-showcase shadow-sm">
             
-            <div class="char-card theme-yin">
-                <div class="card-header">
+            <div class="char-card-twin theme-yin">
+                <div class="card-header-twin">
                     <span class="rank-badge">แฝดพี่</span>
                     <h2>กู้หยุนซี</h2>
-                    <div style="color: #bbb; font-size: 0.9rem;">จักรพรรดินีน้ำแข็งน้อย</div>
+                    <div>จักรพรรดินีน้ำแข็งน้อย</div>
                 </div>
                 <div class="char-image-placeholder img-yin"></div>
-                <div class="card-body">
+                <div class="card-body-twin">
                     <div class="stat-tags">
                         <span class="tag">🟣 กายาไท่อิน</span>
                         <span class="tag">🌙 เงาจักรพรรดินี</span>
@@ -380,14 +116,14 @@
                 </div>
             </div>
 
-            <div class="char-card theme-yang">
-                <div class="card-header">
+            <div class="char-card-twin theme-yang">
+                <div class="card-header-twin">
                     <span class="rank-badge">แฝดน้อง</span>
                     <h2>กู้ชิงเฉิน</h2>
-                    <div style="color: #bbb; font-size: 0.9rem;">ท่านอ๋องน้อยดวงอาทิตย์</div>
+                    <div>ท่านอ๋องน้อยดวงอาทิตย์</div>
                 </div>
                 <div class="char-image-placeholder img-yang"></div>
-                <div class="card-body">
+                <div class="card-body-twin">
                     <div class="stat-tags">
                         <span class="tag">🟡 กายาไท่หยาง</span>
                         <span class="tag">☀️ ตะวันฉายแสง</span>
@@ -406,124 +142,101 @@
                 </div>
             </div>
 
-            <div class="char-card theme-combo">
-                <div class="card-header">
+            <div class="char-card-twin theme-combo">
+                <div class="card-header-twin">
                     <span class="rank-badge">มังกร & หงส์</span>
                     <h2>หยิน-หยาง ประสาน</h2>
-                    <div style="color: #bbb; font-size: 0.9rem;">พลังระดับเซียนตั้งแต่กำเนิด</div>
+                    <div>พลังระดับเซียนตั้งแต่กำเนิด</div>
                 </div>
                 <div class="char-image-placeholder img-combo"></div>
-                <div class="card-body">
+                <div class="card-body-twin">
                     <div class="stat-tags">
-                        <span class="tag" style="border-color:#a855f7; color:#000000;">🟣 พลังหยินสูงสุด</span>
-                        <span class="tag" style="border-color:#fbbf24; color:#000000;">🟡 พลังหยางสูงสุด</span>
+                        <span class="tag" style="border-color:#a855f7;">🟣 พลังหยินสูงสุด</span>
+                        <span class="tag" style="border-color:#fbbf24;">🟡 พลังหยางสูงสุด</span>
                         <span class="tag">⚖️ สมดุลไท่จี๋</span>
                     </div>
-                    <div class="loot-section" style="background: rgba(255,255,255,0.05);">
-                        <div class="loot-title" style="text-align:center; color:#000000;">⚡ ปรากฏการณ์ฟ้าดิน</div>
-                        <div style="text-align: center; color: #000000; font-size: 0.95rem; line-height: 1.6;">
+                    <div class="loot-section">
+                        <div class="loot-title" style="text-align:center;">⚡ ปรากฏการณ์ฟ้าดิน</div>
+                        <div style="text-align: center; font-size: 0.95rem; line-height: 1.6; color: var(--text-main);">
                             "เมื่อไท่อินและไท่หยางผสานกัน...<br>
-                            <span style="color:#6b21a8; font-weight:bold;">แผนภูมิไท่จี๋</span>จะปรากฏเหนือท้องฟ้า <span style="color:#b45309; font-weight:bold;">กดข่มเซียนทั่วหล้า!</span>"
+                            <span class="highlight-purple">แผนภูมิไท่จี๋</span>จะปรากฏเหนือท้องฟ้า <span class="highlight-gold">กดข่มเซียนทั่วหล้า!</span>"
                         </div>
                     </div>
                 </div>
             </div>
-		</div>
-			
-		<div class="hook-box">
-            <div class="hook-text">
-                คนทั่วหล้าคิดว่าระดับ 'จักรพรรดิศักดิ์สิทธิ์' คือผู้ไร้เทียมทาน...<br>แต่สำหรับกู้ฉางชิง 'ดาบเดียวก็เกินพอ!' เมื่อพ่อฆ่าเทพได้เหมือนผักปลา และลูกๆ ล่ามังกรเล่นเป็นงานอดิเรก... <br><br>ยินดีต้อนรับสู่ตระกูลที่แข็งแกร่งที่สุดในปฐพี!</span>
-            </div>   
-        </div>	
-
-		<div class="bg-white p-4 rounded-3 shadow-sm mb-4">
-            <h4 class="fw-bold mb-4 text-center border-bottom pb-2">👤 ตัวละครหลัก</h4>
+        </div>
             
+        <div class="hook-box">
+            <div class="hook-text">
+                คนทั่วหล้าคิดว่าระดับ 'จักรพรรดิศักดิ์สิทธิ์' คือผู้ไร้เทียมทาน...<br>แต่สำหรับกู้ฉางชิง 'ดาบเดียวก็เกินพอ!' เมื่อพ่อฆ่าเทพได้เหมือนผักปลา และลูกๆ ล่ามังกรเล่นเป็นงานอดิเรก... <br><br>ยินดีต้อนรับสู่ตระกูลที่แข็งแกร่งที่สุดในปฐพี!
+            </div>    
+        </div>  
+
+        <div class="content-box">
+            <h4 class="fw-bold mb-4 text-center border-bottom pb-2 section-title justify-content-center">👤 ตัวละครหลัก</h4>
             <div class="row align-items-center">
                 <div class="col-md-4 text-center mb-4 mb-md-0">
                     <div class="position-relative d-inline-block">
-                        <img src="../images/char-04.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 100%; max-width: 250px; aspect-ratio: 3/4; object-fit: cover;" alt="ลู่เหริน">
+                        <img src="../images/char-04.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 100%; max-width: 250px; aspect-ratio: 3/4; object-fit: cover;" alt="กู้ฉางชิง">
                     </div>
                 </div>
-                
                 <div class="col-md-8">
-                    <h2 class="fw-bold text-dark mb-1">กู้ฉางชิง <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
+                    <h2 class="fw-bold novel-main-title mb-1">กู้ฉางชิง <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
                     <p class="text-primary fw-bold mb-3">ฉายา: ปฐมบรรพชนกู้</p>
-
                     <div class="mb-3">
                         <span class="badge bg-dark me-1">💀 ลงมือเด็ดขาด</span>
                         <span class="badge bg-warning text-dark me-1">💡 เน้นพลังสายเลือด</span>
                         <span class="badge bg-info text-dark me-1">🧠 ผู้สร้างเผ่าพันธุ์เทพ</span>
-                        <span class="badge bg-success me-1">🎭 จอมราชันผู้รังสรรค์</span>
                     </div>
-
                     <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
-                        <p class="mb-0 fst-italic text-secondary">
+                        <p class="mb-0 fst-italic text-muted">
                             ใช้ทั้งสติปัญญา ความกล้าหาญ และพลังจากระบบในการปกป้องครอบครัวและสร้างตำนานใหม่ให้โลกเซียน!
                         </p>
                     </div>
-
-                    <h5 class="fw-bold mt-3">นิสัยส่วนตัว:</h5>
-                    <p class="text-secondary" style="line-height: 1.7;">
+                    <h5 class="fw-bold mt-3 section-title">นิสัยส่วนตัว:</h5>
+                    <p class="text-muted" style="line-height: 1.7;">
                         มีความทะเยอทะยานและมุ่งมั่น เขาไม่ได้พอใจกับการเป็นแค่คนธรรมดา หรือผู้นำตระกูลที่ตกต่ำ แต่เขามีเป้าหมายที่จะพาตระกูลกู้ไปสู่จุดสูงสุด<br><br>
-                        ไม่ใช่พระเอกสายบู๊ล้างผลาญเพียงอย่างเดียว แต่รู้จักบริหารจัดการทรัพยากร และมองการณ์ไกลเพื่อสร้างรากฐานที่มั่นคงให้ตระกูล<br>กู้ฉางชิง คือ "ยอดนักวางแผนผู้สร้างจักรวรรดิ" เขาเป็นคนฉลาด สุขุม ทะเยอทะยาน แต่ก็มีความอบอุ่นและหวงแหนครอบครัว เป็นพระเอกสายบริหารจัดการที่มองว่า การมีทายาทไม่ใช่เรื่องตัณหา แต่เป็นยุทธศาสตร์ ในการครองโลก
+                        ไม่ใช่พระเอกสายบู๊ล้างผลาญเพียงอย่างเดียว แต่รู้จักบริหารจัดการทรัพยากร และมองการณ์ไกลเพื่อสร้างรากฐานที่มั่นคงให้ตระกูล<br>กู้ฉางชิง คือ "ยอดนักวางแผนผู้สร้างจักรวรรดิ" เขาเป็นคนฉลาด สุขุม ทะเยอทะยาน แต่ก็มีความอบอุ่นและหวงแหนครอบครัว
                     </p>
-                </div>
-            </div>
-
-            <hr class="my-4 text-secondary" style="opacity: 0.1;">
-            
-            <div class="row g-3">
-                <div class="col-12">
-                    <div class="p-3 border border-dashed rounded-3 text-center bg-light">
-                        <h5 class="fw-bold text-muted mb-1">นางเอก... คู่หู... ศัตรูคู่อาฆาต...❓ </h5>
-                        <p class="small text-secondary mb-0">
-                            ในยุทธภพนี้ มิตรแท้และศัตรูถาวรแยกแยะยาก... ไปร่วมค้นพบตัวละครอื่นๆ ด้วยตัวคุณเองในเนื้อเรื่อง!
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-5 pt-4 text-center">
-            <h3 class="fw-bold mb-4">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
-            
-            <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 500px;">
-                
-                <a href="https://s.hidetr.work/hf02e" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+        <div class="mt-5 pt-4 text-center" id="read-area">
+            <h3 class="fw-bold mb-4 section-title justify-content-center">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
+            <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 600px;">
+                <a href="https://s.hidetr.work/hf02e" target="_blank" class="read-link-item">
                     <div class="text-start">
                         <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
                         <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
                     </div>
                     <span class="fs-4">🚀</span>
                 </a>
-
-                <a href="https://novelkingdom.co/novel/44E47A19-04A4-4098-98F9-134D908A573C?fbclid=IwY2xjawPJ_-pleHRuA2FlbQIxMABicmlkETFCWkEzMFQxeWZIbmprZmxRc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqqQ-jEtQhbdwp3ddvqGs8jK56PjhXSJCzNwyGra4OlHnMRvW7zYCB8Ouvbm_aem_Lk15FPoGfoqujTRSC5vPIA" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+                <a href="..." target="_blank" class="read-link-item">
                     <div class="text-start">
                         <h5 class="fw-bold text-success mb-0">NovelKingdom</h5>
                         <small class="text-muted">โปรโมชั่นเยอะ • 1 บาท/ตอน</small>
                     </div>
                     <span class="fs-4">👑</span>
                 </a>
-
-                <a href="https://readrealm.co/novel/WD41g7aRnbJGnjK25wxY" target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
+                <a href="..." target="_blank" class="read-link-item">
                     <div class="text-start">
                         <h5 class="fw-bold text-dark mb-0">ReadRealm</h5>
                         <small class="text-muted">สายประหยัด • 1 บาท/ตอน</small>
                     </div>
                     <span class="fs-4">📚</span>
                 </a>
-                
             </div>
         </div>
 
-    </div> <footer class="text-center py-4 mt-5 text-muted border-top">
-        <p>© 2024 Hide Fiction. All rights reserved.</p>
+    </div> 
+
+    <footer class="text-center py-4 mt-5 text-muted border-top bg-dark text-white">
+        <p class="mb-0">© 2024 Hide Fiction. All rights reserved.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
+    <button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
     <script src="../main.js"></script>
 </body>
 </html>

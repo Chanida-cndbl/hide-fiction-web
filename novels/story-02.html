@@ -3,498 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สุดยอดขยะหมื่นปี</title>
+    <title>สุดยอดขยะหมื่นปี - Hide Fiction</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
-	
-	<link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;800&family=Prompt:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <style>
-        body {
-            font-family: 'Sarabun', sans-serif; /* ใช้ฟอนต์สารบัญ อ่านสบายตา */
-            background-color: #f8f9fa; /* พื้นหลังสีเทาอ่อน สบายตา */
-            color: #333;
-        }
-        .novel-cover {
-            width: 100%;
-            max-width: 220px;       /* ⬅️ แก้ตรงนี้: ลดจาก 300px เหลือ 220px */
-            height: auto;           /* ให้ความสูงปรับตามอัตโนมัติ */
-            aspect-ratio: 2 / 3;    /* ⬅️ เพิ่ม: ล็อคสัดส่วนเป็นแนวตั้ง 2:3 เป๊ะๆ */
-            object-fit: cover;      /* ถ้าภาพต้นฉบับสัดส่วนเพี้ยน ให้ตัดขอบออก */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            margin-bottom: 20px;    /* เว้นระยะห่างข้างล่างรูปนิดหน่อย */
-        }
-        .reading-container {
-            background-color: white;
-            padding: 40px;
-            max-width: 800px; /* จำกัดความกว้างเนื้อหา ไม่ให้ยาวจนสายตาล้า */
-            margin: 0 auto; /* จัดกึ่งกลางหน้าจอ */
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-        .chapter-title {
-            color: #d63384; /* สีหัวข้อตอน (ชมพูเข้ม) */
-            margin-top: 30px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        .content-text {
-            font-size: 1.1rem; /* ขนาดตัวหนังสือเนื้อเรื่อง */
-            line-height: 1.8; /* ระยะห่างบรรทัด */
-            text-align: justify; /* จัดชิดขอบซ้ายขวา */
-        }
-        .cta-box {
-            background: linear-gradient(45deg, #d63384, #fd7e14); /* สีไล่ระดับ */
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        .btn-buy {
-            background-color: white;
-            color: #d63384;
-            font-weight: bold;
-            padding: 10px 30px;
-            border-radius: 30px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-        .btn-buy:hover {
-            transform: scale(1.05); /* เด้งขึ้นเล็กน้อยเมื่อเอาเมาส์ชี้ */
-            background-color: #fff0f5;
-            color: #d63384;
-        }
-		
-		/* Hero Section Background */
-        .novel-header-bg {
-            background: linear-gradient(to right, #f8f9fa, #e9ecef); /* ไล่สีพื้นหลังจางๆ */
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        /* รูปปกในหน้า Hero (ให้ใหญ่และมีเงาสวยๆ) */
-        .novel-cover-hero {
-            width: 100%;
-            max-width: 280px; /* ขยายใหญ่ขึ้นนิดนึงจากหน้า Grid */
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25); /* เงาลอยเด่น */
-            transform: rotate(-2deg); /* เอียงนิดๆ ให้ดูเท่ (ถ้าไม่ชอบลบออกได้) */
-            border: 4px solid white;
-            transition: transform 0.3s;
-        }
-        
-        /* ป้ายสถานะบนรูป Hero */
-        .cover-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        .status-badge-hero {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #ff4757;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
-            border: 2px solid white;
-        }
-
-        /* ปุ่มเด้งดึ๋ง */
-        .btn-hover-scale:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3) !important;
-        }
-		
-		/* Container หลักของโมดูล */
-.luren-special-feature {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    padding: 25px;
-    margin: 20px 0;
-    font-family: 'Sarabun', sans-serif; /* หรือฟอนต์หลักของเว็บคุณ */
-    border: 1px solid #e0e0e0;
-}
-
-/* หัวข้อหลัก */
-.luren-header {
-    text-align: center;
-    margin-bottom: 20px;
-    border-bottom: 2px dashed #eee;
-    padding-bottom: 15px;
-}
-
-.luren-header h3 {
-    color: #333;
-    font-size: 1.5rem;
-    margin: 0 0 5px 0;
-    font-weight: 700;
-}
-
-.luren-header .subtitle {
-    color: #666;
-    font-size: 1rem;
-}
-
-.luren-header .highlight {
-    color: #d32f2f; /* สีแดงเน้นข้อความ */
-    font-weight: bold;
-}
-
-/* Grid Layout แบ่ง 2 ฝั่ง */
-.formula-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-/* การ์ดแต่ละฝั่ง */
-.formula-card {
-    background: #f9f9f9;
-    border-radius: 10px;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s;
-}
-
-.formula-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* ธีมสีแยกฝั่ง */
-.formula-card.money-theme {
-    border-left: 5px solid #fbc02d; /* สีทอง */
-    background: linear-gradient(to right, #fffde7, #fff);
-}
-
-.formula-card.time-theme {
-    border-left: 5px solid #1976d2; /* สีฟ้า */
-    background: linear-gradient(to right, #e3f2fd, #fff);
-}
-
-/* หัวข้อในการ์ด */
-.card-title {
-    display: flex;
-    align-items: center;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #444;
-}
-
-.card-icon {
-    font-size: 1.5rem;
-    margin-right: 10px;
-}
-
-/* รายการ List */
-.luren-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.luren-list li {
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-    color: #555;
-    display: flex;
-    align-items: flex-start;
-}
-
-.luren-list li span {
-    margin-right: 8px;
-}
-
-/* ส่วนเปรียบเทียบเวลา (Time Box) */
-.time-comparison {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255,255,255,0.8);
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 10px;
-    border: 1px solid #bbdefb;
-}
-
-.time-box {
-    text-align: center;
-}
-
-.time-box span {
-    display: block;
-    font-size: 0.8rem;
-    color: #777;
-}
-
-.time-box strong {
-    display: block;
-    font-size: 1.1rem;
-    color: #1976d2;
-}
-
-.vs-badge {
-    font-weight: bold;
-    color: #999;
-    font-size: 0.8rem;
-}
-
-/* Footer สรุป */
-.luren-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-    font-weight: bold;
-    color: #2e7d32; /* สีเขียว */
-    font-size: 1.05rem;
-}
-
-/* รองรับมือถือ */
-@media (max-width: 600px) {
-    .formula-grid {
-        grid-template-columns: 1fr; /* เรียงซ้อนกันบนมือถือ */
-    }
-}
-		
-    </style>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html">⬅️ กลับไปหน้ารวมนิยาย</a>
+    <nav class="navbar navbar-expand-lg fixed-top dashboard-nav">
+        <div class="container-fluid px-lg-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
+                <span class="brand-logo">📚</span>
+                <span class="brand-text">HIDE FICTION</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="d-flex align-items-center gap-3 right-actions ms-auto">
+                    <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-dash-fb">
+                        <span class="me-2">💬</span> ติดตามผู้แปล
+                    </a>
+                    <button id="btn-toggle-theme" class="btn-dash-toggle" title="สลับโหมด">
+                        <span class="icon-sun">☀️</span><span class="icon-moon">🌙</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="novel-header-bg py-5 mb-5">
+    <header class="novel-header-section">
         <div class="container">
             <div class="row align-items-center"> 
-                
                 <div class="col-md-4 col-lg-3 text-center mb-4 mb-md-0">
                     <div class="cover-wrapper">
-                        <img src="../images/cover-story-02.jpg" class="novel-cover-hero" alt="ปกนิยาย">
-                        
                         <span class="status-badge-hero badge-ongoing">กำลังแปล</span>
+                        <img src="../images/cover-story-02.jpg" class="novel-cover-hero" alt="ปกนิยาย">
                     </div>
                 </div>
                 
                 <div class="col-md-8 col-lg-9">
-                    <div class="novel-info ps-md-4">
-                        
+                    <div class="novel-info ps-md-4 text-center text-md-start">
                         <div class="mb-3">
                             <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary px-3">กำลังภายใน</span>
                             <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3">แฟนตาซี</span>
                         </div>
 
-                        <h1 class="display-5 fw-bold mb-4 text-dark">สุดยอดขยะหมื่นปี</h1>
+                        <h1 class="display-5 fw-bold mb-4 novel-main-title">สุดยอดขยะหมื่นปี</h1>
                         
-                        <hr class="w-25 text-secondary mb-4" style="height: 3px; opacity: 0.2;">
-
-                        <div class="synopsis-box mb-5">
-                            <p class="text-secondary fs-5" style="line-height: 1.8;">
-                                ชายหนุ่มที่ถูกตราหน้าว่าเป็น "สายเลือดขยะ" ในโลกที่พรสวรรค์คือทุกสิ่ง 
+                        <div class="synopsis-box mb-4">
+                            <p class="text-muted fs-5" style="line-height: 1.8;">
+                                ชายหนุ่มที่ถูกตราหน้าว่าเป็น "สายเลือดขยะ" ในโลกที่พรสวรรค์คือทุกสิ่ง... แต่ใครจะรู้ว่า "ขยะ" ชิ้นนี้ ซ่อนความลับที่จะสั่นสะเทือนทั้งสวรรค์เอาไว้!
                             </p>
                         </div>
 
-                        <div class="d-flex gap-3 flex-wrap">
-                            
-                            <a href="https://s.hidetr.work/hf02f" target="_blank" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
+                        <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-md-start">
+                            <a href="#read-area" class="btn btn-danger btn-lg rounded-pill px-4 py-2 shadow-sm btn-hover-scale">
                                 🔥 อ่านฉบับเต็ม
                             </a>
-
                             <a href="https://www.facebook.com/Child.of.Light.TH" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill px-4 py-2">
                                 👍 ติดตามเพจแปล
                             </a>
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="container mb-5" id="info-area">
-    
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4 border-start border-5 border-danger">
-        <h4 class="fw-bold mb-3">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
-        <p class="fs-5 text-secondary">
-			ความสะใจของมวยรองที่ "ตบหน้า" คนทั้งโลก การต่อสู้ที่ไม่ได้ใช้แค่ "พลัง" แต่ใช้ "สมอง" และ "เล่ห์เหลี่ยม" ดราม่าการเมืองในสำนักที่เข้มข้น ความสัมพันธ์ที่กินใจ สเกลพลังที่อลังการและไอเทมเทพๆ อ่านเถอะ! ถ้าคุณชอบพระเอกสายสู้ชีวิต ฉลาด ทันคน ไม่ยอมแพ้ต่อโชคชะตา และชอบฉากตบหน้าพวกตัวร้ายขี้อวด นิยายเรื่องนี้จะทำให้คุณวางไม่ลงแน่นอน!
-		</p>
-        <div class="d-flex gap-2 mt-3">
-            <span class="badge bg-secondary">พระเอกฉลาด</span>
-            <span class="badge bg-secondary">หนักแน่น</span>
-            <span class="badge bg-secondary">ต่อสู้</span>
-        </div>
-    </div>
-
-    <div class="luren-special-feature">
-    <div class="luren-header">
-        <h3>⚡ สูตรโกงความเก่งฉบับ "ลู่เหริน"</h3>
-        <p class="subtitle">เมื่อพรสวรรค์เป็นศูนย์... <span class="highlight">เงิน</span> และ <span class="highlight">เวลา</span> คือคำตอบ!</p>
-    </div>
-
-    <div class="formula-grid">
+    <div class="container my-5" id="info-area">
         
-        <div class="formula-card money-theme">
-            <div class="card-title">
-                <span class="card-icon">💸</span> ทุนสร้าง (สายหาเงิน)
-            </div>
-            <ul class="luren-list">
-                <li>
-                    <span>🗡️</span> 
-                    <div><b>ขายดาบอาจารย์:</b><br><small>ปล่อยเช่าซื้อให้เศรษฐีหน้าโง่ (ผ่อน 10 เดือน ดอกเบี้ยงาม!)</small></div>
-                </li>
-                <li>
-                    <span>💊</span> 
-                    <div><b>ประมูลยาเทพ:</b><br><small>คนอื่นกินเพื่อบรรลุ ข้าขายเพื่อเอาตังค์!</small></div>
-                </li>
-                <li>
-                    <span>🍚</span> 
-                    <div><b>เป้าหมายหลัก:</b><br><small>เหมา "ข้าววิญญาณ" ทั้งโกดังเพื่อตุนเสบียง</small></div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="formula-card time-theme">
-            <div class="card-title">
-                <span class="card-icon">⏳</span> เวลาที่ใช้ (สายถึก)
-            </div>
-            <p style="font-size: 0.9rem; margin-bottom: 10px; color:#555;">
-                ความลับของ "หอคอย" ที่ไม่มีใครรู้...
+        <div class="content-box border-start border-5 border-danger">
+            <h4 class="fw-bold mb-3 section-title">💬 ทำไมต้องอ่านเรื่องนี้? (จากใจผู้แปล)</h4>
+            <p class="fs-5 text-muted">
+                ความสะใจของมวยรองที่ "ตบหน้า" คนทั้งโลก การต่อสู้ที่ไม่ได้ใช้แค่ "พลัง" แต่ใช้ "สมอง" และ "เล่ห์เหลี่ยม" 
+                ดราม่าการเมืองในสำนักที่เข้มข้น ความสัมพันธ์ที่กินใจ สเกลพลังที่อลังการและไอเทมเทพๆ 
+                อ่านเถอะ! ถ้าคุณชอบพระเอกสายสู้ชีวิต ฉลาด ทันคน ไม่ยอมแพ้ต่อโชคชะตา และชอบฉากตบหน้าพวกตัวร้ายขี้อวด 
+                นิยายเรื่องนี้จะทำให้คุณวางไม่ลงแน่นอน!
             </p>
-            
-            <div class="time-comparison">
-                <div class="time-box">
-                    <span>โลกภายนอก</span>
-                    <strong>1 วินาที</strong>
+            <div class="d-flex gap-2 mt-3">
+                <span class="badge bg-secondary">พระเอกฉลาด</span>
+                <span class="badge bg-secondary">หนักแน่น</span>
+                <span class="badge bg-secondary">ต่อสู้</span>
+            </div>
+        </div>
+
+        <div class="luren-special-feature">
+            <div class="luren-header">
+                <h3>⚡ สูตรโกงความเก่งฉบับ "ลู่เหริน"</h3>
+                <p class="subtitle">เมื่อพรสวรรค์เป็นศูนย์... <span class="highlight">เงิน</span> และ <span class="highlight">เวลา</span> คือคำตอบ!</p>
+            </div>
+
+            <div class="formula-grid">
+                
+                <div class="formula-card money-theme">
+                    <div class="card-title">
+                        <span class="card-icon">💸</span> ทุนสร้าง (สายหาเงิน)
+                    </div>
+                    <ul class="luren-list">
+                        <li>
+                            <span>🗡️</span> 
+                            <div><b>ขายดาบอาจารย์:</b><br><small>ปล่อยเช่าซื้อให้เศรษฐีหน้าโง่ (ผ่อน 10 เดือน ดอกเบี้ยงาม!)</small></div>
+                        </li>
+                        <li>
+                            <span>💊</span> 
+                            <div><b>ประมูลยาเทพ:</b><br><small>คนอื่นกินเพื่อบรรลุ ข้าขายเพื่อเอาตังค์!</small></div>
+                        </li>
+                        <li>
+                            <span>🍚</span> 
+                            <div><b>เป้าหมายหลัก:</b><br><small>เหมา "ข้าววิญญาณ" ทั้งโกดังเพื่อตุนเสบียง</small></div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="vs-badge">VS</div>
-                <div class="time-box">
-                    <span>ลู่เหรินฝึก</span>
-                    <strong style="color: #d32f2f;">55 ปี!!</strong>
+
+                <div class="formula-card time-theme">
+                    <div class="card-title">
+                        <span class="card-icon">⏳</span> เวลาที่ใช้ (สายถึก)
+                    </div>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; opacity: 0.8;">
+                        ความลับของ "หอคอย" ที่ไม่มีใครรู้...
+                    </p>
+                    
+                    <div class="time-comparison">
+                        <div class="time-box">
+                            <span>โลกภายนอก</span>
+                            <strong>1 วินาที</strong>
+                        </div>
+                        <div class="vs-badge">VS</div>
+                        <div class="time-box">
+                            <span>ลู่เหรินฝึก</span>
+                            <strong style="color: #d32f2f;">55 ปี!!</strong>
+                        </div>
+                    </div>
+
+                    <ul class="luren-list" style="margin-top: 15px;">
+                        <li><span>💪</span> <b>กิจวัตร:</b> วิดพื้น.. วิ่ง.. ซิทอัพ..</li>
+                        <li><span>🔥</span> <b>ผลลัพธ์:</b> ทำวนไป 55 ปี จนกว่าจะเทพ!</li>
+                    </ul>
                 </div>
             </div>
 
-            <ul class="luren-list" style="margin-top: 15px;">
-                <li><span>💪</span> <b>กิจวัตร:</b> วิดพื้น.. วิ่ง.. ซิทอัพ..</li>
-                <li><span>🔥</span> <b>ผลลัพธ์:</b> ทำวนไป 55 ปี จนกว่าจะเทพ!</li>
-            </ul>
+            <div class="luren-footer">
+                บทสรุป: จาก "ขยะ" สู่ "ผู้เปิดประตูพลัง" ด้วยความพยายาม (และเงิน) ล้วนๆ!
+            </div>
         </div>
 
-    </div>
-
-    <div class="luren-footer">
-        บทสรุป: จาก "ขยะ" สู่ "ผู้เปิดประตูพลัง" ด้วยความพยายาม (และเงิน) ล้วนๆ!
-    </div>
-</div>
-
-    <div class="bg-white p-4 rounded-3 shadow-sm mb-4">
-        <h4 class="fw-bold mb-4 text-center border-bottom pb-2">👤 ตัวละครหลัก</h4>
-        
-        <div class="row align-items-center">
-            <div class="col-md-4 text-center mb-4 mb-md-0">
-                <div class="position-relative d-inline-block">
+        <div class="content-box mt-4">
+            <h4 class="fw-bold mb-4 text-center border-bottom pb-2 section-title justify-content-center">👤 ตัวละครหลัก</h4>
+            
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center mb-4 mb-md-0">
                     <img src="../images/char-02.jpg" class="rounded-3 shadow border border-4 border-white" style="width: 100%; max-width: 250px; aspect-ratio: 3/4; object-fit: cover;" alt="ลู่เหริน">
-                    
-                    
                 </div>
-            </div>
-            
-            <div class="col-md-8">
-                <h2 class="fw-bold text-dark mb-1">ลู่เหริน <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
-                <p class="text-primary fw-bold mb-3">ฉายา: ผู้ฝึกยุทธ์โบราณ</p>
+                
+                <div class="col-md-8">
+                    <h2 class="fw-bold novel-main-title mb-1">ลู่เหริน <span class="fs-5 text-muted fw-normal">(พระเอก)</span></h2>
+                    <p class="text-primary fw-bold mb-3">ฉายา: ผู้ฝึกยุทธ์โบราณ</p>
 
-                <div class="mb-3">
-                    <span class="badge bg-dark me-1">💀 ลงมือเด็ดขาด</span>
-                    <span class="badge bg-warning text-dark me-1">💡 รอบคอบเป็นที่หนึ่ง</span>
-                    <span class="badge bg-info text-dark me-1">🧠 อดทน หนักแน่น</span>
-                    <span class="badge bg-success me-1">🎭 พลิ้วไหวดั่งสายน้ำ</span>
-                </div>
+                    <div class="mb-3">
+                        <span class="badge bg-dark me-1">💀 ลงมือเด็ดขาด</span>
+                        <span class="badge bg-warning text-dark me-1">💡 รอบคอบเป็นที่หนึ่ง</span>
+                        <span class="badge bg-info text-dark me-1">🧠 อดทน หนักแน่น</span>
+                    </div>
 
-                <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
-                    <p class="mb-0 fst-italic text-secondary">
-                        พูดน้อย ต่อยหนัก
-                    </p>
-                </div>
+                    <div class="p-3 bg-light rounded-3 border-start border-4 border-primary mb-3">
+                        <p class="mb-0 fst-italic text-muted">
+                            "พูดน้อย ต่อยหนัก"
+                        </p>
+                    </div>
 
-                <h5 class="fw-bold mt-3">นิสัยส่วนตัว:</h5>
-                <p class="text-secondary" style="line-height: 1.7;">
-                    ฉลาด เจ้าเล่ห์ ทันคน เด็ดขาด อำมหิตกับศัตรู ใจสู้ มีความทะเยอทะยาน รักพวกพ้อง กตัญญู และรู้จักเอาตัวรอด<br><br>
-					ลู่เหรินคือพระเอกสาย "ร้ายมาร้ายกลับ" ที่ใช้สมองนำกำลัง<br>ไม่ใช่คนดีแบบพ่อพระ แต่เป็นคนที่ทำทุกอย่างเพื่อปกป้องตัวเองและคนที่รัก
-                </p>
-            </div>
-        </div>
-
-        <hr class="my-4 text-secondary" style="opacity: 0.1;">
-        
-        <div class="row g-3">
-            <div class="col-12">
-                <div class="p-3 border border-dashed rounded-3 text-center bg-light">
-                    <h5 class="fw-bold text-muted mb-1">นางเอก... คู่หู... ศัตรูคู่อาฆาต...❓</h5>
-                    <p class="small text-secondary mb-0">
-                        ในยุทธภพนี้ มิตรแท้และศัตรูถาวรแยกแยะยาก... ไปร่วมค้นพบตัวละครอื่นๆ ด้วยตัวคุณเองในเนื้อเรื่อง!
+                    <h5 class="fw-bold mt-3 section-title">นิสัยส่วนตัว:</h5>
+                    <p class="text-muted" style="line-height: 1.7;">
+                        ฉลาด เจ้าเล่ห์ ทันคน เด็ดขาด อำมหิตกับศัตรู ใจสู้ มีความทะเยอทะยาน รักพวกพ้อง กตัญญู และรู้จักเอาตัวรอด<br><br>
+                        ลู่เหรินคือพระเอกสาย "ร้ายมาร้ายกลับ" ที่ใช้สมองนำกำลัง<br>ไม่ใช่คนดีแบบพ่อพระ แต่เป็นคนที่ทำทุกอย่างเพื่อปกป้องตัวเองและคนที่รัก
                     </p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="mt-5 pt-4 text-center">
-        <h3 class="fw-bold mb-4">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
-        
-        <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 500px;">
+        <div class="mt-5 pt-4 text-center" id="read-area">
+            <h3 class="fw-bold mb-4 section-title justify-content-center">📖 เลือกช่องทางอ่านฉบับเต็ม</h3>
             
-            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
-                <div class="text-start">
-                    <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
-                    <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
-                </div>
-                <span class="fs-4">🚀</span>
-            </a>
+            <div class="d-flex flex-column gap-3 mx-auto" style="max-width: 600px;">
+                <a href="https://s.hidetr.work/hf02c" target="_blank" class="read-link-item">
+                    <div class="text-start">
+                        <h5 class="fw-bold text-danger mb-0">ThaiNovel <span class="badge bg-danger ms-2">แนะนำ!</span></h5>
+                        <small class="text-muted">อัปไวสุด • 3 บาท/ตอน</small>
+                    </div>
+                    <span class="fs-4">🚀</span>
+                </a>
 
-            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
-                <div class="text-start">
-                    <h5 class="fw-bold text-success mb-0">NovelKingdom</h5>
-                    <small class="text-muted">โปรโมชั่นเยอะ • 1 บาท/ตอน</small>
-                </div>
-                <span class="fs-4">👑</span>
-            </a>
+                <a href="..." target="_blank" class="read-link-item">
+                    <div class="text-start">
+                        <h5 class="fw-bold text-success mb-0">NovelKingdom</h5>
+                        <small class="text-muted">โปรโมชั่นเยอะ • 1 บาท/ตอน</small>
+                    </div>
+                    <span class="fs-4">👑</span>
+                </a>
 
-            <a href="..." target="_blank" class="btn btn-light border shadow-sm p-3 d-flex align-items-center justify-content-between btn-hover-scale">
-                <div class="text-start">
-                    <h5 class="fw-bold text-dark mb-0">ReadRealm</h5>
-                    <small class="text-muted">สายประหยัด • 1 บาท/ตอน</small>
-                </div>
-                <span class="fs-4">📚</span>
-            </a>
-            
+                <a href="..." target="_blank" class="read-link-item">
+                    <div class="text-start">
+                        <h5 class="fw-bold text-dark mb-0">ReadRealm</h5>
+                        <small class="text-muted">สายประหยัด • 1 บาท/ตอน</small>
+                    </div>
+                    <span class="fs-4">📚</span>
+                </a>
+            </div>
         </div>
     </div>
 
-</div>
-
-    <footer class="text-center py-4 mt-5 text-muted border-top">
-        <p>© 2024 Hide Fiction. All rights reserved.</p>
+    <footer class="text-center py-4 mt-5 text-muted border-top bg-dark text-white">
+        <p class="mb-0">© 2024 Hide Fiction. All rights reserved.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
+    <button type="button" id="btn-back-to-top" title="กลับขึ้นด้านบน">↑</button>
     <script src="../main.js"></script>
-	
+
 </body>
 </html>
